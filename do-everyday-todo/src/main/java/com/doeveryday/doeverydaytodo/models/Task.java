@@ -2,15 +2,14 @@ package com.doeveryday.doeverydaytodo.models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
-@Setter
-@Getter
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
+@Table(name = "task")
 public class Task extends BaseEntity{
 
     private String name;
@@ -18,4 +17,11 @@ public class Task extends BaseEntity{
 
     @Lob
     private Byte[] photo;
+
+    @ManyToOne
+    @JoinColumn(name = "bord_id")
+    private Bord bord;
+
+    @OneToOne(mappedBy = "task")
+    private TaskManager taskManager;
 }
