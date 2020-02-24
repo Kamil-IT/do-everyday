@@ -22,7 +22,7 @@ import java.util.List;
 public class Bord extends BaseEntity{
 
     private String name;
-    private Color color;
+    private String colorName;
 
     @OneToMany(mappedBy = "bord")
     List<Task> tasks = new ArrayList<>();
