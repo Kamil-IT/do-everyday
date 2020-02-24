@@ -7,9 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskManagerRepository extends CrudRepository<TaskManager, Long> {
-
-    List<TaskManager> findByDoneIsTrue();
-
-    List<TaskManager> findByDoneIsFalse();
+    public interface TaskManagerRepository extends CrudRepository<TaskManager, Long> {
 }
