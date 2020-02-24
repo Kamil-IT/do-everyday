@@ -14,11 +14,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = {"com.doeveryday.*"})
 public class DoEverydayWebApplication {
 
-
-
     public static void main(String[] args) {
         SpringApplication.run(DoEverydayWebApplication.class, args);
-        System.out.println("alllll");
 
     }
 
