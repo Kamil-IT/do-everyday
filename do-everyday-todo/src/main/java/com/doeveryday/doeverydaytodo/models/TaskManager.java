@@ -21,6 +21,7 @@ public class TaskManager extends BaseEntity{
     @JoinColumn(name = "task_id")
     private Task task;
 
+    @Column(name = "is_done")
     private boolean isDone;
 
     @ManyToMany(mappedBy = "taskManagers")

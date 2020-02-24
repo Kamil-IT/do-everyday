@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,6 +23,8 @@ import java.util.List;
 public class Bord extends BaseEntity{
 
     private String name;
+
+    @Column(name = "color_name")
     private String colorName;
 
     @OneToMany(mappedBy = "bord")

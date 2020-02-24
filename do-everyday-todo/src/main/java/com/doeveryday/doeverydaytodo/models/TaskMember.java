@@ -29,5 +29,5 @@ public class TaskMember extends BaseEntity{
             joinColumns = @JoinColumn(name = "task_manager_id"),
             inverseJoinColumns = @JoinColumn(name = "task_member_id")
     )
-    private List<TaskManager> taskManagers= new ArrayList<>();
+    private List<TaskManager> taskManagers = new ArrayList<>();
 }
