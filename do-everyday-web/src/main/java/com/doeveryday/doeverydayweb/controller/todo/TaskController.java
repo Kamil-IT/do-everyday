@@ -1,7 +1,9 @@
 package com.doeveryday.doeverydayweb.controller.todo;
 
 import com.doeveryday.doeverydaytodo.models.Board;
+import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.service.BoardService;
+import com.doeveryday.doeverydaytodo.service.TaskService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -9,31 +11,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-
 @Slf4j
 @AllArgsConstructor
 @Controller
-public class BoardController {
+public class TaskController {
+
     private final BoardService boardService;
+    private final TaskService taskService;
 
-    @GetMapping("todo/board/index")
-    public String showBoards(Model model){
+    @GetMapping("todo/board/task/add")
+    public String initAddTask(Model model){
+        model.addAttribute("task", new Task());
         model.addAttribute("boards", boardService.getBoards());
-        return "todo/board/index";
+
+        return "todo/board/addtask";
     }
 
-    @GetMapping("todo/board/add")
-    public String initAddBoard(Model model){
-        model.addAttribute("board", new Board());
+    @PostMapping("todo/board/task")
+    public String addTask(Task task, Board board){
+        task.setBoard(board);
+        taskService.saveTask(task);
 
-        return "todo/board/addboard";
+        return "index";
     }
 
-    @PostMapping("todo/board/add")
-    public String addBoard(Board board){
-        boardService.saveBord(board);
 
-        return "redirect:/todo/board/index";
-    }
 }

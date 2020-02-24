@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add board</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<form th:object="${board}" th:action="@{/todo/board/add/}" method="post">
+    <div class="form-group">
+        <label>Board name</label>
+        <input type="text" class="form-control" th:field="*{name}">
+    </div>
+    <div class="form-group">
+        <label>Board description</label>
+        <input type="text" class="form-control" th:field="*{colorName}">
+    </div>
+    <!--    <select class="form-control" th:field="*{}">-->
+    <!--        <option th:each="difficultyValue : ${T(com.spring5.recipeapp.models.Difficulty).values()}"-->
+    <!--                th:value="${difficultyValue.name()}"-->
+    <!--                th:text="${difficultyValue.name()}"-->
+    <!--        >val-->
+    <!--        </option>-->
+    <!--    </select>-->
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<form>
+
+</form>
+
+</body>
