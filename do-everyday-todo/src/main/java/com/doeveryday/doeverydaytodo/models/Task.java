@@ -19,8 +19,8 @@ public class Task extends BaseEntity{
     private Byte[] photo;
 
     @ManyToOne
-    @JoinColumn(name = "bord_id")
-    private Bord bord;
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     @OneToOne(mappedBy = "task")
     private TaskManager taskManager;

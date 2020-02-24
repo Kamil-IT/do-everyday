@@ -19,14 +19,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "bord")
-public class Bord extends BaseEntity{
+@Table(name = "board")
+public class Board extends BaseEntity{
 
     private String name;
 
     @Column(name = "color_name")
     private String colorName;
 
-    @OneToMany(mappedBy = "bord")
+    @OneToMany(mappedBy = "board")
     List<Task> tasks = new ArrayList<>();
 }
