@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Boards</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+
+<!--<div class="list-group" th:each="board : ${boards}">-->
+<!--    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">-->
+<!--        <div class="d-flex w-100 justify-content-between">-->
+<!--            <h5 class="mb-1" th:text="${board.getName()}">Board</h5>-->
+<!--        </div>-->
+<!--    </a>-->
+<!--    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">-->
+<!--        <div th:each="task : ${board.getTasks()}">-->
+<!--            <div class="d-flex w-100 justify-content-between">-->
+<!--                <h5 class="mb-1" th:text="${task.getName()}">Task name</h5>-->
+<!--            </div>-->
+<!--            <p class="mb-1" th:text="${task.getDescription()}">Task description</p>-->
+<!--        </div>-->
+<!--    </a>-->
+<!--</div>-->
+
+<main role="main">
+    <div class="jumbotron">
+        <div class="col-sm-8 mx-auto" th:each="board : ${boards}">
+            <ul class="list-group">
+                <li class="list-group-item active" th:text="${board.getName()}">Cras justo odio</li>
+                    <div th:each="task : ${board.getTasks()}">
+                        <li class="list-group-item" th:text="${task.getName()}">Task name
+                            <div class="small" th:text="${task.getDescription()}">Task description</div>
+                        </li>
+                    </div>
+            </ul>
+        </div>
+    </div>
+</main>
+</body>
+</html>
