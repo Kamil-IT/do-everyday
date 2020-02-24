@@ -1,5 +1,5 @@
-INSERT INTO bord (name, color_name) values ('Home', 'blue');
-INSERT INTO bord (name, color_name) values ('Studies', 'red');
+INSERT INTO board (name, color_name) values ('Home', 'blue');
+INSERT INTO board (name, color_name) values ('Studies', 'red');
 
 
 INSERT INTO task (name, description, bord_id) values ('Clean room', 'mum will be angry when you dont do this', 1);
