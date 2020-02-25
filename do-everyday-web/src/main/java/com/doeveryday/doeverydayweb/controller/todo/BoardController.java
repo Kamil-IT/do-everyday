@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class BoardController {
     private final BoardService boardService;
 
-    @GetMapping("todo/board/index")
+    @GetMapping("todo/board")
     public String showBoards(Model model){
         model.addAttribute("boards", boardService.getBoards());
         return "todo/board/index";
