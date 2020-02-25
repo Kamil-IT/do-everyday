@@ -34,6 +34,6 @@ public class BoardController {
     public String addBoard(Board board){
         boardService.saveBord(board);
 
-        return "redirect:/todo/board/index";
+        return "redirect:/todo/board";
     }
 }

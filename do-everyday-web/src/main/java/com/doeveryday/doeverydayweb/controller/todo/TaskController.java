@@ -33,7 +33,7 @@ public class TaskController {
         task.setBoard(boardService.findById(idBoard));
         taskService.saveTask(task);
 
-        return "redirect:/todo/board/index";
+        return "redirect:/todo/board";
     }
 
 
