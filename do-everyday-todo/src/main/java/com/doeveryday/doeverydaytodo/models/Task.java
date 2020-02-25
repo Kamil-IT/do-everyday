@@ -3,6 +3,7 @@ package com.doeveryday.doeverydaytodo.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -14,6 +15,9 @@ public class Task extends BaseEntity{
 
     private String name;
     private String description;
+
+    @Column(name = "create_date")
+    private Date createDate;
 
     @Lob
     private Byte[] photo;
