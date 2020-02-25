@@ -25,16 +25,18 @@
                             <div class="small" th:text="${task.getDescription()}">Task description</div>
                         </li>
                     </div>
+                <div class="d-flex justify-content-center" style="margin-top: 5px; margin-bottom: 15px">
+                    <a th:href="'/todo/board/' + ${board.id} + '/task/add'">
+                        <button type="button" class="btn btn-outline-dark">Add new task</button>
+                    </a>
+                </div>
             </ul>
         </div>
 <!--        End List of task-->
-<!--        Button to add new task and board-->
-        <div class="d-flex justify-content-center" style="margin-top: 20px">
+<!--        Button to add new board-->
+        <div class="d-flex justify-content-center">
                 <a href="/todo/board/add">
-                    <button type="button" class="btn btn-outline-dark" style="margin-left: 10px">Add new board</button>
-                </a>
-                <a href="/todo/board/task/add">
-                    <button type="button" class="btn btn-outline-dark" style="margin-left: 10px">Add new Task</button>
+                    <button type="button" class="btn btn-outline-dark">Add new board</button>
                 </a>
         </div>
 <!--        End Button to add new task and board-->

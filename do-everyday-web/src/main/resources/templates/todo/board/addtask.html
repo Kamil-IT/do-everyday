@@ -12,7 +12,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <!--end navbar-->
 
-<form th:object="${task}" th:action="@{/todo/board/task/}" method="post">
+<form th:object="${task}" th:action="@{'/todo/board/' + ${boardId} + '/task/'}" method="post">
     <div class="form-group">
         <label>Task name</label>
         <input type="text" class="form-control" th:field="*{name}">
@@ -21,12 +21,6 @@
         <label>Task description</label>
         <input type="text" class="form-control" th:field="*{description}">
     </div>
-    <select class="form-control" th:field="*{board}">
-        <option th:each="board : ${boards}"
-                th:value="${board}"
-                th:text="${board.name}"
-        >val
-        </option>
     </select>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
