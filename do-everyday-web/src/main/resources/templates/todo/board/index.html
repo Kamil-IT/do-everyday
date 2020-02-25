@@ -19,7 +19,7 @@
 <!--        List of task-->
         <div class="col-sm-8 mx-auto" th:each="board : ${boards}" style="margin-bottom: 10px">
             <ul class="list-group">
-                <li class="list-group-item active" th:text="${board.getName()}">Cras justo odio</li>
+                <li class="list-group-item active" th:text="${board.getName()}" style="background-color: #282828 !important; border-color: #282828 !important;">Task name</li>
                     <div th:each="task : ${board.getTasks()}">
                         <li class="list-group-item" th:text="${task.getName()}">Task name
                             <div class="small" th:text="${task.getDescription()}">Task description</div>
