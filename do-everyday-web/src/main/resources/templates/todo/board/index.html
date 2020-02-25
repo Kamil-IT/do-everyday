@@ -16,6 +16,8 @@
 
 <main role="main">
     <div class="jumbotron">
+        <h1 style="text-align: center">Boards</h1>
+        <hr style="margin-bottom: 30px"/>
 <!--        List of task-->
         <div class="col-sm-8 mx-auto" th:each="board : ${boards}" style="margin-bottom: 10px">
             <ul class="list-group">
@@ -36,7 +38,7 @@
 <!--        Button to add new board-->
         <div class="d-flex justify-content-center">
                 <a href="/todo/board/add">
-                    <button type="button" class="btn btn-outline-dark">Add new board</button>
+                    <button type="button" class="btn btn-outline-dark" style="margin-top: 20px">Add new board</button>
                 </a>
         </div>
 <!--        End Button to add new task and board-->
