@@ -53,27 +53,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateTask(Task task) {
-//        taskRepository.save(task);
-        Long boardId = task.getBoard().getId();
-        if (boardId == null || task.getId() == null){
-            throw new NullPointerException("Board and task id cannot by null");
+        if (taskRepository.existsById(task.getId())){
+            taskRepository.save(task);
         }
         else {
-            Optional<Board> boardOptional = boardRepository.findById(boardId);
-            if (boardOptional.isEmpty()){
-                throw new NotFoundException("Not found board with id: " + boardId);
-            }
-            else {
-                Board boardToSave = boardOptional.get();
-                Optional<Task> taskOptional = boardToSave.getTasks().stream().filter(c -> c.getId().equals(task.getId())).findFirst();
-                if (taskOptional.isEmpty()){
-                    throw new NotFoundException("Not found task with id: " + task.getId());
-                }
-                else {
-                    boardRepository.save(boardToSave);
-                }
-
-            }
+            log.error("Not found board with id: " + task.getId());
+            throw new NotFoundException("Not found board with id: " + task.getId());
         }
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return taskRepository.existsById(id);
     }
 }

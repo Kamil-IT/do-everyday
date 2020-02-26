@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Add board</title>
+    <title>Adding task</title>
 
     <div th:replace="fragments/navbar :: navbar-css-js"></div>
 
@@ -12,9 +12,11 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <!--end navbar-->
 
-<form th:object="${board}" th:action="@{/todo/board/}" method="post">
+<form th:object="${board}" th:action="@{/todo/board/}" th:method="put">
+    <input type="hidden" th:field="*{id}"/>
+<!--    <input type="hidden" th:field="*{tasks}"/>-->
     <div class="form-group">
-        <label>Board name</label>
+        <label>Task name</label>
         <input type="text" class="form-control" th:field="*{name}">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -25,3 +27,4 @@
 </form>
 
 </body>
+</html>

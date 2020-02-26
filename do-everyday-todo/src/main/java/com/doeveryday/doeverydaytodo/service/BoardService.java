@@ -15,4 +15,6 @@ public interface BoardService {
     void deleteById(Long id);
 
     void updateBoard(Board board);
+
+    boolean existsById(Long id);
 }

@@ -64,4 +64,9 @@ public class BoardServiceImpl implements BoardService {
             throw new NotFoundException("Not found board with id: " + board.getId());
         }
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return boardRepository.existsById(id);
+    }
 }
