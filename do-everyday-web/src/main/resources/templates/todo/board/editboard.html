@@ -12,9 +12,12 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <!--end navbar-->
 
-<form th:object="${board}" th:action="@{/todo/board/}" th:method="put">
+<form th:action="@{'/todo/board/' + ${board.getId()} + '/delete'}" th:method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<form th:object="${board}" th:action="@{/todo/board/update}" th:method="post">
     <input type="hidden" th:field="*{id}"/>
-<!--    <input type="hidden" th:field="*{tasks}"/>-->
     <div class="form-group">
         <label>Task name</label>
         <input type="text" class="form-control" th:field="*{name}">

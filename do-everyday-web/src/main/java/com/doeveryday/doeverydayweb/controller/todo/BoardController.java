@@ -6,12 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+/*
+Structure for object type = post
+.../edit  - updating object
+.../delete - deleting object
+.../add - adding object
+ */
+
 
 @Slf4j
 @AllArgsConstructor
@@ -32,7 +37,14 @@ public class BoardController {
         return "todo/board/addboard";
     }
 
-    @PostMapping("todo/board")
+    @GetMapping("todo/board/{id}/edit")
+    public String initEditBoard(@PathVariable("id") Long id, Model model){
+        model.addAttribute("board", boardService.findById(id));
+
+        return "todo/board/editboard";
+    }
+
+    @PostMapping("todo/board/add")
     public String addBoard(Board board){
         if (board.getId() != null){
             boardService.updateBoard(board);
@@ -42,17 +54,16 @@ public class BoardController {
         return "redirect:/todo/board";
     }
 
-    @GetMapping("todo/board/{id}/edit")
-    public String initEditBoard(@PathVariable("id") Long id, Model model){
-        model.addAttribute("board", boardService.findById(id));
-
-        return "todo/board/editboard";
-    }
-
-    @PutMapping("todo/board")
-    public String editBoard(Board board){
+    @PostMapping("todo/board/update")
+    public String updateBoard(Board board){
         boardService.updateBoard(board);
 
+        return "redirect:/todo/board";
+    }
+
+    @PostMapping("todo/board/{id}/delete")
+    public String deleteBoard(@PathVariable("id") Long id){
+        boardService.deleteById(id);
         return "redirect:/todo/board";
     }
 }
