@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +24,6 @@ public class Board extends BaseEntity{
     @Column(name = "color_name")
     private String colorName;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     List<Task> tasks = new ArrayList<>();
 }

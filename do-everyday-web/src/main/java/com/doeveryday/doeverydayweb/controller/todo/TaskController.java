@@ -61,5 +61,11 @@ public class TaskController {
         return "redirect:/todo/board";
     }
 
+    @PostMapping("todo/board/task/{id}/delete")
+    public String deleteTask(@PathVariable("id") Long id){
+        taskService.deleteById(id);
+        return "redirect:/todo/board";
+    }
+
 
 }
