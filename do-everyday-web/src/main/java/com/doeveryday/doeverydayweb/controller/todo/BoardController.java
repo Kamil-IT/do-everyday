@@ -17,7 +17,6 @@ Structure for object type = post
 .../add - adding object
  */
 
-
 @Slf4j
 @AllArgsConstructor
 @Controller

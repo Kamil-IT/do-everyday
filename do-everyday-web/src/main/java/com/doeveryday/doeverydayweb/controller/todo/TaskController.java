@@ -3,7 +3,9 @@ package com.doeveryday.doeverydayweb.controller.todo;
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
+import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.service.BoardService;
+import com.doeveryday.doeverydaytodo.service.TaskManagerService;
 import com.doeveryday.doeverydaytodo.service.TaskService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ public class TaskController {
 
     private final BoardService boardService;
     private final TaskService taskService;
+    private final TaskManagerService taskManagerService;
 
     @GetMapping("todo/board/{idBoard}/task/add")
     public String initAddTask(Model model, @PathVariable Long idBoard){
@@ -31,12 +34,12 @@ public class TaskController {
     }
 
     @PostMapping("todo/board/{idBoard}/task")
-    public String addOrUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
+    public String addTask(@PathVariable("idBoard") Long idBoard, Task task){
         task.setBoard(boardService.findById(idBoard));
-        if (task.getId() != null){
-            taskService.updateTask(task);
-        }
+
         taskService.saveTask(task);
+
+        taskManagerService.saveTaskManager(TaskManager.builder().task(task).build());
 
         return "redirect:/todo/board";
     }

@@ -1,14 +1,12 @@
 package com.doeveryday.doeverydaytodo.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor

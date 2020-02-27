@@ -26,6 +26,6 @@ public class Task extends BaseEntity{
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToOne(mappedBy = "task")
+    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
     private TaskManager taskManager;
 }
