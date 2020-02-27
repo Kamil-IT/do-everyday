@@ -4,7 +4,7 @@ import tk.plogitech.darksky.forecast.model.Currently;
 import tk.plogitech.darksky.forecast.model.Daily;
 import tk.plogitech.darksky.forecast.model.Hourly;
 
-public interface ForecastRequestService {
+public interface ForecastService {
 
     Currently getCurrentWeather();
 
