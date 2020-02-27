@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Boards</title>
 
+
     <div th:replace="fragments/navbar :: navbar-css-js"></div>
 
 </head>
@@ -12,13 +13,68 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <!--end navbar-->
 
+<div th:replace="fragments/weathercss :: weather-css"></div>
+
 <main role="main">
     <div class="jumbotron">
-        <a href="/todo/board">
-            <h3 th:text="${current.getTemperature()}">All boards</h3>
-        </a>
+        <div class="hero">
+            <!-- weather section  -->
+            <div class="container">
+                <div class="row">
+                    <div id="" class="col-8 mx-auto weather">
+                        <!-- weather header section -->
+                        <div class="weather-head">
+                            <h1 id="location" class="text-center display-4">Wrocław, PL</h1>
+                            <div class="row">
+                                <div id="description" class="description col-6 text-center">
+                                    <i id="icon-desc" class="wi wi-owm-200"></i>
+                                    <p class="desc" th:text="${current.getSummary()}">thunderstorm</p>
+                                </div>
+                                <div id="temperature" class="col-6 text-center"
+                                     th:text="${current.getTemperature()} + '°'">
+                                    60°
+                                </div>
+                            </div>
+                            <!-- weather body header -->
+                            <div class="weather-body">
+                                <div class="row">
+                                    <div class="humidity col-4 text-center">
+                                        <i class="wi wi-raindrop"></i><span> Humidity</span>
+                                    </div>
+                                    <div class="wind col-4 text-center">
+                                        <i class="wi wi-strong-wind"></i><span> Wind Speed</span>
+                                    </div>
+                                    <div class="visibility col-4 text-center">
+                                        <i class="fa fa-eye"></i><span> Cloud Cover</span>
+                                    </div>
+                                </div>
+                                <!-- weather body data -->
+                                <div class="row">
+                                    <div id="humidity" class="humidity-data col-4 text-center"
+                                         th:text="${current.getHumidity() + '%'}">
+                                        75%
+                                    </div>
+                                    <div id="wind" class="wind-data col-4 text-center"
+                                         th:text="${current.getWindSpeed() + 'km'}">
+                                        34km
+                                    </div>
+                                    <div id="visibility" class="degree-data col-4 text-center"
+                                         th:text="${current.getCloudCover()}">
+                                        235
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
+
+
+
+
 
 </body>
 </html>
