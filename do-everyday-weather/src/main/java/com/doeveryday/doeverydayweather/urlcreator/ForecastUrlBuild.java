@@ -151,9 +151,8 @@ public class ForecastUrlBuild {
 
     /**
      * @return The Url build from the given paramters.
-     * @throws MalformedURLException
      */
-    private String getUrl() throws MalformedURLException {
+    private String getUrl() {
 
         String forecastUrlString = URL;
         if (overrideUrl != null) {
@@ -162,7 +161,7 @@ public class ForecastUrlBuild {
 
         String unixTimestamp = "";
         if (time != null) {
-            unixTimestamp = "," + String.valueOf(time.getEpochSecond());
+            unixTimestamp = "," + time.getEpochSecond();
         }
 
         forecastUrlString = forecastUrlString.replaceAll("##key##", apiKey.value())

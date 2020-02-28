@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydaytodo.service;
 
 import com.doeveryday.doeverydaytodo.models.Board;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

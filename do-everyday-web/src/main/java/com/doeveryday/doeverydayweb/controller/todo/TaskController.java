@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydayweb.controller.todo;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
-import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.service.BoardService;
@@ -47,7 +46,7 @@ public class TaskController {
     @GetMapping("todo/board/{idBoard}/task/{idTask}/edit")
     public String initEditTask(Model model, @PathVariable("idBoard") Long idBoard, @PathVariable("idTask") Long idTask){
         Task task = taskService.findById(idTask);
-        if (task.getBoard().getId() != idBoard){
+        if (!task.getBoard().getId().equals(idBoard)){
             throw new NotFoundException("Not found task id = " + idTask + " with board id = " + idBoard);
         }
         model.addAttribute("task", task);
@@ -56,7 +55,7 @@ public class TaskController {
     }
 
     @PutMapping("todo/board/{idBoard}/task")
-    public String editTask(Task task, @PathVariable("idboard") Long idBoard){
+    public String editTask(Task task, @PathVariable("idBoard") Long idBoard){
         task.setBoard(boardService.findById(idBoard));
 
         taskService.updateTask(task);

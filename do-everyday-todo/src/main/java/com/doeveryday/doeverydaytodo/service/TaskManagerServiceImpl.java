@@ -5,7 +5,6 @@ import com.doeveryday.doeverydaytodo.exceptions.NullPointerException;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

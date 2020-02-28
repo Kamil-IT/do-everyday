@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydaytodo.service;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
-import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;

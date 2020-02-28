@@ -1,6 +1,5 @@
 package com.doeveryday.doeverydaytodo.service;
 
-import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
 
 import java.util.List;
