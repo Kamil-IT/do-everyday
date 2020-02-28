@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydayweather.urlcreator;
 
+import com.doeveryday.doeverydayweather.exceptions.NullPointerException;
 import tk.plogitech.darksky.forecast.APIKey;
 import tk.plogitech.darksky.forecast.GeoCoordinates;
 import tk.plogitech.darksky.forecast.Timeouts;
@@ -9,7 +10,6 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -33,7 +33,9 @@ public class ForecastUrlBuild {
      * @return This for fluent API.
      */
     public ForecastUrlBuild key(APIKey apiKey) {
-//        notNull("APIKey cannot be null.", apiKey);
+        if (apiKey == null){
+            throw new NullPointerException("APIKey cannot be null.");
+        }
 
         this.apiKey = apiKey;
         return this;
@@ -44,7 +46,13 @@ public class ForecastUrlBuild {
      * @return This for fluent API.
      */
     public ForecastUrlBuild location(GeoCoordinates geoCoordinates) {
-//        notNull("GeoCoordinates cannot be null.", geoCoordinates);
+        if (geoCoordinates == null){
+            throw new NullPointerException("GeoCoordinates cannot be null.");
+        }
+        else if (geoCoordinates.latitude() == null || geoCoordinates.longitude() == null){
+            throw new NullPointerException("Latitude or longitude cannot be null");
+        }
+
 
         this.geoCoordinates = geoCoordinates;
         return this;
@@ -58,7 +66,9 @@ public class ForecastUrlBuild {
      * @return This for fluent API.
      */
     public ForecastUrlBuild url(String url) {
-//        notNull("url cannot be null.", url);
+        if (url == null){
+            throw new NullPointerException("url cannot be null.");
+        }
 
         this.overrideUrl = url;
         return this;
@@ -70,7 +80,9 @@ public class ForecastUrlBuild {
      * @return This for fluent API.
      */
     public ForecastUrlBuild language(Language language) {
-//        notNull("language cannot be null.", language);
+        if (language == null){
+            throw new NullPointerException("language cannot be null.");
+        }
 
         this.language = language;
         return this;
@@ -88,21 +100,13 @@ public class ForecastUrlBuild {
     }
 
     /**
-     * @param block The Blocks which shall be excluded from the response to save data / latency. This method can be called multiple times and the
-     * exclusion will add up.
-     * @return This for fluent API.
-     */
-    public ForecastUrlBuild exclude(Block... block) {
-        this.exclusion.addAll(Arrays.asList(block));
-        return this;
-    }
-
-    /**
      * @param units Return weather conditions in the requested units.
      * @return This for fluent API.
      */
     public ForecastUrlBuild units(Units units) {
-//        notNull("units cannot be null.", units);
+        if (units == null){
+            throw new NullPointerException("units cannot be null.");
+        }
 
         this.units = units;
         return this;
@@ -113,7 +117,9 @@ public class ForecastUrlBuild {
      * @return This for fluent API.
      */
     public ForecastUrlBuild time(Instant time) {
-//        notNull("time cannot be null.", time);
+        if (time == null){
+            throw new NullPointerException("time cannot be null.");
+        }
 
         this.time = time;
         return this;
@@ -124,7 +130,9 @@ public class ForecastUrlBuild {
      * @return This for fluent API.
      */
     public ForecastUrlBuild timeouts(Timeouts timeouts) {
-//        notNull("timeouts cannot be null.", timeouts);
+        if (timeouts == null){
+            throw new NullPointerException("timeouts cannot be null.");
+        }
 
         this.timeouts = timeouts;
         return this;
@@ -146,8 +154,6 @@ public class ForecastUrlBuild {
      * @throws MalformedURLException
      */
     private String getUrl() throws MalformedURLException {
-//        notNull("The ApIkey must be set. Please call the corresponding method.", apiKey);
-//        notNull("The Gelocation must be set. Please call the corresponding method.", geoCoordinates);
 
         String forecastUrlString = URL;
         if (overrideUrl != null) {
