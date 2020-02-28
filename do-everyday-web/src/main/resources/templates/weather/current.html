@@ -34,7 +34,7 @@
                                     <p class="desc" th:text="${current.getSummary()}">thunderstorm</p>
                                 </div>
                                 <div id="temperature" class="col-6 text-center"
-                                     th:text="${current.getTemperature()} + '°'">
+                                     th:text="${current.getTemperature().intValue()} + '°'">
                                     60°
                                 </div>
                             </div>

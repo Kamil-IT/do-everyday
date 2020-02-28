@@ -36,7 +36,7 @@ public class ForecastConfiguration {
         Latitude latitude = new Latitude(51.107883);
 
         URL requestUrl = new ForecastUrlBuild()
-                .language(ForecastUrlBuild.Language.pl)
+                .language(ForecastUrlBuild.Language.en)
                 .key(new APIKey(key))
                 .location(new GeoCoordinates(longitude, latitude)).extendHourly()
                 .build();
