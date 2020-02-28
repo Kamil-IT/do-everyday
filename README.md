@@ -5,4 +5,4 @@ Getting and showing needed information every day
 # Parts
 - Weather(forecast is getting from Dark Sky, it's actual)
 - Todo list
-In future more..
+- In future more..
