@@ -32,9 +32,11 @@ public class ForecastConfiguration {
 
     @Bean
     Forecast forecast(){
+//        Setting geo location
         Longitude longitude = new Longitude(17.038538);
         Latitude latitude = new Latitude(51.107883);
 
+//        Building URL
         URL requestUrl = new ForecastUrlBuild()
                 .language(ForecastUrlBuild.Language.en)
                 .key(new APIKey(key))
@@ -43,16 +45,19 @@ public class ForecastConfiguration {
 
         ObjectMapper objectMapper = objectMapper();
 
+//        Mapping JSON to Forecast
         try {
             return objectMapper.readValue(requestUrl, Forecast.class);
         } catch (IOException e) {
             log.error("Error while getting forecast...");
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
+    /*
+    It setting parameter for mapper to understand Forecast.class
+     */
     ObjectMapper objectMapper(){
         ObjectMapper objectMapper = new ObjectMapper();
 

@@ -22,7 +22,7 @@
         <div class="col-sm-8 mx-auto" th:each="board : ${boards}" style="margin-bottom: 10px">
             <ul class="list-group">
                 <li class="list-group-item active" style="background-color: #282828 !important; border-color: #282828 !important;">
-                    <a th:href="'board/' + ${board.getId()} + '/edit'">
+                    <a th:href="'todo/board/' + ${board.getId()} + '/edit'">
                         <button type="button" class="btn btn-outline-light btn-sm" style="float: right;">Edit</button>
                     </a>
                     <div th:text="${board.getName()}">

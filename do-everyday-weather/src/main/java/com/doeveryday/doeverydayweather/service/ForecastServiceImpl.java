@@ -2,7 +2,6 @@ package com.doeveryday.doeverydayweather.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import tk.plogitech.darksky.forecast.model.Currently;
 import tk.plogitech.darksky.forecast.model.Daily;
 import tk.plogitech.darksky.forecast.model.Forecast;

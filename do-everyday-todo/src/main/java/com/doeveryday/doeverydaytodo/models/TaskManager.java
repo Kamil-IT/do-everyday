@@ -5,7 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+Class for checking - is done task
+ */
 @Builder
 @EqualsAndHashCode(callSuper = true)
 @Data

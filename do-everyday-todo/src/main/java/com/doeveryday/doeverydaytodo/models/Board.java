@@ -10,6 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Board is for keeping tasks in same category
+ */
 
 @EqualsAndHashCode(callSuper = true)
 @Data
