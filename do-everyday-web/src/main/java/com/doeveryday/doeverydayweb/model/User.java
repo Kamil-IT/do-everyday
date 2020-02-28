@@ -11,7 +11,6 @@ import tk.plogitech.darksky.forecast.GeoCoordinates;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 public class User {
     public Language language;
     public GeoCoordinates geoCoordinates;

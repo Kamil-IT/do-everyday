@@ -12,7 +12,7 @@ public class CurrentWeatherController {
 
     private final ForecastService forecastService;
 
-    @GetMapping("weather/current")
+    @GetMapping(value = {"weather/current", "weather"})
     public String getCurrentWeather(Model model){
         model.addAttribute("current", forecastService.getCurrentWeather());
 
