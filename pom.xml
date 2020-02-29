@@ -15,6 +15,7 @@
         <module>do-everyday-web</module>
         <module>do-everyday-weather</module>
         <module>do-everyday-budget-manager</module>
+        <module>do-everyday-spotify</module>
     </modules>
 
     <packaging>pom</packaging>
