@@ -21,7 +21,7 @@ public class Budget extends BaseEntity {
     @NotNull
     String name;
 
-    String Description;
+    String description;
 
     @OneToMany
     @JoinColumn(name = "budget_id")
