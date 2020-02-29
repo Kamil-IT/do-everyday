@@ -5,9 +5,7 @@ import com.doeveryday.doeverydaybudgetmanager.service.BudgetService;
 import com.doeveryday.doeverydaybudgetmanager.service.TransactionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +23,7 @@ public class TransactionController {
     public String initUpdateTransaction(@PathVariable("id") Long id, Model model){
         model.addAttribute("transaction", transactionService.findById(id));
 
-        return "budgetmanager/budget/addtransaction";
+        return "budgetmanager/budget/formtransaction";
     }
 
     @GetMapping("budgetmanager/budget/{id}/transaction/add")
@@ -34,7 +32,7 @@ public class TransactionController {
         transaction.setBudget(budgetService.findById(budgetId));
         model.addAttribute("transaction", transaction);
 
-        return "budgetmanager/budget/addtransaction";
+        return "budgetmanager/budget/formtransaction";
     }
 
     @PostMapping("budgetmanager/budget/{id}/transaction/edit")

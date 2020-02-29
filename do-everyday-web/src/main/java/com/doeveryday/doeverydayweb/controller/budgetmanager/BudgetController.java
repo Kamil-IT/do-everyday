@@ -21,21 +21,21 @@ public class BudgetController {
     public String showBudget(Model model){
         model.addAttribute("budgets", budgetService.getBudgets());
 
-        return "budgetmanager/budget/budget";
+        return "budgetmanager/budget/index";
     }
 
     @GetMapping("budgetmanager/budget/{id}/edit")
     public String initUpdateBudget(@PathVariable("id") Long id, Model model){
         model.addAttribute("budget", budgetService.findById(id));
 
-        return "budgetmanager/budget/addbudget";
+        return "budgetmanager/budget/formbudget";
     }
 
     @GetMapping("budgetmanager/budget/add")
     public String initSaveBudget(Model model){
         model.addAttribute("budget", new Budget());
 
-        return "budgetmanager/budget/addbudget";
+        return "budgetmanager/budget/formbudget";
     }
 
     @PostMapping("budgetmanager/budget/edit")
