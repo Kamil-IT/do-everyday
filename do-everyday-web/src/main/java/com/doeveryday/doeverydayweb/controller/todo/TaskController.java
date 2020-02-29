@@ -33,34 +33,31 @@ public class TaskController {
     }
 
     @PostMapping("todo/board/{idBoard}/task")
-    public String addTask(@PathVariable("idBoard") Long idBoard, Task task){
+    public String addAndUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
         task.setBoard(boardService.findById(idBoard));
 
-        taskService.saveTask(task);
+        if (task.getId() == null){
+            taskService.saveTask(task);
+//            taskManagerService.saveTaskManager(TaskManager.builder().task(task).build());
 
-        taskManagerService.saveTaskManager(TaskManager.builder().task(task).build());
+        }
+        else if (!taskService.existsById(idBoard)){
+            taskService.saveTask(task);
+//            taskManagerService.saveTaskManager(TaskManager.builder().task(task).build());
+
+        }
+        else {
+            taskService.updateTask(task);
+        }
 
         return "redirect:/todo/board";
     }
 
-    @GetMapping("todo/board/{idBoard}/task/{idTask}/edit")
-    public String initEditTask(Model model, @PathVariable("idBoard") Long idBoard, @PathVariable("idTask") Long idTask){
-        Task task = taskService.findById(idTask);
-        if (!task.getBoard().getId().equals(idBoard)){
-            throw new NotFoundException("Not found task id = " + idTask + " with board id = " + idBoard);
-        }
-        model.addAttribute("task", task);
+    @GetMapping("todo/board/task/{idTask}/edit")
+    public String initEditTask(Model model, @PathVariable("idTask") Long idTask){
+        model.addAttribute("task", taskService.findById(idTask));
 
         return "todo/board/edittask";
-    }
-
-    @PutMapping("todo/board/{idBoard}/task")
-    public String editTask(Task task, @PathVariable("idBoard") Long idBoard){
-        task.setBoard(boardService.findById(idBoard));
-
-        taskService.updateTask(task);
-
-        return "redirect:/todo/board";
     }
 
     @PostMapping("todo/board/task/{id}/delete")

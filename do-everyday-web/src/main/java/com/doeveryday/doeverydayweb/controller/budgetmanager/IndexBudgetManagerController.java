@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexBudgetManagerController {
 
-    @GetMapping(value = {"budgetmanager/index", "budgetmanager"})
+    @GetMapping(value = {"budgetmanager/index", "budgetmanager", "budgetmanager/budget/index"})
     public String showBudget(){
         return "redirect:budgetmanager/budget";
     }

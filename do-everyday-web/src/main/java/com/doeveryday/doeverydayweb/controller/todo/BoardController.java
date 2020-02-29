@@ -21,7 +21,7 @@ Structure for object type = post
 public class BoardController {
     private final BoardService boardService;
 
-    @GetMapping(value = {"todo/board", "todo"})
+    @GetMapping("todo/board")
     public String showBoards(Model model){
         model.addAttribute("boards", boardService.getBoards());
         return "todo/board/index";

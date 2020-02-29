@@ -10,8 +10,4 @@ INSERT INTO task (name, description, board_id) values ('Milk', '0,5L', 3);
 INSERT INTO task (name, description, board_id) values ('Bread', '2', 3);
 INSERT INTO task (name, description, board_id) values ('Chicken', '1kg', 3);
 
-INSERT INTO task_manager (task_id, is_done) values (1, FALSE);
-
 INSERT INTO task_member (name, surname) values ('Krzysztof', 'Kowalski');
-
-INSERT INTO task_member_task_manager (task_member_id, task_manager_id) values (1, 1);

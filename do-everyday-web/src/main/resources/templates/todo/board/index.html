@@ -22,7 +22,7 @@
         <div class="col-sm-8 mx-auto" th:each="board : ${boards}" style="margin-bottom: 10px">
             <ul class="list-group">
                 <li class="list-group-item active" style="background-color: #282828 !important; border-color: #282828 !important;">
-                    <a th:href="'todo/board/' + ${board.getId()} + '/edit'">
+                    <a th:href="'board/' + ${board.getId()} + '/edit'">
                         <button type="button" class="btn btn-outline-light btn-sm" style="float: right;">Edit</button>
                     </a>
                     <div th:text="${board.getName()}">
@@ -31,7 +31,7 @@
                 </li>
                     <div th:each="task : ${board.getTasks()}">
                         <li class="list-group-item">
-                            <a th:href="'board/' + ${board.getId()} + '/task/' + ${task.getId()} + '/edit'">
+                            <a th:href="'board/task/' + ${task.getId()} + '/edit'">
                                 <button type="button" class="btn btn-outline-dark btn-sm" style="float: right;">Edit</button>
                             </a>
                             <div th:text="${task.getName()}">
@@ -43,7 +43,7 @@
                         </li>
                     </div>
                 <div class="d-flex justify-content-center" style="margin-top: 5px; margin-bottom: 15px">
-                    <a th:href="'/todo/board/' + ${board.id} + '/task/add'">
+                    <a th:href="'board/' + ${board.id} + '/task/add'">
                         <button type="button" class="btn btn-outline-dark">Add new task</button>
                     </a>
                 </div>
@@ -52,7 +52,7 @@
 <!--        End List of task-->
 <!--        Button to add new board-->
         <div class="d-flex justify-content-center">
-                <a href="/todo/board/add">
+                <a th:href="'board/add'">
                     <button type="button" class="btn btn-outline-dark" style="margin-top: 20px">Add new board</button>
                 </a>
         </div>
