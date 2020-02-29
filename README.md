@@ -2,7 +2,9 @@
 # do-everyday
 Getting and showing needed information every day
 
-# Parts
+# Parts of project
 - Weather(forecast is getting from Dark Sky, it's actual)
 - Todo list
+- Budget manager
+- Spotify(working now)
 - In future more..
