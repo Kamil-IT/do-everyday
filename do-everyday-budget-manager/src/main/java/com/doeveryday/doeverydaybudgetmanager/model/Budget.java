@@ -4,10 +4,9 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JoinColumnOrFormula;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +22,7 @@ public class Budget extends BaseEntity {
 
     String description;
 
-    @OneToMany
-    @JoinColumn(name = "budget_id")
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
     List<Transaction> transaction = new ArrayList<>();
 
 }

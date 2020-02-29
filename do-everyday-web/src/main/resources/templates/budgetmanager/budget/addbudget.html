@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add board</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<form th:object="${budget}" th:action="@{/budgetmanager/budget/edit/}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="form-group">
+        <label for="bord-name" >Budget name</label>
+        <input id="bord-name" type="text" class="form-control" name="bord-name" th:field="*{name}">
+        <label for="bord-description">Budget description</label>
+        <input id="bord-description" type="text" class="form-control" name="bord-description" th:field="*{description}">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<form>
+
+</form>
+
+</body>

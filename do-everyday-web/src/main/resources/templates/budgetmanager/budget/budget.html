@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Boards</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<main role="main">
+    <div class="jumbotron">
+        <table class="table" style="margin: auto;width: 80% !important; ">
+            <div th:each="budget : ${budgets}">
+
+                <thead style="color: white; background-color: #282828;border-color:#282828;">
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <form th:action="@{'budget/' + ${budget.getId()} + '/delete/'}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm" style="float: right; margin-left: 5px">
+                                Delete
+                            </button>
+                        </form>
+                        <a th:href="'budget/' + ${budget.getId()} + '/edit'">
+                            <button type="button" class="btn btn-outline-light btn-sm" style="float: right">
+                                Edit
+                            </button>
+                        </a>
+                        <div th:text="${budget.getName()}" class="font-weight-bold" >Budget name</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="transaction : ${budget.getTransaction()}">
+                    <td th:text="${transaction.getDescription()}">Transition description</td>
+                    <td th:text="${transaction.getValue()}">Transaction value</td>
+                    <td th:text="${transaction.getCurrency()}">Transaction currency</td>
+                    <td th:text="${transaction.getDate()}">Transaction date</td>
+                    <td>
+                        <form th:action="@{'budget/transaction/' + ${transaction.getId()} + '/delete/'}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm" style="float: right; margin-left: 5px">
+                                Delete
+                            </button>
+                        </form>
+                        <a th:href="'budget/transaction/' + ${transaction.getId()} + '/edit'">
+                            <button type="button" class="btn btn-outline-dark btn-sm" style="float: right">
+                                Edit
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <a th:href="'budget/' + ${budget.getId()} + '/transaction/add'">
+                            <button type="button" class="btn btn-outline-dark btn-sm" style="float: bottom">
+                                Add transaction
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </div>
+        </table>
+        <a th:href="'budget/add'" class="d-flex justify-content-center" style="margin-top: 20px">
+            <button type="button" class="btn btn-outline-dark btn-lg">Add budget</button>
+        </a>
+    </div>
+</main>
+
+</body>
+</html>
