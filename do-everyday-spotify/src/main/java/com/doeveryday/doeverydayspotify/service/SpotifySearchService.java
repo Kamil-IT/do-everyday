@@ -15,7 +15,7 @@ public class SpotifySearchService {
 
     private final SpotifyApi spotifyApi;
 
-    public SpotifyAllTypes spotifyAllTypes(String name){
+    public SpotifyAllTypes spotifyAllTypesByName(String name){
         SpotifyAllTypes spotifyAllTypes = new SpotifyAllTypes();
         try {
             spotifyAllTypes.setAlbumSimplifieds(spotifyApi.searchAlbums(name).build().execute().getItems());
@@ -28,7 +28,7 @@ public class SpotifySearchService {
         return spotifyAllTypes;
     }
 
-    public SpotifyAllTypes spotifyAllTypes(String name, Integer limit){
+    public SpotifyAllTypes spotifyAllTypesByName(String name, Integer limit){
         SpotifyAllTypes spotifyAllTypes = new SpotifyAllTypes();
         try {
             spotifyAllTypes.setAlbumSimplifieds(spotifyApi.searchAlbums(name).limit(limit).build().execute().getItems());
