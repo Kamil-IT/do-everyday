@@ -34,7 +34,7 @@ public class Board extends BaseEntity{
     List<Task> tasks = new ArrayList<>();
 
     @PrePersist
-    public void prePersist() {
+    public void checkColor() {
         if(colorHex == null || colorHex.length() != 7){
             colorHex = "#282828";
         }

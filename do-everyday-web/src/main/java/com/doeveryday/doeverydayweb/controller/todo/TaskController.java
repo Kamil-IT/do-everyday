@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Slf4j
 @AllArgsConstructor
@@ -26,31 +25,13 @@ public class TaskController {
 
     @GetMapping("todo/board/{idBoard}/task/add")
     public String initAddTask(Model model, @PathVariable Long idBoard){
+        if (!boardService.existsById(idBoard)){
+            throw new NotFoundException("Not found board with id: " + idBoard);
+        }
         model.addAttribute("task", new Task());
         model.addAttribute("boardId", idBoard);
 
         return "todo/board/addtask";
-    }
-
-    @PostMapping("todo/board/{idBoard}/task")
-    public String addAndUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
-        task.setBoard(boardService.findById(idBoard));
-
-        if (task.getId() == null){
-            taskService.saveTask(task);
-//            taskManagerService.saveTaskManager(TaskManager.builder().task(task).build());
-
-        }
-        else if (!taskService.existsById(idBoard)){
-            taskService.saveTask(task);
-//            taskManagerService.saveTaskManager(TaskManager.builder().task(task).build());
-
-        }
-        else {
-            taskService.updateTask(task);
-        }
-
-        return "redirect:/todo/board";
     }
 
     @GetMapping("todo/board/task/{idTask}/edit")
@@ -60,9 +41,30 @@ public class TaskController {
         return "todo/board/edittask";
     }
 
+    @PostMapping("todo/board/{idBoard}/task")
+    public String addAndUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
+        task.setBoard(boardService.findById(idBoard));
+        if (task.getId() == null){
+            taskService.saveTask(task);
+        }
+        else {
+            taskService.updateTask(task);
+        }
+
+        return "redirect:/todo/board";
+    }
+
     @PostMapping("todo/board/task/{id}/delete")
     public String deleteTask(@PathVariable("id") Long id){
         taskService.deleteById(id);
+        return "redirect:/todo/board";
+    }
+
+    @PostMapping("todo/board/task/{id}/donechange")
+    public String doneTask(@PathVariable("id") Long id){
+        TaskManager taskManager = taskManagerService.findByTaskId(id);
+        taskManager.setDone(!taskManager.isDone());
+        taskManagerService.updateTaskManager(taskManager);
         return "redirect:/todo/board";
     }
 

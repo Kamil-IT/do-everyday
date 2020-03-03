@@ -2,8 +2,10 @@ package com.doeveryday.doeverydaytodo.service;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.exceptions.NullPointerException;
+import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
+import com.doeveryday.doeverydaytodo.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class TaskManagerServiceImpl implements TaskManagerService{
 
     private final TaskManagerRepository taskManagerRepository;
+    private final TaskRepository taskRepository;
 
 
     @Override
@@ -64,5 +67,19 @@ public class TaskManagerServiceImpl implements TaskManagerService{
         else {
             taskManagerRepository.save(taskManager);
         }
+    }
+
+    @Override
+    public TaskManager findByTask(Task task) {
+        return taskManagerRepository.findByTask(task);
+    }
+
+    @Override
+    public TaskManager findByTaskId(Long id) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isEmpty()){
+            throw new NotFoundException("Not found task with id: =" + id);
+        }
+        return taskManagerRepository.findByTask(taskOptional.get());
     }
 }

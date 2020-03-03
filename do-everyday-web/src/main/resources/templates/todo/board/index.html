@@ -34,6 +34,9 @@
                             <a th:href="'board/task/' + ${task.getId()} + '/edit'">
                                 <button type="button" class="btn btn-outline-dark btn-sm" style="float: right;">Edit</button>
                             </a>
+                            <form th:action="'board/task/' + ${task.getId()} + '/donechange'" method="post">
+                                <button type="submit" class="btn btn-success btn-sm" style="float: right; margin-right: 5px">Done</button>
+                            </form>
                             <div th:text="${task.getName()}">
                                 Task name
                             </div>

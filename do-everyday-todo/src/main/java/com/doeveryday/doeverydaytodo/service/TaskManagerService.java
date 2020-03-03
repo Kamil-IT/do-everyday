@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydaytodo.service;
 
+import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface TaskManagerService {
     void deleteById(Long id);
 
     void updateTaskManager(TaskManager taskManager);
+
+    TaskManager findByTask(Task task);
+
+    TaskManager findByTaskId(Long id);
 }

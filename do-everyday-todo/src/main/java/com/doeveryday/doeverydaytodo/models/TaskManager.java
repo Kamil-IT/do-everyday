@@ -22,8 +22,17 @@ public class TaskManager extends BaseEntity{
     private Task task;
 
     @Column(name = "is_done")
-    private boolean isDone;
+    private boolean isDone = false;
+
+    Priority priority;
 
     @ManyToMany(mappedBy = "taskManagers")
     private List<TaskMember> taskMember = new ArrayList<>();
+
+    @PrePersist
+    private void checkPriority(){
+        if (priority == null){
+            priority = Priority.NORMAL;
+        }
+    }
 }

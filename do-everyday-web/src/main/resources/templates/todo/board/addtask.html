@@ -13,6 +13,8 @@
 <!--end navbar-->
 
 <form th:object="${task}" th:action="@{'/todo/board/' + ${boardId} + '/task/'}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{board}">
     <div class="form-group">
         <label>Task name</label>
         <input type="text" class="form-control" th:field="*{name}">

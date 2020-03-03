@@ -2,6 +2,7 @@ package com.doeveryday.doeverydaytodo.service;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.Task;
+import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task saveTask(Task task) {
         task.setCreateDate(new Date());
+        if (task.getTaskManager() == null){
+            task.setTaskManager(new TaskManager());
+        }
         return taskRepository.save(task);
     }
 
