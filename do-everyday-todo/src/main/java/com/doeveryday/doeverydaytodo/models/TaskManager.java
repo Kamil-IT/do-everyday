@@ -5,8 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-/*
-Class for checking - is done task
+/**
+ * Class for keeping information about - is task done
  */
 @Builder
 @EqualsAndHashCode(callSuper = true)

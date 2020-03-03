@@ -9,8 +9,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-Class for keeping Users and connect they to Task Manager
+/**
+ * Class for keeping Users and connect they to Task Manager
+ * It will be useful when log panel will be create
  */
 
 @EqualsAndHashCode(callSuper = true)
