@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @AllArgsConstructor
 @Service
-public class SpotifySearchServiceImpl {
+public class SpotifySearchServiceImpl implements SpotifySearchService{
 
     private final SpotifyApi spotifyApi;
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class SpotifySearchTrackServiceImpl {
+public class SpotifySearchTrackServiceImpl implements SpotifySearchTrackService {
 
     private final SpotifyApi spotifyApi;
 
