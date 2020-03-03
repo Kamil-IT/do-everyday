@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /*
 Structure for object type = post
@@ -31,29 +33,22 @@ public class BoardController {
     public String initAddBoard(Model model){
         model.addAttribute("board", new Board());
 
-        return "todo/board/addboard";
+        return "todo/board/boardform";
     }
 
     @GetMapping("todo/board/{id}/edit")
     public String initEditBoard(@PathVariable("id") Long id, Model model){
         model.addAttribute("board", boardService.findById(id));
 
-        return "todo/board/editboard";
+        return "todo/board/boardform";
     }
 
-    @PostMapping("todo/board/add")
-    public String addBoard(Board board){
+    @PostMapping("todo/board")
+    public String addOrUpdateBoard(Board board){
         if (board.getId() != null){
             boardService.updateBoard(board);
         }
         boardService.saveBord(board);
-
-        return "redirect:/todo/board";
-    }
-
-    @PostMapping("todo/board/update")
-    public String updateBoard(Board board){
-        boardService.updateBoard(board);
 
         return "redirect:/todo/board";
     }
