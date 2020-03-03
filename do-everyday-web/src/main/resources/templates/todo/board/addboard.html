@@ -16,6 +16,8 @@
     <div class="form-group">
         <label for="bord-name" >Board name</label>
         <input id="bord-name" type="text" class="form-control" name="bord-name" th:field="*{name}">
+        <label>Color in HEX</label>
+        <input type="text" class="form-control" th:field="*{colorHex}">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

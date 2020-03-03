@@ -1,6 +1,6 @@
-INSERT INTO board (name, color_name) values ('Home', 'blue');
-INSERT INTO board (name, color_name) values ('Studies', 'red');
-INSERT INTO board (name, color_name) values ('Shopping list', 'blue');
+INSERT INTO board (name, color_hex) values ('Home', '#282828');
+INSERT INTO board (name, color_hex) values ('Studies', '#282828');
+INSERT INTO board (name, color_hex) values ('Shopping list', '#7F0000');
 
 
 INSERT INTO task (name, description, board_id) values ('Clean room', 'mum will be angry when you dont do this', 1);

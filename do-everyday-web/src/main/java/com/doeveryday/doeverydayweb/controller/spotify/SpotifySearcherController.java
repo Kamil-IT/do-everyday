@@ -20,9 +20,6 @@ public class SpotifySearcherController {
     public String initAllTypesSearch(Model model,
                                      @RequestParam(name = "name", required = false) String name,
                                      @RequestParam(name = "limit", required = false) Integer limit) {
-        if (name != null){
-            log.error(name);
-        }
         SpotifyAllTypes searchResult;
         if (name != null && limit != null) {
             if (name.length() == 0){
