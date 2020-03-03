@@ -30,7 +30,7 @@
                     </div>
                 </li>
                     <div th:each="task : ${board.getTasks()}">
-                        <li class="list-group-item">
+                        <li class="list-group-item" th:if="${not task.getTaskManager().isDone()}">
                             <a th:href="'board/task/' + ${task.getId()} + '/edit'">
                                 <button type="button" class="btn btn-outline-dark btn-sm" style="float: right;">Edit</button>
                             </a>
@@ -60,6 +60,9 @@
                 </a>
         </div>
 <!--        End Button to add new task and board-->
+        <a th:href="'board/archived'">
+            <button type="button" class="btn btn-primary btn-lg btn-block" style="background-color: #282828 !important;border-color: #282828 !important; margin-top: 15px;">Show done tasks</button>
+        </a>
     </div>
 </main>
 </body>

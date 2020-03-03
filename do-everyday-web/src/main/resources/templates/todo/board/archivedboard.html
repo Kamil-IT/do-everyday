@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Boards</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+
+<main role="main">
+    <div class="jumbotron">
+        <h1 style="text-align: center">Boards</h1>
+        <hr style="margin-bottom: 30px"/>
+        <!--        List of task-->
+        <div class="col-sm-8 mx-auto" th:each="board : ${boards}" style="margin-bottom: 10px">
+            <ul class="list-group">
+                <li class="list-group-item active"
+                    th:style="'background-color: ' + ${board.getColorHex()} + '!important;' +  'border-color: ' + ${board.getColorHex()} + '!important;'">
+                    <a th:href="${board.getId()} + '/edit'">
+                        <button type="button" class="btn btn-outline-light btn-sm" style="float: right;">Edit</button>
+                    </a>
+                    <div th:text="${board.getName()}">
+                        Task name
+                    </div>
+                </li>
+                <div th:each="task : ${board.getTasks()}">
+                    <li class="list-group-item" th:if="${task.getTaskManager().isDone()}">
+                        <a th:href="'task/' + ${task.getId()} + '/edit'">
+                            <button type="button" class="btn btn-outline-dark btn-sm" style="float: right;">Edit
+                            </button>
+                        </a>
+                        <form th:action="'task/' + ${task.getId()} + '/donechange'" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm" style="float: right; margin-right: 5px">
+                                Undone
+                            </button>
+                        </form>
+                        <div th:text="${task.getName()}">
+                            Task name
+                        </div>
+                        <div class="small" th:text="${task.getDescription()}">
+                            Task description
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <!--        End List of task-->
+        <a th:href="@{'/todo/board'}">
+            <button type="button" class="btn btn-primary btn-lg btn-block" style="background-color: #282828 !important;border-color: #282828 !important;margin-top: 15px;">Show not done tasks</button>
+        </a>
+    </div>
+</main>
+</body>
+</html>

@@ -29,6 +29,12 @@ public class BoardController {
         return "todo/board/index";
     }
 
+    @GetMapping("todo/board/archived")
+    public String showArchivedBoards(Model model){
+        model.addAttribute("boards", boardService.getBoards());
+        return "todo/board/archivedboard";
+    }
+
     @GetMapping("todo/board/add")
     public String initAddBoard(Model model){
         model.addAttribute("board", new Board());
