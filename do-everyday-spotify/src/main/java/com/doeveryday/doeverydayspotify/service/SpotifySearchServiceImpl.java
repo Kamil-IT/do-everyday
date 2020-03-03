@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydayspotify.service;
 
+import com.doeveryday.doeverydayspotify.exception.EmptyStringException;
 import com.doeveryday.doeverydayspotify.exception.SpotifyApiException;
 import com.doeveryday.doeverydayspotify.model.SpotifyAllTypes;
 import com.wrapper.spotify.SpotifyApi;
@@ -16,6 +17,11 @@ public class SpotifySearchServiceImpl implements SpotifySearchService{
     private final SpotifyApi spotifyApi;
 
     public SpotifyAllTypes spotifyAllTypesByName(String name){
+        if (name == null){
+            throw new NullPointerException("Name cannot be null ");
+        } else if (name.length() == 0){
+            throw new EmptyStringException("Name cannot be empty");
+        }
         SpotifyAllTypes spotifyAllTypes = new SpotifyAllTypes();
         try {
             spotifyAllTypes.setAlbumSimplifieds(spotifyApi.searchAlbums(name).build().execute().getItems());
@@ -29,6 +35,9 @@ public class SpotifySearchServiceImpl implements SpotifySearchService{
     }
 
     public SpotifyAllTypes spotifyAllTypesByName(String name, Integer limit){
+        if (name == null || limit == null){
+            throw new NullPointerException("Name and limit cannot be null ");
+        }
         SpotifyAllTypes spotifyAllTypes = new SpotifyAllTypes();
         try {
             spotifyAllTypes.setAlbumSimplifieds(spotifyApi.searchAlbums(name).limit(limit).build().execute().getItems());

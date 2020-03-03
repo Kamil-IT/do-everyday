@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Boards</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<main role="main">
+    <div class="jumbotron">
+        <img th:src="@{/resources/spotify/images/logo/Spotify_Logo_RGB_Green.png}"
+             class="rounded mx-auto d-block"
+             alt="Spotify icon"
+             style="margin-bottom: 10px;width:60vw;height: 35vh;">
+
+
+        <div class="row justify-content-center" style="margin-bottom: 15px">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form class="card card-sm">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless"
+                                   placeholder="Search tracks, albums, artists..." type="search" name="name">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit">Search</button>
+                        </div>
+                        <!--end of col-->
+                    </div>
+                </form>
+            </div>
+            <!--end of col-->
+        </div>
+
+        <!--        Result searching-->
+        <table class="table" style="margin: auto;width: 80% !important; "
+               th:if="${not #lists.isEmpty(artists) || #lists.isEmpty(albums) || #lists.isEmpty(tracks)}">
+
+            <!--            Artists-->
+            <div th:if="${not #lists.isEmpty(artists)}">
+                <thead style="color: white; background-color: #1DB954;border-color:#1DB954;">
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <div class="font-weight-bold">Artists</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Name(link to Spotify)</th>
+                    <th scope="col">Followers</th>
+                    <th scope="col">Popularity(0-100)</th>
+                    <th scope="col">Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="artist : ${artists}">
+                    <td>
+                        <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">
+                            <div th:text="${artist.getName()}">Artist name</div>
+                        </a>
+                    </td>
+                    <td th:text="${artist.getFollowers().getTotal()}">Count followers</td>
+                    <td th:text="${artist.getPopularity().toString()}">Popularity</td>
+                    <td>
+                        <a th:href="'spotify/artist/' + ${artist.getId()}">
+                            <button type="button" class="btn btn-outline-success btn-sm" style="float: right">
+                                Details(Not implemented yet)
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+            <!--            End artists-->
+            <!--            Tracks-->
+            <div th:if="${not #lists.isEmpty(tracks)}">
+                <thead style="color: white; background-color: #1DB954;border-color:#1DB954;">
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <div class="font-weight-bold">Tracks</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Preview song</th>
+                    <th scope="col">Album</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="track : ${tracks}">
+                    <td th:text="${track.getName()}">Track name</td>
+                    <td>
+                        <a th:href="@{${track.getPreviewUrl()}}">Preview song</a>
+                    </td>
+                    <td>
+                        <a th:href="@{'https://open.spotify.com/album/' + ${track.getAlbum().getId()}}">
+                            <div th:text="${track.getAlbum().getName()}">
+                                Album name
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'spotify/artist/' + ${track.getId()}}">
+                            <button type="button" class="btn btn-outline-success btn-sm" style="float: right">
+                                Details(Not implemented yet)
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+            <!--            End tracks-->
+            <!--            Albums-->
+            <div th:if="${not #lists.isEmpty(albums)}">
+                <thead style="color: white; background-color: #1DB954;border-color:#1DB954;">
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <div class="font-weight-bold">Albums</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Artists</th>
+                    <th scope="col">Release date</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="album : ${albums}">
+                    <td>
+                        <a th:href="@{'https://open.spotify.com/album/' + ${album.getId()}}">
+                            <div th:text="${album.getName()}">Album name</div>
+                        </a>
+                    </td>
+                    <td>
+                        <div th:each="artist : ${album.getArtists()}">
+                            <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">
+                                <div th:text="${artist.getName()}">
+                                    Artist
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td th:text="${album.getReleaseDate()}">Release date</td>
+                    <td>
+                        <a th:href="'todo/album/' + ${album.getId()}">
+                            <button type="button" class="btn btn-outline-success btn-sm" style="float: right">
+                                Details(Not implemented yet)
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+            <!--            End albums-->
+        </table>
+
+
+    </div>
+</main>
+
+
+<style>
+    .form-control-borderless {
+        border: none;
+    }
+
+    .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+</style>
+
+</body>
+</html>
