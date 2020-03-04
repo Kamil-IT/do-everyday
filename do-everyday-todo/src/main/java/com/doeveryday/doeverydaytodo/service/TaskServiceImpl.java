@@ -25,10 +25,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task saveTask(Task task) {
         task.setCreateDate(new Date());
-        if (task.getTaskManager() == null){
-            task.setTaskManager(new TaskManager());
+        Task taskSaved = taskRepository.save(task);
+        if (taskSaved.getTaskManager() == null){
+            TaskManager taskManager = new TaskManager();
+            taskManager.setTask(taskSaved);
+            task.setTaskManager(taskManager);
         }
-        return taskRepository.save(task);
+        return taskRepository.save(taskSaved);
     }
 
     @Override
