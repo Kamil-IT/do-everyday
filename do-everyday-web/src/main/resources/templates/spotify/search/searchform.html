@@ -56,6 +56,7 @@
                     </td>
                 </tr>
                 <tr>
+                    <th scope="col">Photo</th>
                     <th scope="col">Name(link to Spotify)</th>
                     <th scope="col">Followers</th>
                     <th scope="col">Popularity(0-100)</th>
@@ -64,6 +65,11 @@
                 </thead>
                 <tbody>
                 <tr th:each="artist : ${artists}">
+                    <td>
+                        <div th:if="${not #lists.isEmpty(artist.getImages())}">
+                            <img th:src="@{${artist?.getImages()[0]?.getUrl()}}" width="70" height="70">
+                        </div>
+                    </td>
                     <td>
                         <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">
                             <div th:text="${artist.getName()}">Artist name</div>
@@ -91,6 +97,7 @@
                     </td>
                 </tr>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">Name</th>
                     <th scope="col">Preview song</th>
                     <th scope="col">Album</th>
@@ -99,6 +106,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="track : ${tracks}">
+                    <td></td>
                     <td th:text="${track.getName()}">Track name</td>
                     <td>
                         <a th:href="@{${track.getPreviewUrl()}}">Preview song</a>
@@ -130,6 +138,7 @@
                     </td>
                 </tr>
                 <tr>
+                    <th scope="col">Photo</th>
                     <th scope="col">Name</th>
                     <th scope="col">Artists</th>
                     <th scope="col">Release date</th>
@@ -138,6 +147,11 @@
                 </thead>
                 <tbody>
                 <tr th:each="album : ${albums}">
+                    <td>
+                        <div th:if="${not #lists.isEmpty(album.getImages())}">
+                            <img th:src="@{${album?.getImages()[0]?.getUrl()}}" width="70" height="70">
+                        </div>
+                    </td>
                     <td>
                         <a th:href="@{'https://open.spotify.com/album/' + ${album.getId()}}">
                             <div th:text="${album.getName()}">Album name</div>
