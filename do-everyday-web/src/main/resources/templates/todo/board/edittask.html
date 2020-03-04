@@ -26,6 +26,15 @@
         <label>Task description</label>
         <input type="text" class="form-control" th:field="*{description}">
     </div>
+<!--    TODO: implement it-->
+<!--    <select class="form-control" th:field="*{currency}">-->
+<!--        &lt;!&ndash;/*@thymesVar id="currency" type="com.doeveryday.doeverydaybudgetmanager.model.Currency"*/&ndash;&gt;-->
+<!--        <option th:each="currency : ${T(com.doeveryday.doeverydaybudgetmanager.model.Currency).values()}"-->
+<!--                th:value="${currency.name()}"-->
+<!--                th:text="${currency.name()}"-->
+<!--        >val-->
+<!--        </option>-->
+<!--    </select>-->
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

@@ -21,6 +21,7 @@ public class TaskServiceImpl implements TaskService {
 
     public final TaskRepository taskRepository;
     public final BoardRepository boardRepository;
+    public final TaskManagerService taskManagerService;
 
     @Override
     public Task saveTask(Task task) {
@@ -30,8 +31,14 @@ public class TaskServiceImpl implements TaskService {
             TaskManager taskManager = new TaskManager();
             taskManager.setTask(taskSaved);
             task.setTaskManager(taskManager);
+            taskRepository.save(taskSaved);
         }
-        return taskRepository.save(taskSaved);
+        else {
+            TaskManager taskManager = taskSaved.getTaskManager();
+            taskManager.setTask(taskSaved);
+            taskManagerService.saveTaskManager(taskManager);
+        }
+        return taskSaved;
     }
 
     @Override

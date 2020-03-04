@@ -28,7 +28,9 @@ public class TaskController {
         if (!boardService.existsById(idBoard)){
             throw new NotFoundException("Not found board with id: " + idBoard);
         }
-        model.addAttribute("task", new Task());
+        Task task = new Task();
+        task.setTaskManager(new TaskManager());
+        model.addAttribute("task", task);
         model.addAttribute("boardId", idBoard);
 
         return "todo/board/addtask";

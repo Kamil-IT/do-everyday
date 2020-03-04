@@ -23,6 +23,13 @@
         <label>Task description</label>
         <input type="text" class="form-control" th:field="*{description}">
     </div>
+    <select class="form-control" th:field="*{taskManager.priority}">
+        <option th:each="currency : ${T(com.doeveryday.doeverydaytodo.models.Priority).values()}"
+                th:value="${currency.name()}"
+                th:text="${currency.name()}"
+        >val
+        </option>
+    </select>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
