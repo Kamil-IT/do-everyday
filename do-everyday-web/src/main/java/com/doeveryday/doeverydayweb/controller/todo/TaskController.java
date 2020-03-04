@@ -44,8 +44,9 @@ public class TaskController {
     }
 
     @PostMapping("todo/board/{idBoard}/task")
-    public String addAndUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
+    public String addOrUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
         task.setBoard(boardService.findById(idBoard));
+        task.getTaskManager().setDone(taskService.findById(task.getId()).getTaskManager().isDone());
         if (task.getId() == null){
             taskService.saveTask(task);
         }
