@@ -30,7 +30,7 @@
                     </div>
                 </li>
                     <div th:each="task : ${board.getTasks()}">
-                        <li class="list-group-item" th:if="${not task.getTaskManager().isDone()}">
+                        <li th:class="'list-group-item ' + ${task.getTaskManager().getPriority().label}" th:if="${not task.getTaskManager().isDone()}">
                             <a th:href="'board/task/' + ${task.getId()} + '/edit'">
                                 <button type="button" class="btn btn-outline-dark btn-sm" style="float: right;">Edit</button>
                             </a>

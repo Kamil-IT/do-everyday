@@ -9,11 +9,11 @@ INSERT INTO task (name, description, board_id) values ('Milk', '0,5L', 3);
 INSERT INTO task (name, description, board_id) values ('Bread', '2', 3);
 INSERT INTO task (name, description, board_id) values ('Chicken', '1kg', 3);
 
-INSERT INTO task_manager (priority, task_id, is_done) values (0, 1, FALSE);
-INSERT INTO task_manager (priority, task_id, is_done) values (0, 2, FALSE);
+INSERT INTO task_manager (priority, task_id, is_done) values (2, 1, FALSE);
+INSERT INTO task_manager (priority, task_id, is_done) values (3, 2, FALSE);
 INSERT INTO task_manager (priority, task_id, is_done) values (0, 3, FALSE);
 INSERT INTO task_manager (priority, task_id, is_done) values (0, 4, FALSE);
-INSERT INTO task_manager (priority, task_id, is_done) values (0, 5, FALSE);
+INSERT INTO task_manager (priority, task_id, is_done) values (1, 5, FALSE);
 INSERT INTO task_manager (priority, task_id, is_done) values (0, 6, FALSE);
 
 INSERT INTO task_member (name, surname) values ('Krzysztof', 'Kowalski');

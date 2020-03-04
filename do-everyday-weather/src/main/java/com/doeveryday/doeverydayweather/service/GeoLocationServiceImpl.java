@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydayweather.service;
 
+import com.byteowls.jopencage.model.JOpenCageComponents;
 import com.byteowls.jopencage.model.JOpenCageResponse;
 import com.byteowls.jopencage.model.JOpenCageResult;
 import com.doeveryday.doeverydayweather.exceptions.NotFoundException;
@@ -22,11 +23,11 @@ public class GeoLocationServiceImpl implements GeoLocationService {
     }
 
     @Override
-    public JOpenCageResult getFirstResult() {
+    public JOpenCageComponents getFirstResult() {
         List<JOpenCageResult> results = jOpenCageResponse.getResults();
         if (results.isEmpty()){
             throw new NotFoundException("Not found location: " + jOpenCageResponse.getStatus());
         }
-        return results.get(0);
+        return results.get(0).getComponents();
     }
 }

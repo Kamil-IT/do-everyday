@@ -4,6 +4,7 @@ import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
+import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +22,24 @@ public class TaskServiceImpl implements TaskService {
 
     public final TaskRepository taskRepository;
     public final BoardRepository boardRepository;
+    public final TaskManagerRepository taskManagerRepository;
 
     @Override
     public Task saveTask(Task task) {
         task.setCreateDate(new Date());
-        if (task.getTaskManager() == null){
-            task.setTaskManager(new TaskManager());
+        Task taskSaved = taskRepository.save(task);
+        if (taskSaved.getTaskManager() == null){
+            TaskManager taskManager = new TaskManager();
+            taskManager.setTask(taskSaved);
+            task.setTaskManager(taskManager);
+            taskRepository.save(taskSaved);
         }
-        return taskRepository.save(task);
+        else {
+            TaskManager taskManager = taskSaved.getTaskManager();
+            taskManager.setTask(taskSaved);
+            taskManagerRepository.save(taskManager);
+        }
+        return taskSaved;
     }
 
     @Override
@@ -57,7 +68,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void updateTask(Task task) {
         if (taskRepository.existsById(task.getId())){
-            taskRepository.save(task);
+            TaskManager taskManager = taskRepository.save(task).getTaskManager();
+            taskManager.setTask(task);
+            taskManagerRepository.save(taskManager);
         }
         else {
             log.error("Not found board with id: " + task.getId());

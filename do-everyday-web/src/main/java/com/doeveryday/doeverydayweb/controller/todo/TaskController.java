@@ -28,7 +28,9 @@ public class TaskController {
         if (!boardService.existsById(idBoard)){
             throw new NotFoundException("Not found board with id: " + idBoard);
         }
-        model.addAttribute("task", new Task());
+        Task task = new Task();
+        task.setTaskManager(new TaskManager());
+        model.addAttribute("task", task);
         model.addAttribute("boardId", idBoard);
 
         return "todo/board/addtask";
@@ -42,12 +44,15 @@ public class TaskController {
     }
 
     @PostMapping("todo/board/{idBoard}/task")
-    public String addAndUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
+    public String addOrUpdateTask(@PathVariable("idBoard") Long idBoard, Task task){
         task.setBoard(boardService.findById(idBoard));
+        task.getTaskManager().setDone(taskService.findById(task.getId()).getTaskManager().isDone());
         if (task.getId() == null){
             taskService.saveTask(task);
         }
         else {
+            Long taskManagerId = taskService.findById(task.getId()).getTaskManager().getId();
+            task.getTaskManager().setId(taskManagerId);
             taskService.updateTask(task);
         }
 
