@@ -15,6 +15,7 @@ public class CurrentWeatherController {
     @GetMapping(value = {"weather/current", "weather"})
     public String getCurrentWeather(Model model){
         model.addAttribute("current", forecastService.getCurrentWeather());
+        model.addAttribute("geolocation", forecastService.getGeoLocation());
 
         return "weather/current";
     }

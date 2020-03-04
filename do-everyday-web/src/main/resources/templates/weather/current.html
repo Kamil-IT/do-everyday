@@ -27,7 +27,7 @@
                     <div id="" class="col-8 mx-auto weather">
                         <!-- weather header section -->
                         <div class="weather-head">
-                            <h1 id="location" class="text-center display-4">Wrocław, PL</h1>
+                            <h1 id="location" class="text-center display-4" th:text="${geolocation.longitude()} + ', ' + ${geolocation.latitude()}">Longitude, latitude</h1>
                             <div class="row">
                                 <div id="description" class="description col-6 text-center">
                                     <i id="icon-desc" class="wi wi-owm-200"></i>

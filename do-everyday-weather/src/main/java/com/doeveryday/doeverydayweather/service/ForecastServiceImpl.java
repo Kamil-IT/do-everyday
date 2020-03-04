@@ -2,6 +2,7 @@ package com.doeveryday.doeverydayweather.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import tk.plogitech.darksky.forecast.GeoCoordinates;
 import tk.plogitech.darksky.forecast.model.Currently;
 import tk.plogitech.darksky.forecast.model.Daily;
 import tk.plogitech.darksky.forecast.model.Forecast;
@@ -23,5 +24,9 @@ public class ForecastServiceImpl implements ForecastService {
 
     public Daily getDailyForecast(){
         return forecast.getDaily();
+    }
+
+    public GeoCoordinates getGeoLocation(){
+        return new GeoCoordinates(forecast.getLongitude(), forecast.getLatitude());
     }
 }
