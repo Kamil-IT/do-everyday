@@ -50,6 +50,8 @@ public class TaskController {
             taskService.saveTask(task);
         }
         else {
+            Long taskManagerId = taskService.findById(task.getId()).getTaskManager().getId();
+            task.getTaskManager().setId(taskManagerId);
             taskService.updateTask(task);
         }
 
