@@ -21,7 +21,7 @@
                             Oops!</h1>
                         <h2>
                             404 Not Found</h2>
-                        <div class="error-details">
+                        <div class="error-details" th:text="${expectation?.getMessage()}">
                             Sorry, an error has occured, Requested page not found!
                         </div>
                         <div class="error-actions">
