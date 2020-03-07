@@ -1,9 +1,9 @@
 package com.doeveryday.doeverydayspotify.config;
 
+import com.doeveryday.doeverydayspotify.exception.SpotifyApiException;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
-import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +44,7 @@ public class SpotifyApiConfiguration {
         } catch (IOException | SpotifyWebApiException e) {
             log.error(e.getMessage());
             e.printStackTrace();
-            return spotifyApi;
+            throw new SpotifyApiException(e.getMessage());
         }
     }
 }
