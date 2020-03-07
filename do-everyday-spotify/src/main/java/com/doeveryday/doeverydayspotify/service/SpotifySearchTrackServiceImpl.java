@@ -40,4 +40,13 @@ public class SpotifySearchTrackServiceImpl implements SpotifySearchTrackService 
         return tracks;
     }
 
+    @Override
+    public Track getTrackById(String id) {
+        try {
+            return spotifyApi.getTrack(id).build().execute();
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new SpotifyApiException("HTTP status code 4** or 5** has been returned in a request");
+        }
+    }
+
 }

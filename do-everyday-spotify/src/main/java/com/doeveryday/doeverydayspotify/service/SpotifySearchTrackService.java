@@ -9,4 +9,6 @@ public interface SpotifySearchTrackService {
     List<Track> getTracksByName(String name);
 
     List<Track> getTracksByName(String name, Integer limit);
+
+    Track getTrackById(String id);
 }

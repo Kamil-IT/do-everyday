@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Track details</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<main role="main">
+    <div class="jumbotron">
+        <h1 style="text-align: center; color: #1DB954">
+            <img th:src="@{/resources/spotify/images/icon/Spotify_Icon_RGB_Green.png}" width="50px" height="50px">
+            Track Details
+        </h1>
+        <table class="table" style="margin: auto;width: 80% !important; ">
+            <tbody>
+            <tr>
+                <td>Name</td>
+                <td th:text="${track.getName()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td th:text="${track.getId()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Album</td>
+                <td th:text="${track.getAlbum().getName()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Popularity</td>
+                <td th:text="${track.getPopularity()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Artists</td>
+                <td th:each="artist : ${artists}">
+                    <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">
+                        <div th:text="${artist.getName()}">
+                            Artist name
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Spotify Url</td>
+                <td>
+                    <a th:href="@{'https://open.spotify.com/track/' + ${track.getId()}}">
+                        <div th:text="'https://open.spotify.com/track/' + ${track.getId()}">
+                            Track url
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+</body>
+</html>
