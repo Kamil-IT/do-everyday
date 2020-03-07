@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Artist details</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<main role="main">
+    <div class="jumbotron">
+        <h1 style="text-align: center; color: #1DB954">
+            <img th:src="@{/resources/spotify/images/icon/Spotify_Icon_RGB_Green.png}" width="50px" height="50px">
+            Artist Details
+        </h1>
+        <div th:if="${not #lists.isEmpty(artist.getImages())}">
+            <img th:src="@{${artist?.getImages()[0]?.getUrl()}}" width="300" height="300" style="display: block;margin-left: auto;margin-right: auto;">
+        </div>
+        <table class="table" style="margin: auto;width: 80% !important; ">
+            <tbody>
+            <tr>
+                <td>Name</td>
+                <td th:text="${artist?.getName()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td th:text="${artist.getId()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Followers</td>
+                <td th:text="${artist?.getFollowers()?.getTotal()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Popularity</td>
+                <td th:text="${artist?.getPopularity()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Spotify Url</td>
+                <td>
+                    <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">
+                        <div th:text="'https://open.spotify.com/artist/' + ${artist.getId()}">
+                            Artist url
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+</body>
+</html>

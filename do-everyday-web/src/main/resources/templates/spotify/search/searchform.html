@@ -78,9 +78,9 @@
                     <td th:text="${artist.getFollowers().getTotal()}">Count followers</td>
                     <td th:text="${artist.getPopularity().toString()}">Popularity</td>
                     <td>
-                        <a th:href="'spotify/artist/' + ${artist.getId()}">
+                        <a th:href="'artist/' + ${artist.getId()} + '/details'">
                             <button type="button" class="btn btn-outline-success btn-sm" style="float: right">
-                                Details(Not implemented yet)
+                                Details
                             </button>
                         </a>
                     </td>

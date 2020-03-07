@@ -9,4 +9,6 @@ public interface SpotifySearchArtistService {
     List<Artist> getArtistByName(String name);
 
     List<Artist> getArtistByName(String name, Integer limit);
+
+    Artist getArtistById(String id);
 }

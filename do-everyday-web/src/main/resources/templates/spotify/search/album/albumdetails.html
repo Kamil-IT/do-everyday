@@ -18,7 +18,9 @@
             <img th:src="@{/resources/spotify/images/icon/Spotify_Icon_RGB_Green.png}" width="50px" height="50px">
             Album Details
         </h1>
-        <img th:src="@{${album?.getImages()[0]?.getUrl()}}" width="300" height="300" style="display: block;margin-left: auto;margin-right: auto;">
+        <div th:if="${not #lists.isEmpty(album.getImages())}">
+            <img th:src="@{${album?.getImages()[0]?.getUrl()}}" width="300" height="300" style="display: block;margin-left: auto;margin-right: auto;">
+        </div>
         <table class="table" style="margin: auto;width: 80% !important; ">
             <tbody>
             <tr>
@@ -45,7 +47,7 @@
                 <td>Artists</td>
                 <td>
                     <div th:each="artist : ${artists}">
-                        <a th:href="@{'https://open.spotify.com/track/' + ${artist.getId()}}">
+                        <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">
                             <div th:text="${artist.getName()}">
                                 Artist name
                             </div>
