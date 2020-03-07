@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @AllArgsConstructor
 @ControllerAdvice
-public class ControllerSpotifyExceptionsHandler {
+public class SpotifyExceptionsHandlerController {
 
     private ErrorPagesController errorPagesController;
 
