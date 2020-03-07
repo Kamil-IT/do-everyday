@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydayweb.controller.spotify;
 
 import com.doeveryday.doeverydayspotify.service.SpotifySearchTrackService;
-import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Track;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +22,6 @@ public class TrackController {
     public String getTrackDetails(Model model, @PathVariable("id") String id){
         Track track = spotifySearchTrackService.getTrackById(id);
         model.addAttribute("track", track);
-        for (ArtistSimplified artist: track.getArtists()){
-            log.error(artist.getName());
-            log.error(artist.getHref());
-        }
         model.addAttribute("artists", Arrays.asList(track.getArtists()));
         return "spotify/search/track/trackdetails";
     }
