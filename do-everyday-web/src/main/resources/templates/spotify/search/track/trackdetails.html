@@ -37,6 +37,10 @@
                 <td th:text="${track.getPopularity()}">Property value</td>
             </tr>
             <tr>
+                <td>Duration(ms)</td>
+                <td th:text="${track.getDurationMs()}">Property value</td>
+            </tr>
+            <tr>
                 <td>Artists</td>
                 <td th:each="artist : ${artists}">
                     <a th:href="@{'https://open.spotify.com/artist/' + ${artist.getId()}}">

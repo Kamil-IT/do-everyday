@@ -168,9 +168,9 @@
                     </td>
                     <td th:text="${album.getReleaseDate()}">Release date</td>
                     <td>
-                        <a th:href="'todo/album/' + ${album.getId()}">
+                        <a th:href="'album/' + ${album.getId()} + '/details'">
                             <button type="button" class="btn btn-outline-success btn-sm" style="float: right">
-                                Details(Not implemented yet)
+                                Details
                             </button>
                         </a>
                     </td>

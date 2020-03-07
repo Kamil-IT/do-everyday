@@ -3,8 +3,8 @@ package com.doeveryday.doeverydayspotify.service;
 import com.doeveryday.doeverydayspotify.exception.SpotifyApiException;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.specification.Album;
 import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
-import com.wrapper.spotify.model_objects.specification.Track;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +39,14 @@ public class SpotifySearchAlbumServiceImpl implements SpotifySearchAlbumService{
             throw new SpotifyApiException("HTTP status code 4** or 5** has been returned in a request");
         }
         return albums;
+    }
+
+    @Override
+    public Album getAlbumById(String id) {
+        try {
+            return spotifyApi.getAlbum(id).build().execute();
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new SpotifyApiException("HTTP status code 4** or 5** has been returned in a request");
+        }
     }
 }
