@@ -12,4 +12,6 @@ public class HandlerWhitelabelErrorPage implements ErrorController {
     public String getErrorPath() {
         return "/error/notfoundpage";
     }
+
+
 }
