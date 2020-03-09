@@ -1,8 +1,6 @@
 package com.doeveryday.doeverydayweb.controller.budgetmanager;
 
-import com.doeveryday.doeverydaybudgetmanager.model.Budget;
-import com.doeveryday.doeverydaybudgetmanager.model.Transaction;
-import com.doeveryday.doeverydaybudgetmanager.pdfgenerator.PdfGenerator;
+import com.doeveryday.doeverydaybudgetmanager.pdfgenerator.PdfBudgetGenerator;
 import com.doeveryday.doeverydaybudgetmanager.service.BudgetService;
 import com.itextpdf.text.DocumentException;
 import lombok.extern.slf4j.Slf4j;
@@ -10,49 +8,40 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Slf4j
 @Controller
 public class BudgetManagerPdfController {
 
     private final BudgetService budgetService;
-    private List<String> header;
+    private final String BALANCE_FILE_NAME = "balance.pdf";
 
     public BudgetManagerPdfController(BudgetService budgetService) {
         this.budgetService = budgetService;
-        header =  new ArrayList<>();
-        header.add("Description");
-        header.add("Date");
-        header.add("value");
     }
 
     @GetMapping("budgetmanager/budget/{id}/pdfdocumentation")
-    public String getPfdBudget(@PathVariable("id") Long budgetId) throws IOException, DocumentException {
-        Budget budget = budgetService.findById(budgetId);
+    public String getPfdBudget(HttpServletResponse response,
+                               @PathVariable("id") Long budgetId) throws IOException, DocumentException {
+        PdfBudgetGenerator pdfBudgetGenerator = new PdfBudgetGenerator(BALANCE_FILE_NAME);
+        pdfBudgetGenerator.generatePdfFile(budgetService.findById(budgetId));
 
-        PdfGenerator pdfGenerator = new PdfGenerator("balance.pdf");
-
-        pdfGenerator.setTitle("Balance for " + budget.getName());
-        List<String> rows = new ArrayList<>();
-        for (Transaction transaction:
-             budget.getTransaction()) {
-            rows.add(transaction.getDescription());
-            if (transaction.getDate() != null){
-                rows.add(transaction.getDate().toString());
+        Path file = Paths.get(BALANCE_FILE_NAME);
+        if (Files.exists(file)) {
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" + BALANCE_FILE_NAME);
+            try {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            else {
-                rows.add("null");
-            }
-
-            rows.add(transaction.getValue().toString() + transaction.getCurrency());
-
         }
-        pdfGenerator.addTable(header, rows);
-
-        pdfGenerator.closeAndSaveDocument();
 
         return "redirect:/budgetmanager";
     }

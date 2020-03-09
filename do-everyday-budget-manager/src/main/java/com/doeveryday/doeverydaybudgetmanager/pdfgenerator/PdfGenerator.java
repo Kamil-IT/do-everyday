@@ -20,32 +20,39 @@ public class PdfGenerator {
     private Font font;
     private Font fontTitle;
     private FileOutputStream os;
+    private String fileName;
 
     public PdfGenerator() throws DocumentException, IOException {
+        fileName = "fileName.pdf";
         document = new Document();
-        os = new FileOutputStream("fileName.pdf");
+        os = new FileOutputStream(fileName);
         PdfWriter.getInstance(document, os);
         document.open();
 
 //        Set basic info about document
-        font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 16, BaseColor.BLACK);
-        fontTitle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, BaseColor.BLACK);
+        setDefaultFonts();
 
         closeAndSaveDocument();
     }
 
     public PdfGenerator(String fileName) throws DocumentException, FileNotFoundException {
+        this.fileName = fileName;
         document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream(fileName));
         document.open();
 
 //        Set basic info about document
-        font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 16, BaseColor.BLACK);
+        setDefaultFonts();
     }
 
     public void closeAndSaveDocument() throws IOException {
         document.close();
 //        os.close();
+    }
+
+    private void setDefaultFonts(){
+        font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 16, BaseColor.BLACK);
+        fontTitle = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, BaseColor.BLACK);
     }
 
     public void addTextToDocument(String text) throws DocumentException {
@@ -62,12 +69,14 @@ public class PdfGenerator {
 
     private void addTableHeader(PdfPTable table, List<String> headers) {
         headers.forEach(columnTitle -> {
-                    PdfPCell header = new PdfPCell();
-                    header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    header.setBorderWidth(2);
-                    header.setPhrase(new Phrase(columnTitle));
-                    table.addCell(header);
-                });
+            PdfPCell header = new PdfPCell();
+            header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            header.setBorderWidth(2);
+            Phrase phrase = new Phrase(columnTitle);
+            phrase.setFont(fontTitle);
+            header.setPhrase(phrase);
+            table.addCell(header);
+        });
     }
 
     private void addRows(PdfPTable table, List<String> rows) {
@@ -80,14 +89,41 @@ public class PdfGenerator {
     public void setTitle(String title) throws DocumentException {
         document.addTitle(title);
 
-        Chunk titleChunk = new Chunk(title, font);
+        Chunk titleChunk = new Chunk(title, fontTitle);
 
         Phrase phrase = new Phrase();
-        phrase.add(title);
+        phrase.add(titleChunk);
 
         Paragraph para = new Paragraph();
         para.add(phrase);
         para.setAlignment(Element.ALIGN_CENTER);
+
+        document.add(para);
+        document.add(new Chunk());
+    }
+
+    public void generateNewDocument(String fileName) throws FileNotFoundException, DocumentException {
+        this.fileName = fileName;
+        document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        document.open();
+    }
+
+    public void generateNewDocument() throws FileNotFoundException, DocumentException {
+        document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        document.open();
+    }
+
+    public void addSummary(double summary) throws DocumentException {
+        Chunk chunk = new Chunk("Summary: " + summary, font);
+
+        Phrase phrase = new Phrase();
+        phrase.add(chunk);
+
+        Paragraph para = new Paragraph();
+        para.add(phrase);
+        para.setAlignment(Element.ALIGN_RIGHT);
 
         document.add(para);
         document.add(new Chunk());
