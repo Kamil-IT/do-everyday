@@ -12,14 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ErrorPagesController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @RequestMapping("/error/notfoundpage")
-    public ModelAndView handleErrorPageNotFound(Exception e) {
-        log.error("Page not found. " + e.getMessage());
-        e.printStackTrace();
+    @RequestMapping("/error")
+    public ModelAndView handleErrorPageNotFound() {
+        log.error("Page not found");
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error404");
-        modelAndView.addObject("exception", e.getMessage());
+        modelAndView.addObject("exception", "Page not found");
         modelAndView.setStatus(HttpStatus.NOT_FOUND);
 
         return modelAndView;

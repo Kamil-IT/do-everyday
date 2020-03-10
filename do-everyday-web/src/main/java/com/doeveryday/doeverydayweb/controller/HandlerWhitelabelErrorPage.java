@@ -10,7 +10,7 @@ public class HandlerWhitelabelErrorPage implements ErrorController {
 
     @Override
     public String getErrorPath() {
-        return "/error/notfoundpage";
+        return "/error";
     }
 
 
