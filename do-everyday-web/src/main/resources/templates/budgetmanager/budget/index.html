@@ -30,6 +30,11 @@
                                 Edit
                             </button>
                         </a>
+                        <a th:href="'budget/' + ${budget.getId()} + '/pdfdocumentation'">
+                            <button type="button" class="btn btn-info btn-sm" style="float: right">
+                                Generate pdf documentation
+                            </button>
+                        </a>
                         <div th:text="${budget.getName()}" class="font-weight-bold" >Budget name</div>
                     </td>
                 </tr>
