@@ -26,7 +26,7 @@ public class BudgetManagerPdfController {
     }
 
     @GetMapping("budgetmanager/budget/{id}/pdfdocumentation")
-    public String getPfdBudget(HttpServletResponse response,
+    public void getPfdBudget(HttpServletResponse response,
                                @PathVariable("id") Long budgetId) throws IOException, DocumentException {
         PdfBudgetGenerator pdfBudgetGenerator = new PdfBudgetGenerator(BALANCE_FILE_NAME);
         pdfBudgetGenerator.generatePdfFile(budgetService.findById(budgetId));
@@ -42,7 +42,5 @@ public class BudgetManagerPdfController {
                 ex.printStackTrace();
             }
         }
-
-        return "redirect:/budgetmanager";
     }
 }

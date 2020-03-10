@@ -115,8 +115,22 @@ public class PdfGenerator {
         document.open();
     }
 
-    public void addSummary(double summary) throws DocumentException {
-        Chunk chunk = new Chunk("Summary: " + summary, font);
+    public void addSummary() throws DocumentException {
+        Chunk chunk = new Chunk("Summary: ", font);
+
+        Phrase phrase = new Phrase();
+        phrase.add(chunk);
+
+        Paragraph para = new Paragraph();
+        para.add(phrase);
+        para.setAlignment(Element.ALIGN_RIGHT);
+
+        document.add(para);
+        document.add(new Chunk());
+    }
+
+    public void addTextAlignRight(String text) throws DocumentException {
+        Chunk chunk = new Chunk(text, font);
 
         Phrase phrase = new Phrase();
         phrase.add(chunk);

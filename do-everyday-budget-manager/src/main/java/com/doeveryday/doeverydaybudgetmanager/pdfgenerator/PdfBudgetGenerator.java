@@ -1,6 +1,7 @@
 package com.doeveryday.doeverydaybudgetmanager.pdfgenerator;
 
 import com.doeveryday.doeverydaybudgetmanager.model.Budget;
+import com.doeveryday.doeverydaybudgetmanager.model.Currency;
 import com.doeveryday.doeverydaybudgetmanager.model.Transaction;
 import com.itextpdf.text.DocumentException;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Getter
@@ -30,7 +32,12 @@ public class PdfBudgetGenerator {
 
         pdfGenerator.addTable(header(), rows(budget.getTransaction()));
 
-        pdfGenerator.addSummary(summarySpendMoney(budget.getTransaction()));
+        pdfGenerator.addSummary();
+
+        pdfGenerator.addTextAlignRight(
+                buildSummaryString(
+                    summarySpendMoneyByCurrency(budget.getTransaction())
+                ));
 
         pdfGenerator.closeAndSaveDocument();
     }
@@ -62,13 +69,29 @@ public class PdfBudgetGenerator {
         return list;
     }
 
-    private double summarySpendMoney(List<Transaction> transactions){
-        double sum = 0.0;
+    private HashMap<Currency, Double> summarySpendMoneyByCurrency(List<Transaction> transactions){
+        HashMap<Currency, Double> currencyHashMap = new HashMap<>();
         for (Transaction transaction :
                 transactions) {
-            sum += transaction.getValue();
+            Currency currency = transaction.getCurrency();
+            if (currencyHashMap.containsKey(currency)){
+                currencyHashMap.put(currency, currencyHashMap.get(currency) + transaction.getValue());
+            }
+            else {
+                currencyHashMap.put(transaction.getCurrency(), transaction.getValue());
+            }
         }
-        return sum;
+        return currencyHashMap;
+    }
+
+    private String buildSummaryString(HashMap<Currency, Double> currencyValueHashMap){
+        String returnString = "";
+
+        for (Currency currency :
+                currencyValueHashMap.keySet()) {
+            returnString += currencyValueHashMap.get(currency) + currency.toString() + "\n";
+        }
+        return returnString;
     }
 
 }
