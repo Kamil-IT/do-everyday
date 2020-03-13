@@ -97,8 +97,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="col"></th>
                     <th scope="col">Name</th>
+                    <th scope="col"></th>
                     <th scope="col">Preview song</th>
                     <th scope="col">Album</th>
                     <th scope="col"></th>
@@ -106,8 +106,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="track : ${tracks}">
-                    <td></td>
                     <td th:text="${track.getName()}">Track name</td>
+                    <td></td>
                     <td>
                         <a th:href="@{${track.getPreviewUrl()}}">Preview song</a>
                     </td>
