@@ -2,15 +2,12 @@ package com.doeveryday.doeverydaybudgetmanager.service;
 
 import com.doeveryday.doeverydaybudgetmanager.exception.ExistsInDatabaseException;
 import com.doeveryday.doeverydaybudgetmanager.exception.NotFoundException;
-import com.doeveryday.doeverydaybudgetmanager.model.Budget;
 import com.doeveryday.doeverydaybudgetmanager.model.Transaction;
 import com.doeveryday.doeverydaybudgetmanager.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -75,5 +72,23 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public boolean existsById(Long id) {
         return transactionRepository.existsById(id);
+    }
+
+    @Override
+    public List<Transaction> getTransactionCreateToday() {
+        List<Transaction> list = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.setTime(new Date());
+        for (Transaction transaction :
+                transactionRepository.findAll()) {
+                calendar.setTime(transaction.getDate());
+                if (calendar.get(Calendar.YEAR) == currentDate.get(Calendar.YEAR) &&
+                        calendar.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) &&
+                        calendar.get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH)){
+                    list.add(transaction);
+                }
+        }
+        return list;
     }
 }

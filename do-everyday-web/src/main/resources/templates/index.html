@@ -7,8 +7,176 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/weathercss :: weather-css"></div>
 
-    <p>Welcome in home page</p>
+<!--        Weather-->
+<main role="main">
+    <div class="jumbotron">
+        <a href="/weather/forecast">
+            <h1 style="text-align: center; color: #282828;  text-decoration-color: #282828;">Forecast</h1>
+        </a>
+        <div class="hero">
+            <!-- weather section  -->
+            <div class="container">
+                <div class="row">
+                    <div id="" class="col-8 mx-auto weather">
+                        <!-- weather header section -->
+                        <div class="weather-head">
+                            <h1 id="location" class="text-center display-4"
+                                th:text="${location.getCity()} + ', ' + ${location.getCountry()}">City, Country</h1>
+                            <div class="row">
+                                <div id="description" class="description col-6 text-center">
+                                    <i id="icon-desc" class="wi wi-owm-200"></i>
+                                    <p class="desc" th:text="${current.getSummary()}">thunderstorm</p>
+                                </div>
+                                <div id="temperature" class="col-6 text-center"
+                                     th:text="${current.getTemperature().intValue()} + '°'">
+                                    60°
+                                </div>
+                            </div>
+                            <!-- weather body header -->
+                            <div class="weather-body">
+                                <div class="row">
+                                    <div class="humidity col-4 text-center">
+                                        <i class="wi wi-raindrop"></i><span> Humidity</span>
+                                    </div>
+                                    <div class="wind col-4 text-center">
+                                        <i class="wi wi-strong-wind"></i><span> Wind Speed</span>
+                                    </div>
+                                    <div class="visibility col-4 text-center">
+                                        <i class="fa fa-eye"></i><span> Cloud Cover</span>
+                                    </div>
+                                </div>
+                                <!-- weather body data -->
+                                <div class="row">
+                                    <div id="humidity" class="humidity-data col-4 text-center"
+                                         th:text="${current.getHumidity() + '%'}">
+                                        75%
+                                    </div>
+                                    <div id="wind" class="wind-data col-4 text-center"
+                                         th:text="${current.getWindSpeed() + 'km'}">
+                                        34km
+                                    </div>
+                                    <div id="visibility" class="degree-data col-4 text-center"
+                                         th:text="${current.getCloudCover()}">
+                                        235
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--        End Weather-->
+
+<!--        Budget-->
+<main role="main">
+    <div class="jumbotron">
+        <table class="table" style="margin: auto;width: 80% !important; ">
+            <div>
+
+                <thead style="color: white; background-color: #282828;border-color:#282828;">
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <div class="font-weight-bold" >today's transactions</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.getDescription()}">Transition description</td>
+                    <td th:text="${transaction.getValue()}">Transaction value</td>
+                    <td th:text="${transaction.getCurrency()}">Transaction currency</td>
+                    <td>
+                        <form th:action="@{'budgetmanager/budget/transaction/' + ${transaction.getId()} + '/delete/'}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm" style="float: right; margin-left: 5px">
+                                Delete
+                            </button>
+                        </form>
+                        <a th:href="'budgetmanager/budget/transaction/' + ${transaction.getId()} + '/edit'">
+                            <button type="button" class="btn btn-outline-dark btn-sm" style="float: right">
+                                Edit
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+        </table>
+    </div>
+</main>
+<!--        End Budget-->
+
+<!--        Shopping list-->
+<main role="main">
+    <div class="jumbotron">
+        <h1 style="text-align: center">Shopping list</h1>
+        <hr style="margin-bottom: 30px"/>
+        <!--        List of task-->
+        <div class="col-sm-8 mx-auto" th:each="board : ${boards}" style="margin-bottom: 10px">
+            <ul class="list-group" th:if="${board.getName() == 'Shopping list'}">
+                <li class="list-group-item active"
+                    th:style="'background-color: ' + ${board.getColorHex()} + '!important;' +  'border-color: ' + ${board.getColorHex()} + '!important;'">
+                    <div th:text="${board.getName()}">
+                        Task name
+                    </div>
+                </li>
+                <div th:each="task : ${board.getTasks()}">
+                    <li th:class="'list-group-item ' + ${task.getTaskManager().getPriority().label}"
+                        th:if="${not task.getTaskManager().isDone()}">
+                        <a th:href="'todo/board/task/' + ${task.getId()} + '/edit'">
+                            <button type="button" class="btn btn-outline-dark btn-sm" style="float: right;">Edit
+                            </button>
+                        </a>
+                        <form th:action="'todo/board/task/' + ${task.getId()} + '/donechange'" method="post">
+                            <button type="submit" class="btn btn-success btn-sm"
+                                    style="float: right; margin-right: 5px">Done
+                            </button>
+                        </form>
+                        <div th:text="${task.getName()}">
+                            Task name
+                        </div>
+                        <div class="small" th:text="${task.getDescription()}">
+                            Task description
+                        </div>
+                    </li>
+                </div>
+                <div class="d-flex justify-content-center" style="margin-top: 5px; margin-bottom: 15px">
+                    <a th:href="'todo/board/' + ${board.id} + '/task/add'">
+                        <button type="button" class="btn btn-outline-dark">Add new item</button>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</main>
+<!--        End TO DO-->
+
+<style>
+    a:hover {
+        -webkit-text-decoration-color: #282828;
+        text-decoration-color: #282828;
+    }
+
+    .form-control-borderless {
+        border: none;
+    }
+
+    .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+</style>
 
 </body>
 </html>
