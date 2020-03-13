@@ -108,8 +108,11 @@
                 <tr th:each="track : ${tracks}">
                     <td th:text="${track.getName()}">Track name</td>
                     <td></td>
-                    <td>
+                    <td th:if="${track.getPreviewUrl() != null}">
                         <a th:href="@{${track.getPreviewUrl()}}">Preview song</a>
+                    </td>
+                    <td th:if="${track.getPreviewUrl() == null}" style="color: #C6C6C6">
+                        <a>Not available</a>
                     </td>
                     <td>
                         <a th:href="@{'https://open.spotify.com/album/' + ${track.getAlbum().getId()}}">
