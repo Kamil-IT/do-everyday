@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SpotifySearcherController {
 
-    private SpotifySearchService spotifySearchService;
+    private final SpotifySearchService spotifySearchService;
     private SpotifyAllTypes searchResult;
 
     public SpotifySearcherController(SpotifySearchService spotifySearchService) {

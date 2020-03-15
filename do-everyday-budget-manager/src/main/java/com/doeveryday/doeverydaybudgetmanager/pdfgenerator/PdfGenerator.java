@@ -45,9 +45,8 @@ public class PdfGenerator {
         setDefaultFonts();
     }
 
-    public void closeAndSaveDocument() throws IOException {
+    public void closeAndSaveDocument(){
         document.close();
-//        os.close();
     }
 
     private void setDefaultFonts(){
@@ -116,17 +115,7 @@ public class PdfGenerator {
     }
 
     public void addSummary() throws DocumentException {
-        Chunk chunk = new Chunk("Summary: ", font);
-
-        Phrase phrase = new Phrase();
-        phrase.add(chunk);
-
-        Paragraph para = new Paragraph();
-        para.add(phrase);
-        para.setAlignment(Element.ALIGN_RIGHT);
-
-        document.add(para);
-        document.add(new Chunk());
+        addTextAlignRight("Summary: ");
     }
 
     public void addTextAlignRight(String text) throws DocumentException {

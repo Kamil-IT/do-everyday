@@ -31,7 +31,6 @@ public class GeoLocationConfiguration {
         request.setNoAnnotations(true);
         request.setLanguage(language);
 
-        JOpenCageResponse reverse = jOpenCageGeocoder.reverse(request);
-        return reverse;
+        return jOpenCageGeocoder.reverse(request);
     }
 }

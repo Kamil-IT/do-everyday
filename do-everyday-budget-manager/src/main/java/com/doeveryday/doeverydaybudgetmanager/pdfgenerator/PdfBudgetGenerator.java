@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,7 @@ public class PdfBudgetGenerator {
         this.pdfGenerator = new PdfGenerator("budget.pdf");
     }
 
-    public void generatePdfFile(Budget budget) throws DocumentException, IOException {
+    public void generatePdfFile(Budget budget) throws DocumentException {
 
         pdfGenerator.setTitle("Balance for " + budget.getName());
 
@@ -85,13 +84,13 @@ public class PdfBudgetGenerator {
     }
 
     private String buildSummaryString(HashMap<Currency, Double> currencyValueHashMap){
-        String returnString = "";
+        StringBuilder returnString = new StringBuilder();
 
         for (Currency currency :
                 currencyValueHashMap.keySet()) {
-            returnString += currencyValueHashMap.get(currency) + currency.toString() + "\n";
+            returnString.append(currencyValueHashMap.get(currency)).append(currency.toString()).append("\n");
         }
-        return returnString;
+        return returnString.toString();
     }
 
 }

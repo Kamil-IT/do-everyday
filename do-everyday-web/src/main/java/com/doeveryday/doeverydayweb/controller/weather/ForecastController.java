@@ -1,6 +1,5 @@
 package com.doeveryday.doeverydayweb.controller.weather;
 
-import com.byteowls.jopencage.model.JOpenCageResponse;
 import com.doeveryday.doeverydayweather.service.ForecastService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

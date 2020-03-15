@@ -21,6 +21,7 @@
                             Oops!</h1>
                         <h2 th:text="${httpstatus}">
                             404 Not Found</h2>
+                        <!--/*@thymesVar id="expectation" type="java.lang.Exception"*/-->
                         <div class="error-details" th:text="${expectation?.getMessage()}">
                             Sorry, an error has occured, Requested page not found!
                         </div>
