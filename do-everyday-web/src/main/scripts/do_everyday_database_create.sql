@@ -1,0 +1,13 @@
+USE do_everyday_prod;
+create table board (id bigint not null auto_increment, color_hex varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
+create table budget (id bigint not null auto_increment, description varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
+create table task (id bigint not null auto_increment, create_date datetime, description varchar(255), name varchar(255), photo longblob, board_id bigint, primary key (id)) engine=InnoDB;
+create table task_manager (id bigint not null auto_increment, is_done bit, priority integer, task_id bigint, primary key (id)) engine=InnoDB;
+create table task_member (id bigint not null auto_increment, name varchar(255), surname varchar(255), primary key (id)) engine=InnoDB;
+create table task_member_task_manager (task_manager_id bigint not null, task_member_id bigint not null) engine=InnoDB;
+create table transaction (id bigint not null auto_increment, currency varchar(255), date datetime, description varchar(255), value double precision, budget_id bigint, primary key (id)) engine=InnoDB;
+alter table task add constraint FKrar3pm9ixqub1nilws0l8l22w foreign key (board_id) references board (id);
+alter table task_manager add constraint FK82wv11lkj1657fmwr6ky4jol2 foreign key (task_id) references task (id);
+alter table task_member_task_manager add constraint FK739i1i80a7jixtrempe0ka2y4 foreign key (task_member_id) references task_manager (id);
+alter table task_member_task_manager add constraint FKj8qos3agvghc0s02v8pkyfqma foreign key (task_manager_id) references task_member (id);
+alter table transaction add constraint FK7ul8m5q12we515aa7b7ao0p44 foreign key (budget_id) references budget (id);

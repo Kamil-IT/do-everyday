@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/do_everyday_prod?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: do_everyday_prod_user
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+#    Generate schema for db
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: do_everyday_database_create.sql
