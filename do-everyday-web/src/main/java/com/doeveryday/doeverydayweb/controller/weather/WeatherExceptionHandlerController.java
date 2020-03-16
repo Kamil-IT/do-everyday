@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydayweb.controller.weather;
 
+import com.doeveryday.doeverydayweather.exceptions.ApiWeatherConnectionException;
 import com.doeveryday.doeverydayweather.exceptions.NotFoundException;
 import com.doeveryday.doeverydayweather.exceptions.NullPointerException;
 import com.doeveryday.doeverydayweb.controller.ErrorPagesController;
@@ -24,5 +25,10 @@ public class WeatherExceptionHandlerController {
     @ExceptionHandler(NullPointerException.class)
     public ModelAndView handlerNullPointerException(NullPointerException exception){
         return errorPagesController.handleErrorBadRequest(exception);
+    }
+
+    @ExceptionHandler(ApiWeatherConnectionException.class)
+    public ModelAndView handlerApiWeatherConnectionException(ApiWeatherConnectionException exception){
+        return errorPagesController.handleErrorInternalServerError(exception);
     }
 }
