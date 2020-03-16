@@ -18,7 +18,7 @@ public class ForecastUrlBuild {
     private static final Timeouts DEFAULT_TIMEOUTS = new Timeouts(Duration.ofSeconds(6), Duration.ofSeconds(6));
     private static final String URL = "https://api.darksky.net/forecast/##key##/##latitude##,##longitude####time##";
     private final List<Block> exclusion = new ArrayList<>();
-    private Language language = Language.de;
+    private Language language = Language.en;
     private Units units = Units.si;
     private String overrideUrl;
     private boolean extendHourly;
