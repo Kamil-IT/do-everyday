@@ -8,6 +8,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <packaging>jar</packaging>
+
     <artifactId>do-everyday-todo-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>do-everyday-todo-api</name>
