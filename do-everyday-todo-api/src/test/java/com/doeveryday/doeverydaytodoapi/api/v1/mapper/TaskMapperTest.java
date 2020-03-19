@@ -11,7 +11,6 @@ import org.mapstruct.factory.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.doeveryday.doeverydaytodoapi.api.v1.mapper.BoardMapperTest.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskMapperTest {
@@ -21,33 +20,33 @@ class TaskMapperTest {
 
     private void initDataDTO(BoardDTO boardDTO, TaskDTO taskDTO) {
         //        Set board
-        boardDTO.setId(BOARD_ID);
-        boardDTO.setColorHex(COLOR_HEX);
-        boardDTO.setName(BOARD_NAME);
+        boardDTO.setId(ConstValues.BOARD_ID);
+        boardDTO.setColorHex(ConstValues.COLOR_HEX);
+        boardDTO.setName(ConstValues.BOARD_NAME);
 
 //        Set task witch belongs to board with id = 1
-        taskDTO.setId(TASK_ID);
-        taskDTO.setBoardId(BOARD_ID);
-        taskDTO.setCreateDate(TASK_CREATE_DATE);
-        taskDTO.setDescription(DESCRIPTION_TASK);
-        taskDTO.setName(TASK_NAME);
-        taskDTO.setTaskManagerId(TASK_MANAGER_ID);
+        taskDTO.setId(ConstValues.TASK_ID);
+        taskDTO.setBoardId(ConstValues.BOARD_ID);
+        taskDTO.setCreateDate(ConstValues.TASK_CREATE_DATE);
+        taskDTO.setDescription(ConstValues.DESCRIPTION_TASK);
+        taskDTO.setName(ConstValues.TASK_NAME);
+        taskDTO.setTaskManagerId(ConstValues.TASK_MANAGER_ID);
     }
 
     private void initDataEntity(Board board, Task task) {
         //        Set board
-        board.setId(BOARD_ID);
-        board.setColorHex(COLOR_HEX);
-        board.setName(BOARD_NAME);
+        board.setId(ConstValues.BOARD_ID);
+        board.setColorHex(ConstValues.COLOR_HEX);
+        board.setName(ConstValues.BOARD_NAME);
 
 //        Set task witch belongs to board with id = 1
-        task.setId(TASK_ID);
+        task.setId(ConstValues.TASK_ID);
         task.setBoard(board);
-        task.setCreateDate(TASK_CREATE_DATE);
-        task.setDescription(DESCRIPTION_TASK);
-        task.setName(TASK_NAME);
+        task.setCreateDate(ConstValues.TASK_CREATE_DATE);
+        task.setDescription(ConstValues.DESCRIPTION_TASK);
+        task.setName(ConstValues.TASK_NAME);
         TaskManager taskManager = new TaskManager();
-        taskManager.setId(TASK_MANAGER_ID);
+        taskManager.setId(ConstValues.TASK_MANAGER_ID);
         task.setTaskManager(taskManager);
     }
 
