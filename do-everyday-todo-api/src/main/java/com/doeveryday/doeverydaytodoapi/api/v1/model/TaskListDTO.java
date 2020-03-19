@@ -2,8 +2,14 @@ package com.doeveryday.doeverydaytodoapi.api.v1.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class TaskMemberDTO {
+@NoArgsConstructor
+public class TaskListDTO {
+
+    private List<TaskDTO> tasks;
 }

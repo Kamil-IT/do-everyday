@@ -21,9 +21,7 @@ public class BoardApiServiceImpl implements BoardApiService {
     @Override
     public List<BoardDTO> getAllBoards() {
         List<BoardDTO> boardDTOs = new ArrayList<>();
-        boardRepository.findAll().forEach(board -> {
-            boardDTOs.add(boardMapper.boardToBoardDTO(board));
-        });
+        boardRepository.findAll().forEach(board -> boardDTOs.add(boardMapper.boardToBoardDTO(board)));
         return boardDTOs;
     }
 

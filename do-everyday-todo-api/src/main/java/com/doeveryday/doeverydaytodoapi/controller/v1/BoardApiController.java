@@ -28,7 +28,7 @@ public class BoardApiController {
     }
 
     @PostMapping
-    public BoardDTO deleteBoardById(@RequestBody BoardDTO boardDTO){
+    public BoardDTO postBoardById(@RequestBody BoardDTO boardDTO){
         return boardApiService.createBoard(boardDTO);
     }
 
