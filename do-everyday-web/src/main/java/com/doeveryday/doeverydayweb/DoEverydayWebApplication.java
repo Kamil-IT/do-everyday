@@ -16,7 +16,6 @@ public class DoEverydayWebApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DoEverydayWebApplication.class, args);
-
     }
 
 }
