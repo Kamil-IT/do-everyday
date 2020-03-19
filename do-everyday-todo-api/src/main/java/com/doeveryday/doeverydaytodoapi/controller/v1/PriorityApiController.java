@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(PriorityApiController.BASE_URL)
 public class PriorityApiController {
 
-    public static final String BASE_URL = "api/v1/priority";
+    public static final String BASE_URL = "/api/v1/priority";
 
     private final PriorityApiService priorityApiService;
 
