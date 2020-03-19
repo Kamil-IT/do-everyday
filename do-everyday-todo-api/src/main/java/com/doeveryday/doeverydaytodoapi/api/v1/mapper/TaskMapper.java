@@ -12,6 +12,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
+    /**
+     * After this converting you
+     * LOST ID to BOARD,
+     * LOST ID to TASK_MANAGER
+     * @param taskDTO
+     * @return
+     */
     Task taskDTOToTask(TaskDTO taskDTO);
 
     @Mapping(source = "board.id", target = "boardId")

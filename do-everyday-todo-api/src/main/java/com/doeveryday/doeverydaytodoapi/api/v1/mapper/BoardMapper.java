@@ -8,9 +8,15 @@ import org.mapstruct.Mapping;
 @Mapper(uses = TaskMapper.class, componentModel = "spring")
 public interface BoardMapper {
 
+    /**
+     * After this converting you
+     * LOST ID in tasks to BOARD,
+     * LOST ID in tasks to TASK_MANAGER
+     * @param boardDTO
+     * @return board
+     */
     Board boardDTOToBoard(BoardDTO boardDTO);
 
     @Mapping(source = "tasks", target = "tasks", qualifiedByName = "tasksToTasksDTO")
     BoardDTO boardToBoardDTO(Board board);
-
 }

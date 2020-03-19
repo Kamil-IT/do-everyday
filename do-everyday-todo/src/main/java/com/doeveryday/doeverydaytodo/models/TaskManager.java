@@ -1,6 +1,9 @@
 package com.doeveryday.doeverydaytodo.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,7 +11,6 @@ import java.util.List;
 /**
  * Class for keeping information about - is task done
  */
-@Builder
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
