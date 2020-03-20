@@ -21,6 +21,7 @@ public interface TaskMapper {
 
     @Mapping(source = "board.id", target = "boardId")
     @Mapping(source = "taskManager.id", target = "taskManagerId")
+//    @Mapping(source = "createDate", target = "createDate", dateFormat = "dd.MM.yyyy")
     TaskDTO taskToTaskDTO(Task task);
 
     @Named("tasksToTasksDTO")

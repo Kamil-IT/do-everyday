@@ -19,6 +19,7 @@ public class TaskDTO {
     @JsonProperty("create_date")
     private Date createDate;
 
+    @JsonProperty("board_id")
     private Long boardId;
     private Long taskManagerId;
 

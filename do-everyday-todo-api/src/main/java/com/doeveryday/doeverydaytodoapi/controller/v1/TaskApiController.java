@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(TaskApiController.BASE_URL)
 public class TaskApiController {
-    public static final String BASE_URL = "api/v1/";
+    public static final String BASE_URL = "/api/v1/";
 
     private final BoardApiService boardApiService;
     private final TaskApiService taskApiService;
