@@ -49,8 +49,8 @@ class TaskManagerApiServiceImplTest {
     void getAllTaskManager() {
         when(taskManagerRepository.findAll()).thenReturn(Arrays.asList(new TaskManager(), new TaskManager(), new TaskManager()));
 
-        verify(taskManagerRepository, times(1)).findAll();
         assertEquals(3, taskManagerApiService.getAllTaskManager().size());
+        verify(taskManagerRepository, times(1)).findAll();
     }
 
     @Test
@@ -119,6 +119,7 @@ class TaskManagerApiServiceImplTest {
 
 
         when(taskManagerRepository.save(any(TaskManager.class))).thenReturn(taskManager);
+        when(taskManagerRepository.existsById(anyLong())).thenReturn(true);
 
         TaskManagerDTO taskManagerDTO = taskManagerApiService
                 .putTaskManager(
