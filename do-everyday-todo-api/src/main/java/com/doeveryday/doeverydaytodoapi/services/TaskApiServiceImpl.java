@@ -77,7 +77,7 @@ public class TaskApiServiceImpl implements TaskApiService {
         return taskMapper.tasksToTasksDTO(taskRepository.findAllByBoardId(boardId));
     }
 
-    private void addBoardAndTask(TaskDTO taskDTO, Task taskToSave) {
+    private Task addBoardAndTask(TaskDTO taskDTO, Task taskToSave) {
         if (taskDTO.getBoardId() != null){
             taskToSave.setBoard(
                     boardRepository.findById(taskDTO.getBoardId())
@@ -88,5 +88,6 @@ public class TaskApiServiceImpl implements TaskApiService {
                     taskManagerRepository.findById(taskDTO.getTaskManagerId())
                             .orElseThrow(() -> new NotFoundException("Not found board with id " + taskDTO.getId())));
         }
+        return taskToSave;
     }
 }

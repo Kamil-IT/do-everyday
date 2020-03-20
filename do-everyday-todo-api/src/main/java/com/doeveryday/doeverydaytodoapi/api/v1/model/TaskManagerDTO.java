@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,5 +20,8 @@ public class TaskManagerDTO {
     @JsonProperty("is_done")
     private boolean isDone;
     private String priority;
+
+    @JsonProperty("task_members")
+    private List<Long> taskMembers;
 
 }

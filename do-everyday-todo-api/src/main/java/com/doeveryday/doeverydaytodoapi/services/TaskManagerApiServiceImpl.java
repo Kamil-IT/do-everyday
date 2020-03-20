@@ -2,23 +2,28 @@ package com.doeveryday.doeverydaytodoapi.services;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
+import com.doeveryday.doeverydaytodo.models.TaskMember;
 import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
+import com.doeveryday.doeverydaytodo.repository.TaskMemberRepository;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskManagerMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskManagerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskManagerApiServiceImpl implements TaskManagerApiService {
 
     private final TaskManagerRepository taskManagerRepository;
     private final TaskManagerMapper taskManagerMapper;
+    private final TaskMemberRepository taskMemberRepository;
 
-    public TaskManagerApiServiceImpl(TaskManagerRepository taskManagerRepository, TaskManagerMapper taskManagerMapper) {
+    public TaskManagerApiServiceImpl(TaskManagerRepository taskManagerRepository, TaskManagerMapper taskManagerMapper, TaskMemberRepository taskMemberRepository) {
         this.taskManagerRepository = taskManagerRepository;
         this.taskManagerMapper = taskManagerMapper;
+        this.taskMemberRepository = taskMemberRepository;
     }
 
     @Override
@@ -41,6 +46,9 @@ public class TaskManagerApiServiceImpl implements TaskManagerApiService {
     public TaskManagerDTO createTaskManager(TaskManagerDTO taskManagerDTO) {
         taskManagerDTO.setId(null);
         TaskManager taskManagerToSave = taskManagerMapper.taskManagerDTOToTaskManager(taskManagerDTO);
+
+        addMembersToTaskManager(taskManagerDTO, taskManagerToSave);
+
         return taskManagerMapper.taskManagerToTaskMangerDTO(
                 taskManagerRepository.save(taskManagerToSave));
     }
@@ -56,11 +64,23 @@ public class TaskManagerApiServiceImpl implements TaskManagerApiService {
 
         TaskManager taskManagerToSave = taskManagerMapper.taskManagerDTOToTaskManager(taskManagerDTO);
         taskManagerToSave.setId(id);
+        addMembersToTaskManager(taskManagerDTO, taskManagerToSave);
         return taskManagerMapper.taskManagerToTaskMangerDTO(taskManagerRepository.save(taskManagerToSave));
     }
 
     @Override
     public void deleteTaskManager(Long id) {
         taskManagerRepository.deleteById(id);
+    }
+
+
+    private void addMembersToTaskManager(TaskManagerDTO taskManagerDTO, TaskManager taskManagerToSave) {
+        List<TaskMember> taskMembers = new ArrayList<>();
+        for (Long taskMemberId :
+                taskManagerDTO.getTaskMembers()) {
+            Optional<TaskMember> taskMemberOptional = taskMemberRepository.findById(taskMemberId);
+            taskMemberOptional.ifPresent(taskMembers::add);
+        }
+        taskManagerToSave.setTaskMember(taskMembers);
     }
 }
