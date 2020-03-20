@@ -25,7 +25,7 @@ public class TaskManagerApiController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskManagerDTO getTaskManagerByName(@PathVariable("id") Long id){
+    public TaskManagerDTO getTaskManagerById(@PathVariable("id") Long id){
         return taskManagerApiService.getTaskManagerById(id);
     }
 
