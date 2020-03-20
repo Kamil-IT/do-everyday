@@ -32,4 +32,13 @@ public interface TaskMapper {
         return taskDTOs;
     }
 
+    @Named("TasksDTOToTasks")
+    default List<Task> tasksDTOToTasks(List<TaskDTO> taskDTOs){
+        List<Task> tasks = new ArrayList<>();
+        for (TaskDTO taskDTO: taskDTOs){
+            tasks.add(taskDTOToTask(taskDTO));
+        }
+        return tasks;
+    }
+
 }

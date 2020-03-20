@@ -2,9 +2,14 @@ package com.doeveryday.doeverydaytodoapi.services;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.Board;
+import com.doeveryday.doeverydaytodo.models.Task;
+import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
+import com.doeveryday.doeverydaytodo.repository.TaskRepository;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.BoardMapper;
+import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.BoardDTO;
+import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,8 @@ public class BoardApiServiceImpl implements BoardApiService {
 
     private final BoardRepository boardRepository;
     private final BoardMapper boardMapper;
+    private final TaskMapper taskMapper;
+    private final TaskRepository taskRepository;
 
     @Override
     public List<BoardDTO> getAllBoards() {
@@ -36,8 +43,11 @@ public class BoardApiServiceImpl implements BoardApiService {
     @Override
     public BoardDTO createBoard(BoardDTO boardDTO) {
         boardDTO.setId(null);
-        Board savedBoard = boardRepository.save(boardMapper.boardDTOToBoard(boardDTO));
-        return boardMapper.boardToBoardDTO(savedBoard);
+        Board boardToSave = boardMapper.boardDTOToBoard(boardDTO);
+
+        addTasksToBoard(boardDTO, boardToSave);
+
+        return boardMapper.boardToBoardDTO(boardRepository.save(boardToSave));
     }
 
     @Override
@@ -61,6 +71,19 @@ public class BoardApiServiceImpl implements BoardApiService {
 
         Board boardToSave = boardMapper.boardDTOToBoard(boardDTO);
         boardToSave.setId(id);
+        addTasksToBoard(boardDTO, boardToSave);
         return boardMapper.boardToBoardDTO(boardRepository.save(boardToSave));
+    }
+
+    private void addTasksToBoard(BoardDTO boardDTO, Board boardToSave) {
+        List<Task> tasks = new ArrayList<>();
+        for (TaskDTO taskDTO :
+                boardDTO.getTasks()) {
+            taskRepository.findById(taskDTO.getId())
+                    .ifPresentOrElse(
+                            task -> tasks.add(task),
+                            () -> tasks.add(taskMapper.taskDTOToTask(taskDTO)));
+        }
+        boardToSave.setTasks(tasks);
     }
 }
