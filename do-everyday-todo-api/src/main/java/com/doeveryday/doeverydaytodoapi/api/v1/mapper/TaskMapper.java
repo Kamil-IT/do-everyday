@@ -16,8 +16,6 @@ public interface TaskMapper {
      * After this converting you
      * LOST ID to BOARD,
      * LOST ID to TASK_MANAGER
-     * @param taskDTO
-     * @return
      */
     Task taskDTOToTask(TaskDTO taskDTO);
 

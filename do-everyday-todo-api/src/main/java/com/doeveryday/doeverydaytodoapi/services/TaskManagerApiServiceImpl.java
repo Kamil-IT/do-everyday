@@ -40,9 +40,9 @@ public class TaskManagerApiServiceImpl implements TaskManagerApiService {
     @Override
     public TaskManagerDTO createTaskManager(TaskManagerDTO taskManagerDTO) {
         taskManagerDTO.setId(null);
+        TaskManager taskManagerToSave = taskManagerMapper.taskManagerDTOToTaskManager(taskManagerDTO);
         return taskManagerMapper.taskManagerToTaskMangerDTO(
-                taskManagerRepository.save(
-                        taskManagerMapper.taskManagerDTOToTaskManager(taskManagerDTO)));
+                taskManagerRepository.save(taskManagerToSave));
     }
 
     @Override
