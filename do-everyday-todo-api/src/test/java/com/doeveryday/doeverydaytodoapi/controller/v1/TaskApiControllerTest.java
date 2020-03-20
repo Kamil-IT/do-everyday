@@ -16,8 +16,6 @@ import java.util.Date;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,12 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TaskApiControllerTest {
 
     //    Task values
-    public static final Long TASK_ID = 2L;
-    public static final long TASK2_ID = 3L;
-    public static final Date TASK_CREATE_DATE = new Date();
-    public static final String DESCRIPTION_TASK = "Example task";
-    public static final String TASK_NAME = "Task name";
-    public static final Long BOARD_ID = 5L;
+    static final Long TASK_ID = 2L;
+    static final long TASK2_ID = 3L;
+    static final Date TASK_CREATE_DATE = new Date();
+    static final String DESCRIPTION_TASK = "Example task";
+    static final String TASK_NAME = "Task name";
+    static final Long BOARD_ID = 5L;
 
     @Mock
     TaskApiService taskApiService;

@@ -101,7 +101,7 @@ public class ForecastServiceImpl implements ForecastService {
     /**
      * It setting mapper parameter for understand Forecast.class
      */
-    ObjectMapper objectMapper() {
+    private ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
 
         objectMapper.registerModule(new JavaTimeModule());

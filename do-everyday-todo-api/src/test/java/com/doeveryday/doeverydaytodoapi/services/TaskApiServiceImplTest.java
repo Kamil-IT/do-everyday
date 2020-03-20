@@ -23,20 +23,18 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = TaskMapperImpl.class)
 class TaskApiServiceImplTest {
 
-    public static final long TASK_ID = 2L;
-    public static final Date TASK_CREATE_DATE = new Date();
-    public static final String TASK_NAME = "Task name";
-    public static final long TASK_MANAGER_ID = 3L;
-    public static final String TASK_DESCRIPTION = "Example description";
-    private static final Long BOARD_ID = 1L;
+    static final long TASK_ID = 2L;
+    static final Date TASK_CREATE_DATE = new Date();
+    static final String TASK_NAME = "Task name";
+    static final long TASK_MANAGER_ID = 3L;
+    static final String TASK_DESCRIPTION = "Example description";
+    static final Long BOARD_ID = 1L;
 
     @Mock
     TaskApiService taskApiService;

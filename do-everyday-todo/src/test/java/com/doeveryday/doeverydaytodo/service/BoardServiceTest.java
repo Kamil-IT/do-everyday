@@ -14,14 +14,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 class BoardServiceTest {
 
-    public static final String COLOR_HEX = "#ffffff";
-    public static final String BOARD_NAME = "Example board";
-    public static final long BOARD_ID = 1L;
+    static final String COLOR_HEX = "#ffffff";
+    static final String BOARD_NAME = "Example board";
+    static final long BOARD_ID = 1L;
+
     @Mock
     BoardRepository boardRepository;
 

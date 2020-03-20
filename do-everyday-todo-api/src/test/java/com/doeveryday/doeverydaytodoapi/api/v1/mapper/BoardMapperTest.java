@@ -79,7 +79,7 @@ class BoardMapperTest {
 
         Board board = boardMapper.boardDTOToBoard(boardDTO);
 
-        Task task = board.getTasks().stream().findFirst().get();
+        Task task = board.getTasks().stream().findFirst().orElseThrow(NullPointerException::new);
 
         assertEquals(taskDTO.getId(), task.getId());
         assertEquals(taskDTO.getCreateDate(), task.getCreateDate());
@@ -116,7 +116,7 @@ class BoardMapperTest {
 
         BoardDTO boardDTO = boardMapper.boardToBoardDTO(board);
 
-        TaskDTO taskDTO = boardDTO.getTasks().stream().findFirst().get();
+        TaskDTO taskDTO = boardDTO.getTasks().stream().findFirst().orElseThrow(NullPointerException::new);
 
         assertEquals(taskDTO.getId(), task.getId());
         assertEquals(taskDTO.getCreateDate(), task.getCreateDate());

@@ -1,6 +1,5 @@
 package com.doeveryday.doeverydaytodoapi.controller.v1;
 
-import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskManagerDTO;
 import com.doeveryday.doeverydaytodoapi.services.TaskManagerApiService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,8 +15,6 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

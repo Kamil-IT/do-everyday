@@ -19,16 +19,15 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = TaskManagerMapperImpl.class)
 class TaskManagerApiServiceImplTest {
 
-    public static final long TASK_MANAGER_ID = 1L;
-    public static final boolean TASK_MANAGER_IS_DONE = true;
-    public static final long TASK_ID = 2L;
-    public static final Priority TASK_MEMEBER_IMPORTANT = Priority.IMPORTANT;
+    static final long TASK_MANAGER_ID = 1L;
+    static final boolean TASK_MANAGER_IS_DONE = true;
+    static final long TASK_ID = 2L;
+    static final Priority TASK_MEMBER_IMPORTANT = Priority.IMPORTANT;
     @Mock
     TaskManagerRepository taskManagerRepository;
 
@@ -58,7 +57,7 @@ class TaskManagerApiServiceImplTest {
         TaskManager taskManager = new TaskManager();
         taskManager.setId(TASK_MANAGER_ID);
         taskManager.setDone(TASK_MANAGER_IS_DONE);
-        taskManager.setPriority(TASK_MEMEBER_IMPORTANT);
+        taskManager.setPriority(TASK_MEMBER_IMPORTANT);
 
         Task task = new Task();
         task.setId(TASK_ID);
@@ -72,7 +71,7 @@ class TaskManagerApiServiceImplTest {
 
         assertEquals(TASK_MANAGER_ID, taskManagerDTO.getId());
         assertEquals(TASK_MANAGER_IS_DONE, taskManagerDTO.isDone());
-        assertEquals(TASK_MEMEBER_IMPORTANT.name(), taskManagerDTO.getPriority());
+        assertEquals(TASK_MEMBER_IMPORTANT.name(), taskManagerDTO.getPriority());
         assertEquals(TASK_ID, taskManagerDTO.getTaskId());
         assertEquals(2, taskManagerDTO.getTaskMembers().size());
     }
@@ -82,7 +81,7 @@ class TaskManagerApiServiceImplTest {
         TaskManager taskManager = new TaskManager();
         taskManager.setId(TASK_MANAGER_ID);
         taskManager.setDone(TASK_MANAGER_IS_DONE);
-        taskManager.setPriority(TASK_MEMEBER_IMPORTANT);
+        taskManager.setPriority(TASK_MEMBER_IMPORTANT);
 
         Task task = new Task();
         task.setId(TASK_ID);
@@ -99,7 +98,7 @@ class TaskManagerApiServiceImplTest {
 
         assertEquals(TASK_MANAGER_ID, taskManagerDTO.getId());
         assertEquals(TASK_MANAGER_IS_DONE, taskManagerDTO.isDone());
-        assertEquals(TASK_MEMEBER_IMPORTANT.name(), taskManagerDTO.getPriority());
+        assertEquals(TASK_MEMBER_IMPORTANT.name(), taskManagerDTO.getPriority());
         assertEquals(TASK_ID, taskManagerDTO.getTaskId());
         assertEquals(2, taskManagerDTO.getTaskMembers().size());
     }
@@ -109,7 +108,7 @@ class TaskManagerApiServiceImplTest {
         TaskManager taskManager = new TaskManager();
         taskManager.setId(TASK_MANAGER_ID);
         taskManager.setDone(TASK_MANAGER_IS_DONE);
-        taskManager.setPriority(TASK_MEMEBER_IMPORTANT);
+        taskManager.setPriority(TASK_MEMBER_IMPORTANT);
 
         Task task = new Task();
         task.setId(TASK_ID);
@@ -127,7 +126,7 @@ class TaskManagerApiServiceImplTest {
 
         assertEquals(TASK_MANAGER_ID, taskManagerDTO.getId());
         assertEquals(TASK_MANAGER_IS_DONE, taskManagerDTO.isDone());
-        assertEquals(TASK_MEMEBER_IMPORTANT.name(), taskManagerDTO.getPriority());
+        assertEquals(TASK_MEMBER_IMPORTANT.name(), taskManagerDTO.getPriority());
         assertEquals(TASK_ID, taskManagerDTO.getTaskId());
         assertEquals(2, taskManagerDTO.getTaskMembers().size());
     }

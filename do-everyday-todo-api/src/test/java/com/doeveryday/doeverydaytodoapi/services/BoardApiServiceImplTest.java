@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydaytodoapi.services;
 
 import com.doeveryday.doeverydaytodo.models.Board;
-import com.doeveryday.doeverydaytodo.models.Priority;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;
@@ -19,8 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,13 +25,13 @@ import static org.mockito.Mockito.*;
 class BoardApiServiceImplTest {
 
     //    Board values
-    public static final long BOARD_ID = 1L;
-    public static final String COLOR_HEX = "#ffffff";
-    public static final String BOARD_NAME = "Shop list";
+    static final long BOARD_ID = 1L;
+    static final String COLOR_HEX = "#ffffff";
+    static final String BOARD_NAME = "Shop list";
     //    Task values
-    public static final long TASK_ID = 2L;
-    public static final String TASK_NAME = "Task name";
-    public static final String TASK_DESCRIPTION = "Example description";
+    static final long TASK_ID = 2L;
+    static final String TASK_NAME = "Task name";
+    static final String TASK_DESCRIPTION = "Example description";
 
     @Mock
     BoardRepository boardRepository;
