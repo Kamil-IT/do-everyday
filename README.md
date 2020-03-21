@@ -75,7 +75,7 @@ e.g. POST `api/v1/single_name_of_stuff` id is creared by hibernate
 
 #### PUT
 
-For update boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
+For update boards, tasks, tasks managers you have to add body which is in JSON format and compatible with boardDto, taskDto, taskManagersDto
 e.g. POST `api/v1/single_name_of_stuff/id`
 
 #### DELETE
