@@ -21,5 +21,5 @@ Open cmd in web module directory(.../do-everyday/do-everyday-web) and run:
 
 #### Linux:
 
-Open terminal in web module directory(../do-everyday/do-everyday-web) and run:
+Open terminal in web module directory(.../do-everyday/do-everyday-web) and run:
 ```mvnw spring-boot:run```
