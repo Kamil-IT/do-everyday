@@ -1,6 +1,8 @@
 [![CircleCI](https://circleci.com/gh/Kamil-IT/do-everyday/tree/master.svg?style=svg)](https://circleci.com/gh/Kamil-IT/do-everyday/tree/master)
 # do-everyday
-Getting and showing needed information every day
+Getting and showing needed information every day. 
+This project have user friendly GUI, you can use it after run this project on your machine.
+Delfault main page is available on http://localhost:8080/.
 
 ## Parts of project
 - Weather(forecast is getting from Dark Sky, it's actual)
@@ -59,19 +61,31 @@ All board and tasks are keeping in database(including done).
 ### API for Todo list
 
 Base API path is `api/v1/*`. It supports JSON format.
-GET
-get all boards, tasks, priorities, tasks managers are in `single_name_of_staff` e.g get all bords GET `api/v1/board`
+
+#### GET
+
+Get all boards, tasks, priorities, tasks managers are in `single_name_of_staff` e.g get all bords GET `api/v1/board`
 get by id boards, tasks, tasks managers are in `single_name_of_staff/id` e.g get all bords GET `api/v1/board/5`
 get by name priorities are in `single_name_of_staff/name` e.g get all bords GET `api/v1/board/important`
 
-POST
+#### POST
+
 For create boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
 e.g POST `api/v1/single_name_of_staff` id is creared by hibernate
 
-PUT
+#### PUT
+
 For update boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
 e.g POST `api/v1/single_name_of_staff/id`
 
-DELETE
+#### DELETE
+
 Delete boards, tasks, tasks managers e.g DELETE `api/v1/single_name_of_staff/id`
 
+## Budget manager
+
+Budget manager keep all your transfers in one place and can generate PDF documentation with sumary spend money which dependence from currency
+
+## Spotify seacher
+
+Spotify seacher search artist, ablums and tracks which are available on spotify
