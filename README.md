@@ -9,7 +9,7 @@ Delfault main page is available on http://localhost:8080/.
 - Todo list
 - API for Todo list
 - Budget manager
-- Spotify seacher
+- Spotify searcher
 - In future more...
 
 ## How to run
@@ -86,6 +86,6 @@ Delete boards, tasks, tasks managers e.g DELETE `api/v1/single_name_of_staff/id`
 
 Budget manager keep all your transfers in one place and can generate PDF documentation with sumary spend money which dependence from currency
 
-## Spotify seacher
+## Spotify searcher
 
-Spotify seacher is used for search artist, ablums and tracks which are available on spotify
+Spotify searcher is used for search artist, ablums and tracks which are available on spotify
