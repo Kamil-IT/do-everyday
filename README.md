@@ -2,14 +2,14 @@
 # do-everyday
 Getting and showing needed information every day. 
 This project have user friendly GUI, you can use it after run this project on your machine.
-Delfault main page is available on http://localhost:8080/.
+Default main page is available on http://localhost:8080/.
 
 ## Parts of project
 - Weather(forecast is getting from Dark Sky, it's actual)
 - Todo list
 - API for Todo list
 - Budget manager
-- Spotify seacher
+- Spotify searcher
 - In future more...
 
 ## How to run
@@ -54,7 +54,7 @@ For converting geographical coordinates to country and city name, module use [Op
 
 ### Todo list
 
-This modul is handling staff around taskd and boards. 
+This modul is handling stuff around tasks and boards. 
 This part of project allows you to create e.g. shopping list, manage task todo and more.
 All board and tasks are keeping in database(including done).
 
@@ -64,28 +64,28 @@ Base API path is `api/v1/*`. It supports JSON format.
 
 #### GET
 
-Get all boards, tasks, priorities, tasks managers are in `single_name_of_staff` e.g get all bords GET `api/v1/board`
-get by id boards, tasks, tasks managers are in `single_name_of_staff/id` e.g get all bords GET `api/v1/board/5`
-get by name priorities are in `single_name_of_staff/name` e.g get all bords GET `api/v1/board/important`
+Get all boards, tasks, priorities, tasks managers are in `single_name_of_stuff` e.g. get all bords GET `api/v1/board`
+get by id boards, tasks, tasks managers are in `single_name_of_stuff/id` e.g. get all bords GET `api/v1/board/5`
+get by name priorities are in `single_name_of_stuff/name` e.g. get all bords GET `api/v1/board/important`
 
 #### POST
 
-For create boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
-e.g POST `api/v1/single_name_of_staff` id is creared by hibernate
+For create boards, tasks, tasks managers you have to add body which is in JSON format and compatible with boardDto, taskDto, taskManagersDto 
+e.g. POST `api/v1/single_name_of_stuff` id is creared by Hibernate
 
 #### PUT
 
-For update boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
-e.g POST `api/v1/single_name_of_staff/id`
+For update boards, tasks, tasks managers you have to add body which is in JSON format and compatible with boardDto, taskDto, taskManagersDto
+e.g. POST `api/v1/single_name_of_stuff/id`
 
 #### DELETE
 
-Delete boards, tasks, tasks managers e.g DELETE `api/v1/single_name_of_staff/id`
+Delete boards, tasks, tasks managers e.g. DELETE `api/v1/single_name_of_stuff/id`
 
 ## Budget manager
 
-Budget manager keep all your transfers in one place and can generate PDF documentation with sumary spend money which dependence from currency
+Budget manager keep all your transfers in one place and can generate PDF documentation with summary spend money which dependence from currency
 
-## Spotify seacher
+## Spotify searcher
 
-Spotify seacher search artist, ablums and tracks which are available on spotify
+Spotify searcher is used for search artist, albums and tracks which are available on spotify
