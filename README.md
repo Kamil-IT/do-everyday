@@ -71,7 +71,7 @@ get by name priorities are in `single_name_of_stuff/name` e.g. get all bords GET
 #### POST
 
 For create boards, tasks, tasks managers you have to add body which is in JSON format and compatible with boardDto, taskDto, taskManagersDto 
-e.g. POST `api/v1/single_name_of_stuff` id is creared by hibernate
+e.g. POST `api/v1/single_name_of_stuff` id is creared by Hibernate
 
 #### PUT
 
