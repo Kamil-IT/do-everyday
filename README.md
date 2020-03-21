@@ -43,5 +43,9 @@ Open terminal in web module directory('.../do-everyday/do-everyday-web') and run
 
 ```mvnw spring-boot:run -Dspring-boot.run.profiles=mysql```
 
+## Descripe parts of project
 
+### Weather
 
+Application take current information about weather and forecast from [DarkSky](https://darksky.net/dev).
+For converting geographical coordinates to country and city name, module use [OpenCage Geocoder](https://opencagedata.com/).
