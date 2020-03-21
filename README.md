@@ -54,7 +54,7 @@ For converting geographical coordinates to country and city name, module use [Op
 
 ### Todo list
 
-This modul is handling staff around taskd and boards. 
+This modul is handling staff around tasks and boards. 
 This part of project allows you to create e.g. shopping list, manage task todo and more.
 All board and tasks are keeping in database(including done).
 
@@ -64,23 +64,23 @@ Base API path is `api/v1/*`. It supports JSON format.
 
 #### GET
 
-Get all boards, tasks, priorities, tasks managers are in `single_name_of_staff` e.g get all bords GET `api/v1/board`
-get by id boards, tasks, tasks managers are in `single_name_of_staff/id` e.g get all bords GET `api/v1/board/5`
-get by name priorities are in `single_name_of_staff/name` e.g get all bords GET `api/v1/board/important`
+Get all boards, tasks, priorities, tasks managers are in `single_name_of_staff` e.g. get all bords GET `api/v1/board`
+get by id boards, tasks, tasks managers are in `single_name_of_staff/id` e.g. get all bords GET `api/v1/board/5`
+get by name priorities are in `single_name_of_staff/name` e.g. get all bords GET `api/v1/board/important`
 
 #### POST
 
 For create boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
-e.g POST `api/v1/single_name_of_staff` id is creared by hibernate
+e.g. POST `api/v1/single_name_of_staff` id is creared by hibernate
 
 #### PUT
 
 For update boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
-e.g POST `api/v1/single_name_of_staff/id`
+e.g. POST `api/v1/single_name_of_staff/id`
 
 #### DELETE
 
-Delete boards, tasks, tasks managers e.g DELETE `api/v1/single_name_of_staff/id`
+Delete boards, tasks, tasks managers e.g. DELETE `api/v1/single_name_of_staff/id`
 
 ## Budget manager
 
