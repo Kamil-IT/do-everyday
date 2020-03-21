@@ -84,7 +84,7 @@ Delete boards, tasks, tasks managers e.g DELETE `api/v1/single_name_of_staff/id`
 
 ## Budget manager
 
-Budget manager keep all your transfers in one place and can generate PDF documentation with sumary spend money which dependence from currency
+Budget manager keep all your transfers in one place and can generate PDF documentation with summary spend money which dependence from currency
 
 ## Spotify searcher
 
