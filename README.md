@@ -16,30 +16,30 @@ Getting and showing needed information every day
 
 #### Windows:
 
-Open cmd in web module directory('.../do-everyday/do-everyday-web') and run:
+Open cmd in web module directory(`.../do-everyday/do-everyday-web`) and run:
 
 ```mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=default```
 
 #### Linux:
 
-Open terminal in web module directory('.../do-everyday/do-everyday-web') and run:
+Open terminal in web module directory(`.../do-everyday/do-everyday-web`) and run:
 
 ```mvnw spring-boot:run -Dspring-boot.run.profiles=default```
 
 ### Use MySql database in memory
 
-Scripts to configure MySQL(database and users) are in '.../do-everyday/do-everyday-web/src/main/scripts/*'. 
-Information about MySQL users are keeping in '.../do-everyday/do-everyday-web/src/main/resources/application-mysql.yml'
+Scripts to configure MySQL(database and users) are in `.../do-everyday/do-everyday-web/src/main/scripts/*`. 
+Information about MySQL users are keeping in '`.../do-everyday/do-everyday-web/src/main/resources/application-mysql.yml`
 
 #### Windows:
 
-Open cmd in web module directory('.../do-everyday/do-everyday-web') and run:
+Open cmd in web module directory(`.../do-everyday/do-everyday-web`) and run:
 
 ```mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=mysql```
 
 #### Linux:
 
-Open terminal in web module directory('.../do-everyday/do-everyday-web') and run:
+Open terminal in web module directory(`.../do-everyday/do-everyday-web`) and run:
 
 ```mvnw spring-boot:run -Dspring-boot.run.profiles=mysql```
 
@@ -49,3 +49,29 @@ Open terminal in web module directory('.../do-everyday/do-everyday-web') and run
 
 Application take current information about weather and forecast from [DarkSky](https://darksky.net/dev).
 For converting geographical coordinates to country and city name, module use [OpenCage Geocoder](https://opencagedata.com/).
+
+### Todo list
+
+This modul is handling staff around taskd and boards. 
+This part of project allows you to create e.g. shopping list, manage task todo and more.
+All board and tasks are keeping in database(including done).
+
+### API for Todo list
+
+Base API path is `api/v1/*`. It supports JSON format.
+GET
+get all boards, tasks, priorities, tasks managers are in `single_name_of_staff` e.g get all bords GET `api/v1/board`
+get by id boards, tasks, tasks managers are in `single_name_of_staff/id` e.g get all bords GET `api/v1/board/5`
+get by name priorities are in `single_name_of_staff/name` e.g get all bords GET `api/v1/board/important`
+
+POST
+For create boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
+e.g POST `api/v1/single_name_of_staff` id is creared by hibernate
+
+PUT
+For update boards, tasks, tasks managers you have to add JSON format compatible with boardDto, taskDto, taskManagersDto to body 
+e.g POST `api/v1/single_name_of_staff/id`
+
+DELETE
+Delete boards, tasks, tasks managers e.g DELETE `api/v1/single_name_of_staff/id`
+
