@@ -88,4 +88,4 @@ Budget manager keep all your transfers in one place and can generate PDF documen
 
 ## Spotify searcher
 
-Spotify searcher is used for search artist, ablums and tracks which are available on spotify
+Spotify searcher is used for search artist, albums and tracks which are available on spotify
