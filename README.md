@@ -8,7 +8,7 @@ Getting and showing needed information every day
 - API for Todo list
 - Budget manager
 - Spotify seacher
-- In future more..
+- In future more...
 
 ## How to run
 
@@ -16,7 +16,7 @@ Getting and showing needed information every day
 
 #### Windows:
 
-Open cmd in web module directory(../do-everyday/do-everyday-web) and run:
+Open cmd in web module directory(.../do-everyday/do-everyday-web) and run:
 ```mvnw.cmd spring-boot:run```
 
 #### Linux:
