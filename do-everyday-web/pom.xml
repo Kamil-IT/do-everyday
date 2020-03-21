@@ -97,8 +97,33 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>
+                        <profile>default</profile>
+                        <profile>mysql</profile>
+                    </profiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>default</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <properties>
+                <spring.profiles.active>mysql</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
 
 </project>
