@@ -2,7 +2,7 @@
 # do-everyday
 Getting and showing needed information every day. 
 This project have user friendly GUI, you can use it after run this project on your machine.
-Delfault main page is available on http://localhost:8080/.
+Default main page is available on http://localhost:8080/.
 
 ## Parts of project
 - Weather(forecast is getting from Dark Sky, it's actual)
