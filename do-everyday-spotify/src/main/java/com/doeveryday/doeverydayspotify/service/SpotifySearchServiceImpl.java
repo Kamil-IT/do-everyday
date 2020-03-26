@@ -38,6 +38,9 @@ public class SpotifySearchServiceImpl implements SpotifySearchService{
         if (name == null || limit == null){
             throw new NullPointerException("Name and limit cannot be null ");
         }
+        else if (name.length() == 0){
+            throw new EmptyStringException("Name cannot be empty");
+        }
         SpotifyAllTypes spotifyAllTypes = new SpotifyAllTypes();
         try {
             spotifyAllTypes.setAlbumSimplifieds(spotifyApi.searchAlbums(name).limit(limit).build().execute().getItems());
