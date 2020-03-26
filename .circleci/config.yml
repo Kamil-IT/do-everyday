@@ -41,11 +41,3 @@ jobs:
 
       # run tests!
       - run: mvn install
-#      - run: mvn inegration-test cobertura:cobertura
-#      - run:
-#          name: "Setup custom environment variables"
-#          command: echo 'export CODECOV_TOKEN="d08783ea-314a-4600-bfe7-92f4d0891e2d"' >> $BASH_ENV
-#
-#      - run:
-#          name: Send to CodeCov
-#          command: bash <(curl -s https://codecov.io/bash)
