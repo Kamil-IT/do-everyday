@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydayspotify.service;
 
+import com.doeveryday.doeverydayspotify.exception.EmptyStringException;
 import com.doeveryday.doeverydayspotify.exception.SpotifyApiException;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
@@ -19,6 +20,9 @@ public class SpotifySearchArtistServiceImpl implements SpotifySearchArtistServic
     private final SpotifyApi spotifyApi;
 
     public List<Artist> getArtistByName(String name){
+        if (name.length() == 0){
+            throw new EmptyStringException("Name cannot have 0 length");
+        }
         List<Artist> artists = new ArrayList<>();
         try {
             Artist[] items = spotifyApi.searchArtists(name).build().execute().getItems();
@@ -30,6 +34,9 @@ public class SpotifySearchArtistServiceImpl implements SpotifySearchArtistServic
     }
 
     public List<Artist> getArtistByName(String name, Integer limit){
+        if (name.length() == 0){
+            throw new EmptyStringException("Name cannot have 0 length");
+        }
         List<Artist> albums = new ArrayList<>();
         try {
             Artist[] items = spotifyApi.searchArtists(name).limit(limit).build().execute().getItems();
