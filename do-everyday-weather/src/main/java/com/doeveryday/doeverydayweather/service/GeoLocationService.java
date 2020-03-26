@@ -10,4 +10,8 @@ public interface GeoLocationService {
     List<JOpenCageResult> getFullResponse();
 
     JOpenCageComponents getFirstResult();
+
+    void changeLanguage(String language);
+
+    void changeGeoLocation(double latitude, double longitude);
 }
