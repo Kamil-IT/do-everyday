@@ -1,8 +1,10 @@
 package com.doeveryday.doeverydaytodoapi.controller.v1;
 
+import com.doeveryday.doeverydaytodoapi.api.v1.model.Error;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskManagerDTO;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskManagerListDTO;
 import com.doeveryday.doeverydaytodoapi.services.TaskManagerApiService;
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +27,7 @@ public class TaskManagerApiController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskManagerDTO getTaskManagerById(@PathVariable("id") Long id){
+    public TaskManagerDTO getTaskManagerById(@PathVariable("id") Long id) throws NotFoundException {
         return taskManagerApiService.getTaskManagerById(id);
     }
 
@@ -37,7 +39,7 @@ public class TaskManagerApiController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskManagerDTO putTaskManager(@PathVariable("id") Long id, @RequestBody TaskManagerDTO taskManagerDTO){
+    public TaskManagerDTO putTaskManager(@PathVariable("id") Long id, @RequestBody TaskManagerDTO taskManagerDTO) throws NotFoundException {
         return taskManagerApiService.putTaskManager(taskManagerDTO, id);
     }
 
@@ -46,6 +48,12 @@ public class TaskManagerApiController {
     public String deleteTaskManager(@PathVariable("id") Long id){
         taskManagerApiService.deleteTaskManager(id);
         return "Deleted task manager with id = " + id + " was successful";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error error(){
+        return Error.builder().message("Invalid id").status(HttpStatus.NOT_FOUND.value()).build();
     }
 
 

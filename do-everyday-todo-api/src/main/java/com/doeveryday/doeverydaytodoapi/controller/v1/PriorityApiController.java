@@ -1,7 +1,9 @@
 package com.doeveryday.doeverydaytodoapi.controller.v1;
 
+import com.doeveryday.doeverydaytodoapi.api.v1.model.Error;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.PriorityDTO;
 import com.doeveryday.doeverydaytodoapi.services.PriorityApiService;
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +27,13 @@ public class PriorityApiController {
 
     @GetMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public PriorityDTO getPrioritiesByName(@PathVariable("name") String name){
+    public PriorityDTO getPrioritiesByName(@PathVariable("name") String name) throws NotFoundException {
         return priorityApiService.getPriorityByName(name.toUpperCase());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error error(){
+        return Error.builder().message("Invalid name").status(HttpStatus.NOT_FOUND.value()).build();
     }
 }

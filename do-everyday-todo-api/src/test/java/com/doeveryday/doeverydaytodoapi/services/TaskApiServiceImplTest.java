@@ -9,6 +9,7 @@ import com.doeveryday.doeverydaytodo.repository.TaskRepository;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapperImpl;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskDTO;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,7 +63,7 @@ class TaskApiServiceImplTest {
     }
 
     @Test
-    void getTaskById() {
+    void getTaskById() throws NotFoundException {
         Task task = new Task();
         task.setId(TASK_ID);
 
@@ -91,7 +92,7 @@ class TaskApiServiceImplTest {
     }
 
     @Test
-    void createTask() {
+    void createTask() throws NotFoundException {
         Task task = new Task();
         task.setId(TASK_ID);
 
@@ -122,7 +123,7 @@ class TaskApiServiceImplTest {
     }
 
     @Test
-    void deleteTaskById() {
+    void deleteTaskById() throws NotFoundException {
         when(taskRepository.existsById(anyLong())).thenReturn(true);
 
         taskApiService.deleteTaskById(anyLong());
@@ -131,7 +132,7 @@ class TaskApiServiceImplTest {
     }
 
     @Test
-    void putTask() {
+    void putTask() throws NotFoundException {
         Task task = new Task();
         task.setId(TASK_ID);
 

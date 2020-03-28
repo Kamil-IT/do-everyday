@@ -1,8 +1,10 @@
 package com.doeveryday.doeverydaytodoapi.controller.v1;
 
 import com.doeveryday.doeverydaytodoapi.api.v1.model.BoardDTO;
+import com.doeveryday.doeverydaytodoapi.api.v1.model.Error;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.ListBoardDTO;
 import com.doeveryday.doeverydaytodoapi.services.BoardApiService;
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +28,7 @@ public class BoardApiController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BoardDTO getBoardById(@PathVariable("id") Long id){
+    public BoardDTO getBoardById(@PathVariable("id") Long id) throws NotFoundException {
         return boardApiService.getBoardById(id);
     }
 
@@ -38,22 +40,28 @@ public class BoardApiController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public BoardDTO putBoard(@RequestBody BoardDTO boardDTO){
+    public BoardDTO putBoard(@RequestBody BoardDTO boardDTO) throws NotFoundException {
         return boardApiService.putBoard(boardDTO, boardDTO.getId());
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BoardDTO putBoard(@RequestBody BoardDTO boardDTO, @PathVariable("id") Long id){
+    public BoardDTO putBoard(@RequestBody BoardDTO boardDTO, @PathVariable("id") Long id) throws NotFoundException {
         boardDTO.setId(id);
         return boardApiService.putBoard(boardDTO, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String deleteBoard(@PathVariable("id") Long id){
+    public String deleteBoard(@PathVariable("id") Long id) throws NotFoundException {
         boardApiService.deleteBoardById(id);
         return "Delete board with id = " + id + " was successful";
     }
 
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error error(){
+        return Error.builder().message("Invalid id").status(HttpStatus.NOT_FOUND.value()).build();
+    }
 }

@@ -4,9 +4,13 @@ import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;
-import com.doeveryday.doeverydaytodoapi.api.v1.mapper.*;
+import com.doeveryday.doeverydaytodoapi.api.v1.mapper.BoardMapper;
+import com.doeveryday.doeverydaytodoapi.api.v1.mapper.BoardMapperImpl;
+import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapper;
+import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapperImpl;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.BoardDTO;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskDTO;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,9 +19,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,7 +67,7 @@ class BoardApiServiceImplTest {
     }
 
     @Test
-    void getBoardById() {
+    void getBoardById() throws NotFoundException {
         Board board = new Board();
         board.setId(BOARD_ID);
         board.setColorHex(COLOR_HEX);
@@ -121,7 +129,7 @@ class BoardApiServiceImplTest {
     }
 
     @Test
-    void deleteBoardById() {
+    void deleteBoardById() throws NotFoundException {
 
         when(boardRepository.existsById(anyLong())).thenReturn(true);
 
@@ -131,7 +139,7 @@ class BoardApiServiceImplTest {
     }
 
     @Test
-    void putBoard() {
+    void putBoard() throws NotFoundException {
         Board board = new Board();
         board.setId(BOARD_ID);
         board.setColorHex(COLOR_HEX);

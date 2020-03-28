@@ -1,9 +1,11 @@
 package com.doeveryday.doeverydaytodoapi.controller.v1;
 
+import com.doeveryday.doeverydaytodoapi.api.v1.model.Error;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskDTO;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskListDTO;
 import com.doeveryday.doeverydaytodoapi.services.BoardApiService;
 import com.doeveryday.doeverydaytodoapi.services.TaskApiService;
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,32 +36,38 @@ public class TaskApiController {
 
     @GetMapping("task/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskDTO getTaskById(@PathVariable("id") Long id){
+    public TaskDTO getTaskById(@PathVariable("id") Long id) throws NotFoundException {
         return taskApiService.getTaskById(id);
     }
 
     @PostMapping("task")
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDTO createTask(@RequestBody TaskDTO taskDTO){
+    public TaskDTO createTask(@RequestBody TaskDTO taskDTO) throws NotFoundException {
         return taskApiService.createTask(taskDTO);
     }
 
     @PutMapping("task/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskDTO putTaskById(@RequestBody TaskDTO taskDTO, @PathVariable("id") Long id){
+    public TaskDTO putTaskById(@RequestBody TaskDTO taskDTO, @PathVariable("id") Long id) throws NotFoundException {
         return taskApiService.putTask(taskDTO, id);
     }
 
     @PutMapping("task")
     @ResponseStatus(HttpStatus.OK)
-    public TaskDTO putTask(@RequestBody TaskDTO taskDTO){
+    public TaskDTO putTask(@RequestBody TaskDTO taskDTO) throws NotFoundException {
         return taskApiService.putTask(taskDTO, taskDTO.getId());
     }
 
     @DeleteMapping("task/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String deleteTask(@PathVariable("id") Long id){
+    public String deleteTask(@PathVariable("id") Long id) throws NotFoundException {
         taskApiService.deleteTaskById(id);
         return "Delete task with id = " + id + " was successful";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error error(){
+        return Error.builder().message("Invalid id").status(HttpStatus.NOT_FOUND.value()).build();
     }
 }

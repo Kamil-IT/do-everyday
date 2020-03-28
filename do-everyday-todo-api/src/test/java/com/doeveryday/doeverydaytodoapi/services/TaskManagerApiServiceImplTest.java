@@ -9,6 +9,7 @@ import com.doeveryday.doeverydaytodo.repository.TaskMemberRepository;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskManagerMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskManagerMapperImpl;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskManagerDTO;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -18,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = TaskManagerMapperImpl.class)
@@ -53,7 +54,7 @@ class TaskManagerApiServiceImplTest {
     }
 
     @Test
-    void getTaskManagerById() {
+    void getTaskManagerById() throws NotFoundException {
         TaskManager taskManager = new TaskManager();
         taskManager.setId(TASK_MANAGER_ID);
         taskManager.setDone(TASK_MANAGER_IS_DONE);
@@ -104,7 +105,7 @@ class TaskManagerApiServiceImplTest {
     }
 
     @Test
-    void putTaskManager() {
+    void putTaskManager() throws NotFoundException {
         TaskManager taskManager = new TaskManager();
         taskManager.setId(TASK_MANAGER_ID);
         taskManager.setDone(TASK_MANAGER_IS_DONE);

@@ -1,12 +1,12 @@
 package com.doeveryday.doeverydaytodoapi.services;
 
-import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.models.TaskMember;
 import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskMemberRepository;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskManagerMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskManagerDTO;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class TaskManagerApiServiceImpl implements TaskManagerApiService {
     }
 
     @Override
-    public TaskManagerDTO getTaskManagerById(Long id) {
+    public TaskManagerDTO getTaskManagerById(Long id) throws NotFoundException {
         return taskManagerMapper.taskManagerToTaskMangerDTO(
                 taskManagerRepository
                         .findById(id).orElseThrow(() -> new NotFoundException("Not found board with id: " + id)));
@@ -54,7 +54,7 @@ public class TaskManagerApiServiceImpl implements TaskManagerApiService {
     }
 
     @Override
-    public TaskManagerDTO putTaskManager(TaskManagerDTO taskManagerDTO, Long id) {
+    public TaskManagerDTO putTaskManager(TaskManagerDTO taskManagerDTO, Long id) throws NotFoundException {
         if (id == null){
             throw new NullPointerException("Id cannot be null");
         }

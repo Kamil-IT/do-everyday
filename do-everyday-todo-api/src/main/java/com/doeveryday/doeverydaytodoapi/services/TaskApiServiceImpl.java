@@ -1,12 +1,12 @@
 package com.doeveryday.doeverydaytodoapi.services;
 
-import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskDTO;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,12 +35,12 @@ public class TaskApiServiceImpl implements TaskApiService {
     }
 
     @Override
-    public TaskDTO getTaskById(Long id) {
+    public TaskDTO getTaskById(Long id) throws NotFoundException {
         return taskMapper.taskToTaskDTO(taskRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found board with id: " + id)));
     }
 
     @Override
-    public TaskDTO createTask(TaskDTO taskDTO) {
+    public TaskDTO createTask(TaskDTO taskDTO) throws NotFoundException {
         taskDTO.setId(null);
         Task taskToSave = taskMapper.taskDTOToTask(taskDTO);
         addBoardAndTask(taskDTO, taskToSave);
@@ -49,7 +49,7 @@ public class TaskApiServiceImpl implements TaskApiService {
     }
 
     @Override
-    public void deleteTaskById(Long id) {
+    public void deleteTaskById(Long id) throws NotFoundException {
         if (taskRepository.existsById(id)){
             taskRepository.deleteById(id);
         }
@@ -59,7 +59,7 @@ public class TaskApiServiceImpl implements TaskApiService {
     }
 
     @Override
-    public TaskDTO putTask(TaskDTO taskDTO, Long id) {
+    public TaskDTO putTask(TaskDTO taskDTO, Long id) throws NotFoundException {
         if (id == null){
             throw new NullPointerException("Id cannot be null");
         }
@@ -77,7 +77,7 @@ public class TaskApiServiceImpl implements TaskApiService {
         return taskMapper.tasksToTasksDTO(taskRepository.findAllByBoardId(boardId));
     }
 
-    private Task addBoardAndTask(TaskDTO taskDTO, Task taskToSave) {
+    private Task addBoardAndTask(TaskDTO taskDTO, Task taskToSave) throws NotFoundException {
         if (taskDTO.getBoardId() != null){
             taskToSave.setBoard(
                     boardRepository.findById(taskDTO.getBoardId())

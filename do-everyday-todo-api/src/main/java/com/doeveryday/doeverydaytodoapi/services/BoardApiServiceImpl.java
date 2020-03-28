@@ -1,6 +1,5 @@
 package com.doeveryday.doeverydaytodoapi.services;
 
-import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
 import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
@@ -9,6 +8,7 @@ import com.doeveryday.doeverydaytodoapi.api.v1.mapper.BoardMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.mapper.TaskMapper;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.BoardDTO;
 import com.doeveryday.doeverydaytodoapi.api.v1.model.TaskDTO;
+import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class BoardApiServiceImpl implements BoardApiService {
     }
 
     @Override
-    public BoardDTO getBoardById(Long id) {
+    public BoardDTO getBoardById(Long id) throws NotFoundException {
         return boardMapper.boardToBoardDTO(
                 boardRepository
                         .findById(id)
@@ -50,7 +50,7 @@ public class BoardApiServiceImpl implements BoardApiService {
     }
 
     @Override
-    public void deleteBoardById(Long id) {
+    public void deleteBoardById(Long id) throws NotFoundException {
         if (boardRepository.existsById(id)){
             boardRepository.deleteById(id);
         }
@@ -60,7 +60,7 @@ public class BoardApiServiceImpl implements BoardApiService {
     }
 
     @Override
-    public BoardDTO putBoard(BoardDTO boardDTO, Long id) {
+    public BoardDTO putBoard(BoardDTO boardDTO, Long id) throws NotFoundException {
         if (id == null){
             throw new NullPointerException("Id cannot be null");
         }
@@ -80,7 +80,7 @@ public class BoardApiServiceImpl implements BoardApiService {
                 boardDTO.getTasks()) {
             taskRepository.findById(taskDTO.getId())
                     .ifPresentOrElse(
-                            task -> tasks.add(task),
+                            tasks::add,
                             () -> tasks.add(taskMapper.taskDTOToTask(taskDTO)));
         }
         boardToSave.setTasks(tasks);
