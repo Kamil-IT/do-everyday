@@ -17,6 +17,7 @@
         <module>do-everyday-budget-manager</module>
         <module>do-everyday-spotify</module>
         <module>do-everyday-todo-api</module>
+        <module>do-everyday-security</module>
     </modules>
 
     <packaging>pom</packaging>
