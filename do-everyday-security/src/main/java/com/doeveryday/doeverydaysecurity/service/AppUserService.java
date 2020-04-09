@@ -1,28 +1,24 @@
 package com.doeveryday.doeverydaysecurity.service;
 
-import com.doeveryday.doeverydaysecurity.repository.AppUserRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import com.doeveryday.doeverydaysecurity.model.AppUser;
+import javassist.NotFoundException;
 
-@Slf4j
-@Service
-public class AppUserService implements UserDetailsService {
+import java.util.List;
+import java.util.UUID;
 
-    private final AppUserRepository appUserRepository;
+public interface AppUserService {
 
-    public AppUserService(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
-    }
+    AppUser saveUser(AppUser user);
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username == null){
-            throw new UsernameNotFoundException("Username cannot be null");
-        }
-        return appUserRepository.findFirstByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("Not found user with name: " + username));
-    }
+    List<AppUser> getUsers();
+
+    AppUser findById(UUID id) throws NotFoundException;
+
+    void deleteById(UUID id) throws NotFoundException;
+
+    void updateBudget(AppUser user) throws NotFoundException;
+
+    boolean existsById(UUID id);
+
+    AppUser findByUsername(String username) throws NotFoundException;
 }

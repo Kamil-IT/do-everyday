@@ -15,25 +15,45 @@ public enum AppUserRole {
      * Have authority to read, add, modify stuff they add on their own
      */
     USER(new HashSet<>(Arrays.asList(
+//            Budget manager
             BUDGET_GET_CREATOR,
             BUDGET_CREATE_CREATOR,
             BUDGET_UPDATE_CREATOR,
-            BUDGET_DELETE_CREATOR))),
+            BUDGET_DELETE_CREATOR,
+
+//            User details
+            USER_ALL_DETAILS_GET_CREATOR,
+            USER_ALL_DETAILS_UPDATE_CREATOR,
+            USER_ALL_DETAILS_CREATE_CREATOR,
+            USER_ALL_DETAILS_DELETE_CREATOR))),
     /**
      * Have authority to read, add and modify all stuff
      */
     EMPLOYEE(new HashSet<>(Arrays.asList(
+//            Budget manager
             BUDGET_GET,
             BUDGET_CREATE,
-            BUDGET_UPDATE))),
+            BUDGET_UPDATE,
+
+//            User details
+            USER_ALL_DETAILS_GET,
+            USER_ALL_DETAILS_CREATE,
+            USER_ALL_DETAILS_UPDATE))),
     /**
      * Have authority to read, add, modify, and delete all stuff
      */
     ADMIN(new HashSet<>(Arrays.asList(
+//            Budget manager
             BUDGET_GET,
             BUDGET_CREATE,
             BUDGET_UPDATE,
-            BUDGET_DELETE)));
+            BUDGET_DELETE,
+
+//            User details
+            USER_ALL_DETAILS_GET,
+            USER_ALL_DETAILS_CREATE,
+            USER_ALL_DETAILS_UPDATE,
+            USER_ALL_DETAILS_DELETE)));
 
     private final Set<AppUserAuthorities> authorities;
 

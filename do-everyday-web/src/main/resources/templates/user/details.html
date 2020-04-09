@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>User details</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<main role="main">
+    <div class="jumbotron">
+        <h1 style="text-align: center; color: #1DB954">
+            User photo
+        </h1>
+        <table class="table" style="margin: auto;width: 80% !important; ">
+            <tbody>
+            <tr>
+                <td>Username</td>
+                <td th:text="${user.getUsername()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td th:text="${user.getId()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Authorities</td>
+                <td th:text="${user.getAuthorities()}"></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td th:text="${user.getRole()}">Property value</td>
+            </tr>
+            <tr>
+                <td>Password coded Bcrypt</td>
+                <td th:text="${user.getPassword()}">Property value</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+</body>
+</html>

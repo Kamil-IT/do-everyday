@@ -67,7 +67,7 @@
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     Logged <b> <span sec:authentication="name">Name</span> </b>
-                    <a href="/login">
+                    <a href="/user/details">
                         <button type="button" class="btn btn-outline-secondary btn-sm">
                             <img style="width: 30px; height: 30px" th:src="@{/resources/user/images/no_photo_user.png}"
                                  alt="user image"/>
