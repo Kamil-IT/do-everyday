@@ -1,30 +1,42 @@
 package com.doeveryday.doeverydaysecurity.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-//@Entity
-//@Table("User")
+@Entity
+@Builder
+@Table(name = "User")
 public class AppUser extends BaseEntity implements UserDetails {
 
+    @Column(unique = true)
     private String username;
     private String password;
+
+    @Column(name = "account_non_expired")
     private boolean accountNonExpired;
+
+    @Column(name = "account_non_locked")
     private boolean accountNonLocked;
+
+    @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired;
     private boolean enabled;
 
-    private Set<? extends GrantedAuthority> authorities;
+    private AppUserRole role;
 
     @Override
     public Set<GrantedAuthority> getAuthorities() {
-        return null;
+        return role.getAuthorities();
     }
 
     @Override
