@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import java.util.Set;
 import java.util.UUID;
@@ -35,6 +36,9 @@ public class AppUser extends BaseEntity implements UserDetails {
     private boolean enabled;
 
     private AppUserRole role;
+
+    @Lob
+    private byte [] photo;
 
     @Builder
     public AppUser(UUID id, String username, String password, boolean accountNonExpired, boolean accountNonLocked,
