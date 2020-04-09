@@ -10,11 +10,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Set;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Builder
 @Table(name = "User")
 public class AppUser extends BaseEntity implements UserDetails {
 
@@ -33,6 +33,19 @@ public class AppUser extends BaseEntity implements UserDetails {
     private boolean enabled;
 
     private AppUserRole role;
+
+    @Builder
+    public AppUser(UUID id, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, AppUserRole role) {
+        super(id);
+        this.username = username;
+        this.password = password;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.role = role;
+
+    }
 
     @Override
     public Set<GrantedAuthority> getAuthorities() {
