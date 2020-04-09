@@ -35,7 +35,8 @@ public class AppUser extends BaseEntity implements UserDetails {
     private AppUserRole role;
 
     @Builder
-    public AppUser(UUID id, String username, String password, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, AppUserRole role) {
+    public AppUser(UUID id, String username, String password, boolean accountNonExpired, boolean accountNonLocked,
+                   boolean credentialsNonExpired, boolean enabled, AppUserRole role) {
         super(id);
         this.username = username;
         this.password = password;
