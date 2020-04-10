@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -26,6 +27,13 @@ public class UserController {
     @GetMapping("/details")
     public String getUserDetails(Principal principal, Model model) throws NotFoundException {
         model.addAttribute("user", appUserService.findByUsername(principal.getName()));
+        return "user/details";
+    }
+
+    @PreAuthorize("hasAnyAuthority('user:details:get')")
+    @GetMapping("/details/{username}")
+    public String getUserDetailsById(@PathVariable("username") String username, Model model) throws NotFoundException {
+        model.addAttribute("user", appUserService.findByUsername(username));
         return "user/details";
     }
 
