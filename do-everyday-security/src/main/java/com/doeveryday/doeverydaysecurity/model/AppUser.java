@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,18 +22,22 @@ import java.util.UUID;
 @Table(name = "User")
 public class AppUser extends BaseEntity implements UserDetails {
 
-    @Column(unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "account_non_expired")
+    @Column(name = "account_non_expired", nullable = false)
     private boolean accountNonExpired;
 
-    @Column(name = "account_non_locked")
+    @Column(name = "account_non_locked", nullable = false)
     private boolean accountNonLocked;
 
-    @Column(name = "credentials_non_expired")
+    @Column(name = "credentials_non_expired", nullable = false)
     private boolean credentialsNonExpired;
+
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
     private AppUserRole role;
@@ -40,9 +45,12 @@ public class AppUser extends BaseEntity implements UserDetails {
     @Lob
     private byte [] photo;
 
+    @Email
+    private String email;
+
     @Builder
     public AppUser(UUID id, String username, String password, boolean accountNonExpired, boolean accountNonLocked,
-                   boolean credentialsNonExpired, boolean enabled, AppUserRole role) {
+                   boolean credentialsNonExpired, boolean enabled, AppUserRole role, byte [] photo, String email) {
         super(id);
         this.username = username;
         this.password = password;
@@ -51,7 +59,8 @@ public class AppUser extends BaseEntity implements UserDetails {
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
         this.role = role;
-
+        this.photo = photo;
+        this.email = email;
     }
 
     @Override

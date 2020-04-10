@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create account</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+
+<main role="main">
+    <div class="jumbotron">
+
+        <div class="container">
+
+            <div class="row">
+                <aside class="col-sm-4" style="margin: auto">
+                    <div class="card">
+                        <article class="card-body">
+                            <h4 class="card-title mb-4 mt-1">Sign up</h4>
+                            <p>
+                                <!--                        Add it after implement login via facebook and google-->
+                                <!--                        <a href="" class="btn btn-block btn-outline-danger"> <i class="fab fa-google"></i>   Login via Google</a>-->
+                                <!--                        <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>-->
+                            </p>
+                            <hr>
+                            <div th:if="!(${message} == null)">
+                                <p class="text-danger text-center" th:text="${message}">
+                                    Some message goes here
+                                </p>
+                            </div>
+
+                            <form class="form-signin" method="post" action="/user/">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                        </div>
+                                        <input id="username" name="username" class="form-control" placeholder="Username" type="text">
+                                    </div> <!-- input-group.// -->
+                                </div> <!-- form-group// -->
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                        </div>
+                                        <input id="password" name="password" class="form-control" placeholder="******" type="password">
+                                    </div> <!-- input-group.// -->
+                                </div> <!-- form-group// -->
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                        </div>
+                                        <input id="email" name="email" class="form-control" placeholder="E-mail" type="email">
+                                    </div> <!-- input-group.// -->
+                                </div> <!-- form-group// -->
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block"> Create</button>
+                                </div> <!-- form-group// -->
+                            </form>
+                        </article>
+                    </div> <!-- card.// -->
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div>
+        <!--container end.//-->
+    </div>
+</main>
+</body>
+</html>

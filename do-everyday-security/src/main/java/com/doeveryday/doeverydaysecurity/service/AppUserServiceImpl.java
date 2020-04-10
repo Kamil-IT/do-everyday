@@ -4,9 +4,7 @@ import com.doeveryday.doeverydaysecurity.model.AppUser;
 import com.doeveryday.doeverydaysecurity.repository.AppUserRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,21 +13,14 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class AppUserServiceImpl implements UserDetailsService, AppUserService {
+public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username == null){
-            throw new UsernameNotFoundException("Username cannot be null");
-        }
-        return appUserRepository.findFirstByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("Not found user with name: " + username));
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -38,9 +29,10 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
             throw new NullPointerException("Username cannot be null");
         }
         Optional<AppUser> firstByUsername = appUserRepository.findFirstByUsername(user.getUsername());
-        if (firstByUsername.get() != null){
+        if (firstByUsername.isPresent()){
             throw new IllegalArgumentException("Username must be unique");
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return appUserRepository.save(user);
     }
@@ -78,6 +70,7 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
 
     @Override
     public AppUser findByUsername(String username) throws NotFoundException {
-        return appUserRepository.findFirstByUsername(username).orElseThrow(() -> new NotFoundException("Not found user with name: " + username));
+        return appUserRepository.findFirstByUsername(username).orElseThrow(() ->
+                new NotFoundException("Not found user with name: " + username));
     }
 }

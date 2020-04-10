@@ -14,7 +14,7 @@ public class AuthenticationConfig {
     private final UserDetailsService userDetailsService;
 
     public AuthenticationConfig(PasswordEncoder passwordEncoder,
-                                @Qualifier("appUserServiceImpl") UserDetailsService userDetailsService) {
+                                @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
