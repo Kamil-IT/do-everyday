@@ -28,16 +28,16 @@ public class AppUser extends BaseEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "account_non_expired", nullable = false)
+    @Column(name = "account_non_expired", nullable = false, columnDefinition = "boolean default true")
     private boolean accountNonExpired;
 
-    @Column(name = "account_non_locked", nullable = false)
+    @Column(name = "account_non_locked", nullable = false, columnDefinition = "boolean default true")
     private boolean accountNonLocked;
 
-    @Column(name = "credentials_non_expired", nullable = false)
+    @Column(name = "credentials_non_expired", nullable = false, columnDefinition = "boolean default true")
     private boolean credentialsNonExpired;
 
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
     private boolean enabled;
 
     private AppUserRole role;
