@@ -6,6 +6,8 @@ create table task_manager (id bigint not null auto_increment, is_done bit, prior
 create table task_member (id bigint not null auto_increment, name varchar(255), surname varchar(255), primary key (id)) engine=InnoDB;
 create table task_member_task_manager (task_manager_id bigint not null, task_member_id bigint not null) engine=InnoDB;
 create table transaction (id bigint not null auto_increment, currency varchar(255), date datetime, description varchar(255), value double precision, budget_id bigint, primary key (id)) engine=InnoDB;
+create table user (id binary(255) not null, account_non_expired bit default 1 not null, account_non_locked bit default 1 not null, credentials_non_expired bit default 1 not null, email varchar(255), enabled bit default true not null, password varchar(255) not null, photo longblob, role integer, username varchar(255) not null, primary key (id)) engine=InnoDB;
+alter table user add constraint UK_sb8bbouer5wak8vyiiy4pf2bx unique (username);
 alter table task add constraint FKrar3pm9ixqub1nilws0l8l22w foreign key (board_id) references board (id);
 alter table task_manager add constraint FK82wv11lkj1657fmwr6ky4jol2 foreign key (task_id) references task (id);
 alter table task_member_task_manager add constraint FK739i1i80a7jixtrempe0ka2y4 foreign key (task_member_id) references task_manager (id);

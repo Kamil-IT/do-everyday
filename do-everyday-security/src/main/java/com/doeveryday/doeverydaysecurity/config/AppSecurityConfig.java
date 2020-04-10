@@ -23,7 +23,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
     }
 
-    @Profile("default")
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -45,15 +44,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth
                 .authenticationProvider(daoAuthenticationProvider);
     }
 
 //    For h2-console
+    @SuppressWarnings("rawtypes")
     @Profile("default")
     @Bean
-    ServletRegistrationBean h2servletRegistration() {
+    public ServletRegistrationBean h2servletRegistration() {
+        //noinspection unchecked
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
         registrationBean.addUrlMappings("/console/*");
         return registrationBean;
