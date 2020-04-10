@@ -1,6 +1,10 @@
 package com.doeveryday.doeverydaysecurity.config;
 
+import org.h2.server.web.WebServlet;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -19,6 +23,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
     }
 
+    @Profile("default")
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -33,11 +38,24 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout=true");
+
+//        For h2-console
+        http.headers().frameOptions().disable();
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .authenticationProvider(daoAuthenticationProvider);
+    }
+
+//    For h2-console
+    @Profile("default")
+    @Bean
+    ServletRegistrationBean h2servletRegistration() {
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
+        registrationBean.addUrlMappings("/console/*");
+        return registrationBean;
     }
 }
