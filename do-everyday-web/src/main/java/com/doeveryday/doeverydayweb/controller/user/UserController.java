@@ -103,7 +103,7 @@ public class UserController {
     @PostMapping("/password")
     public String updatePassword(UUID id, String password) throws NotFoundException {
         AppUser user = appUserService.findById(id);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(password);
         appUserService.updateUser(user);
         return "redirect:/user/details";
     }

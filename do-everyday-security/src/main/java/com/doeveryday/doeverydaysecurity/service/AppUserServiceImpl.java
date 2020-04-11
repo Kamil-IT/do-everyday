@@ -62,6 +62,7 @@ public class AppUserServiceImpl implements AppUserService {
         if (!appUserRepository.existsById(user.getId())){
             throw new NotFoundException("Not found user with id: " + user.getId());
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         appUserRepository.save(user);
     }
 
@@ -98,6 +99,5 @@ public class AppUserServiceImpl implements AppUserService {
         }
 
         return new byte[0];
-
     }
 }
