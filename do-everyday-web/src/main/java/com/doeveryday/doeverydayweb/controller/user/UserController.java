@@ -6,6 +6,7 @@ import javassist.NotFoundException;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.UUID;
 
 import static com.doeveryday.doeverydaysecurity.model.AppUserRole.USER;
 
@@ -27,13 +29,16 @@ import static com.doeveryday.doeverydaysecurity.model.AppUserRole.USER;
 @RequestMapping("/user")
 public class UserController {
 
+    public static final String USER_DETAILS_GET_AND_GET_CREATOR = "'user:details:get', 'user:details:getcreator'";
     private final AppUserService appUserService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(@Qualifier("appUserServiceImpl") AppUserService appUserService) {
+    public UserController(@Qualifier("appUserServiceImpl") AppUserService appUserService, PasswordEncoder passwordEncoder) {
         this.appUserService = appUserService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @PreAuthorize("hasAnyAuthority('user:details:get', 'user:details:getcreator')")
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @GetMapping("/details")
     public String getUserDetails(Principal principal, Model model) throws NotFoundException {
         model.addAttribute("user", appUserService.findByUsername(principal.getName()));
@@ -48,7 +53,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PreAuthorize("hasAnyAuthority('user:details:get', 'user:details:getcreator')")
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @PostMapping("/image")
     public String addOrChangeImage(Principal principal, @RequestParam("imagefile") MultipartFile file) throws NotFoundException {
         if (file.isEmpty()){
@@ -58,7 +63,7 @@ public class UserController {
         return "redirect:/user/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('user:details:get', 'user:details:getcreator')")
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @GetMapping("/details/image")
     public void renderImage(Principal principal, HttpServletResponse response) throws IOException, NotFoundException {
         AppUser user = appUserService.findByUsername(principal.getName());
@@ -75,6 +80,44 @@ public class UserController {
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
         }
+    }
+
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
+    @PostMapping("/username")
+    public String updateUsername(UUID id, String usernameNEW) throws NotFoundException {
+        try {
+            appUserService.findByUsername(usernameNEW);
+        } catch (NotFoundException e) {
+            return "redirect:/user/details";
+        }
+        AppUser user = appUserService.findById(id);
+
+        user.setUsername(usernameNEW);
+
+        appUserService.updateUser(user);
+
+        return "redirect:/user/details";
+    }
+
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
+    @PostMapping("/password")
+    public String updatePassword(UUID id, String password) throws NotFoundException {
+        AppUser user = appUserService.findById(id);
+        user.setPassword(passwordEncoder.encode(password));
+        appUserService.updateUser(user);
+        return "redirect:/user/details";
+    }
+
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
+    @PostMapping("/email")
+    public String updateEmail(UUID id, String email) throws NotFoundException {
+        AppUser user = appUserService.findById(id);
+        if (!email.contains("@")){
+            throw new IllegalArgumentException("Email must have '@'");
+        }
+        user.setEmail(email);
+        appUserService.updateUser(user);
+        return "redirect:/user/details";
     }
 
 

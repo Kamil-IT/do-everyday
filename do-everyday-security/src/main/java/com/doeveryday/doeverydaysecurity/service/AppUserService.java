@@ -17,7 +17,7 @@ public interface AppUserService {
 
     void deleteById(UUID id) throws NotFoundException;
 
-    void updateBudget(AppUser user) throws NotFoundException;
+    void updateUser(AppUser user) throws NotFoundException;
 
     boolean existsById(UUID id);
 

@@ -58,7 +58,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public void updateBudget(AppUser user) throws NotFoundException {
+    public void updateUser(AppUser user) throws NotFoundException {
         if (!appUserRepository.existsById(user.getId())){
             throw new NotFoundException("Not found user with id: " + user.getId());
         }
