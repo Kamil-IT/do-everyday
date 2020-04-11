@@ -6,7 +6,9 @@ import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -72,5 +74,30 @@ public class AppUserServiceImpl implements AppUserService {
     public AppUser findByUsername(String username) throws NotFoundException {
         return appUserRepository.findFirstByUsername(username).orElseThrow(() ->
                 new NotFoundException("Not found user with name: " + username));
+    }
+
+    @Override
+    public byte[] addImage(UUID id, MultipartFile file) throws NotFoundException {
+        AppUser user = appUserRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Not found user with id: " + id));
+
+        try {
+            byte[] fileBytes = new byte[file.getBytes().length];
+
+            int i = 0;
+            for (byte b : file.getBytes()){
+                fileBytes[i++] = b;
+            }
+
+            user.setPhoto(fileBytes);
+
+            return appUserRepository.save(user).getPhoto();
+        } catch (IOException e) {
+            log.error("Image cannot be convert to bytes");
+            e.printStackTrace();
+        }
+
+        return new byte[0];
+
     }
 }

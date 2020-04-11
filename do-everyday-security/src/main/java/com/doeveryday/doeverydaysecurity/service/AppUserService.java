@@ -2,6 +2,7 @@ package com.doeveryday.doeverydaysecurity.service;
 
 import com.doeveryday.doeverydaysecurity.model.AppUser;
 import javassist.NotFoundException;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,4 +22,6 @@ public interface AppUserService {
     boolean existsById(UUID id);
 
     AppUser findByUsername(String username) throws NotFoundException;
+
+    byte [] addImage(UUID id, MultipartFile file) throws NotFoundException;
 }

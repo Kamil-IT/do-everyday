@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>User details</title>
 
-    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+    <div th:replace="fragments/navbar :: navbar-css-js"/>
 
 </head>
 <body>
@@ -14,9 +14,28 @@
 
 <main role="main">
     <div class="jumbotron">
-        <h1 style="text-align: center; color: #1DB954">
-            User photo
-        </h1>
+        <dev style="text-align: center;">
+            <dev th:if="${user.getPhoto() == null}">
+                <h3>Add image</h3>
+            </dev>
+            <dev th:if="${user.getPhoto() != null}">
+                <img style="margin: auto" th:src="@{/user/details/image}" alt="Profile photo">
+                <h3>Change image</h3>
+            </dev>
+            <form th:action="@{/user/image}" method="post" enctype="multipart/form-data">
+                <label class="control-label">Select File</label>
+                <input id="imagefile" name="imagefile" type="file" class="file">
+                <button type="submit" class="btn btn-secondary">
+                    <dev th:if="${user.getPhoto() == null}">
+                        Add
+                    </dev>
+                    <dev th:if="${user.getPhoto() != null}">
+                        Change
+                    </dev>
+                </button>
+            </form>
+        </dev>
+        <dev></dev>
         <table class="table" style="margin: auto;width: 80% !important; ">
             <tbody>
             <tr>
