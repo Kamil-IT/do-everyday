@@ -97,4 +97,18 @@ public class AppUser extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    /**
+     * This method set:
+     *         accountNonExpired = true
+     *         accountNonLocked = true
+     *         credentialsNonExpired = true
+     *         enabled = true
+     */
+    public void setDefaultValueToWorkAccount(){
+        accountNonExpired = true;
+        accountNonLocked = true;
+        credentialsNonExpired = true;
+        enabled = true;
+    }
 }

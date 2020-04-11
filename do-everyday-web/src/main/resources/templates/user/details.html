@@ -19,7 +19,7 @@
                 <h3>Add image</h3>
             </dev>
             <dev th:if="${user.getPhoto() != null}">
-                <img style="margin: auto" th:src="@{/user/details/image}" alt="Profile photo">
+                <img style="margin: auto;height: 250px; width: 250px" th:src="@{/user/details/image}" alt="Profile photo" class="rounded mx-auto d-block">
                 <h3>Change image</h3>
             </dev>
             <form th:action="@{/user/image}" method="post" enctype="multipart/form-data">

@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,19 +40,9 @@ public class UserController {
         return "user/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('user:details:get')")
-    @GetMapping("/details/{username}")
-    public String getUserDetailsById(@PathVariable("username") String username, Model model) throws NotFoundException {
-        model.addAttribute("user", appUserService.findByUsername(username));
-        return "user/details";
-    }
-
     @PostMapping({"", "/"})
     public String createNewUser(AppUser user){
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);
-        user.setEnabled(true);
+        user.setDefaultValueToWorkAccount();
         user.setRole(USER);
         appUserService.saveUser(user);
         return "redirect:/login";
@@ -57,7 +50,10 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('user:details:get', 'user:details:getcreator')")
     @PostMapping("/image")
-    public String addImage(Principal principal, @RequestParam("imagefile") MultipartFile file) throws NotFoundException {
+    public String addOrChangeImage(Principal principal, @RequestParam("imagefile") MultipartFile file) throws NotFoundException {
+        if (file.isEmpty()){
+            return "redirect:/user/details";
+        }
         appUserService.addImage(appUserService.findByUsername(principal.getName()).getId(), file);
         return "redirect:/user/details";
     }
