@@ -1,6 +1,5 @@
 package com.doeveryday.doeverydaybudgetmanager.model;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -30,5 +29,12 @@ public class Transaction extends BaseEntity{
     @JoinColumn(name = "budget_id")
     @ManyToOne
     Budget budget;
+
+    @PrePersist
+    private void setDefaultValueForData(){
+        if (date == null){
+            date = new Date();
+        }
+    }
 
 }
