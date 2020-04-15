@@ -63,7 +63,7 @@ public class ForecastServiceImpl implements ForecastService {
         if (!this.geoCoordinates.latitude().value().equals(latitude)){
             this.latitude = latitude;
         }
-        else if (!this.geoCoordinates.longitude().value().equals(longitude)){
+        if (!this.geoCoordinates.longitude().value().equals(longitude)){
             this.longitude = longitude;
         }
         this.geoCoordinates = new GeoCoordinates(
