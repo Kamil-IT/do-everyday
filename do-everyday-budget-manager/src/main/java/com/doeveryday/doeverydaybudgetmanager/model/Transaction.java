@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -13,8 +14,8 @@ import java.util.Date;
 @Entity
 public class Transaction extends BaseEntity{
 
-    /*
-    It can have value on minus
+    /**
+     * It can have value on minus
      */
     @NotNull
     Double value;
