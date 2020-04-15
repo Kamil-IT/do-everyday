@@ -17,7 +17,7 @@
     <div class="form-group">
         <label for="bord-description" >Transaction description</label>
         <input id="bord-description" type="text" class="form-control" name="bord-description" th:field="*{description}">
-        <label for="bord-value">Budget description</label>
+        <label for="bord-value">Transaction value</label>
         <input id="bord-value" type="number" step="0.01" class="form-control" name="bord-value" th:field="*{value}">
         <select class="form-control" th:field="*{currency}">
             <!--/*@thymesVar id="currency" type="com.doeveryday.doeverydaybudgetmanager.model.Currency"*/-->
