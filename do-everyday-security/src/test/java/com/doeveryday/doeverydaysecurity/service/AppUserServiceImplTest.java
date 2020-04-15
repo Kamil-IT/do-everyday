@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.doeveryday.doeverydaysecurity.model.AppUserRole.USER;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -42,10 +43,11 @@ class AppUserServiceImplTest {
     void saveUser() {
         AppUser user = AppUser.builder()
                 .username(NAME)
-                .password(PASSWORD).build();
+                .password(PASSWORD)
+                .role(USER).build();
 
         when(passwordEncoder.encode(anyString())).thenReturn("encoded_string");
-        when(appUserRepository.findFirstByUsername(anyString())).thenReturn(Optional.empty());
+        when(appUserRepository.existsByUsername(anyString())).thenReturn(false);
         when(appUserRepository.save(any(AppUser.class))).thenReturn(user);
 
         AppUser actual = appUserService.saveUser(user);
@@ -65,9 +67,10 @@ class AppUserServiceImplTest {
     void saveUser_NameAvailableInDB() {
         AppUser user = AppUser.builder()
                 .username(NAME)
-                .password(PASSWORD).build();
+                .password(PASSWORD)
+                .role(USER).build();
 
-        when(appUserRepository.findFirstByUsername(anyString())).thenReturn(Optional.of(user));
+        when(appUserRepository.existsByUsername(anyString())).thenReturn(true);
 
         assertThrows(IllegalArgumentException.class, () -> appUserService.saveUser(user));
     }
