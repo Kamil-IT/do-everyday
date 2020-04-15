@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,10 +23,12 @@ import java.util.UUID;
 @Table(name = "User")
 public class AppUser extends BaseEntity implements UserDetails {
 
-    @Column(name = "username", nullable = false, unique = true)
+    @NotNull
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @NotNull
+    @Column(name = "password")
     private String password;
 
     @Column(name = "account_non_expired", nullable = false, columnDefinition = "bit default 1")
