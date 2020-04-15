@@ -5,7 +5,10 @@ import com.doeveryday.doeverydaytodo.models.TaskManager;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface TaskManagerRepository extends CrudRepository<TaskManager, Long> {
-    TaskManager findByTask(Task task);
+
+    Optional<TaskManager> findByTask(Task task);
 }

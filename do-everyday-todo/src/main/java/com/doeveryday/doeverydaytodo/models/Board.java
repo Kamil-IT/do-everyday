@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-Board is for keeping tasks in same category
+/**
+ * Board is for keeping tasks in same category
  */
 @Slf4j
 @EqualsAndHashCode(callSuper = true)

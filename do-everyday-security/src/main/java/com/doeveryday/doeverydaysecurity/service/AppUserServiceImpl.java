@@ -29,8 +29,10 @@ public class AppUserServiceImpl implements AppUserService {
         if (user.getUsername() == null){
             throw new NullPointerException("Username cannot be null");
         }
-        Optional<AppUser> firstByUsername = appUserRepository.findFirstByUsername(user.getUsername());
-        if (firstByUsername.isPresent()){
+        if (user.getUsername().length() == 0){
+            throw new NullPointerException("Username cannot be null");
+        }
+        if (appUserRepository.existsByUsername(user.getUsername())){
             throw new IllegalArgumentException("Username must be unique");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));

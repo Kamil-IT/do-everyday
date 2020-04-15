@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -32,15 +31,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board findById(Long id) {
-        Optional<Board> boardOptional = boardRepository.findById(id);
-        if (boardOptional.isPresent()){
-            return boardOptional.get();
-        }
-        else {
-            log.error("Not found board with id: " + id);
-            throw new NotFoundException("Not found board with id: " + id);
-        }
-
+        return boardRepository.findById(id).orElseThrow(() ->
+        new NotFoundException("Not found board with id: " + id));
     }
 
     @Override

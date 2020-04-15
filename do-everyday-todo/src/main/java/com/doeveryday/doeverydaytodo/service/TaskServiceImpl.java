@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Slf4j
@@ -51,13 +50,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task findById(Long id) {
-        Optional<Task> taskOptional = taskRepository.findById(id);
-        if (taskOptional.isEmpty()){
-            throw new NotFoundException("Not found task with id: " + id);
-        }
-        else {
-            return taskOptional.get();
-        }
+        return taskRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Not found task with id: " + id));
     }
 
     @Override

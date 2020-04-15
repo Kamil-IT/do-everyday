@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -35,14 +34,8 @@ public class TaskManagerServiceImpl implements TaskManagerService{
 
     @Override
     public TaskManager findById(Long id) {
-        Optional<TaskManager> taskManagerOptional = taskManagerRepository.findById(id);
-        if (taskManagerOptional.isEmpty()){
-            throw new NotFoundException("Not found TaskManager with id: = " + id);
-        }
-        else {
-            return taskManagerOptional.get();
-        }
-
+        return taskManagerRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Not found TaskManager with id: = " + id));
     }
 
     @Override
@@ -71,15 +64,18 @@ public class TaskManagerServiceImpl implements TaskManagerService{
 
     @Override
     public TaskManager findByTask(Task task) {
-        return taskManagerRepository.findByTask(task);
+        return taskManagerRepository.findByTask(task).orElseThrow(() ->
+                new NotFoundException("Not found task manager which have task with id: =" + task));
     }
 
+    /**
+     * @param id Task id, task which this id must have assigned task manager
+     * @return Task manager with have at least task with id which was uploads in param
+     */
     @Override
     public TaskManager findByTaskId(Long id) {
-        Optional<Task> taskOptional = taskRepository.findById(id);
-        if (taskOptional.isEmpty()){
-            throw new NotFoundException("Not found task with id: =" + id);
-        }
-        return taskManagerRepository.findByTask(taskOptional.get());
+        return taskManagerRepository.findByTask(
+                taskRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found task with id: =" + id))
+        ).orElseThrow(() -> new NotFoundException("Not found task manager which have task with id: =" + id));
     }
 }

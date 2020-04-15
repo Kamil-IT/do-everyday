@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-/*
-Class with keep tracks, albumSimplifieds and artists(use only when you have all 3 types of data)
+/**
+ * Class with keep tracks, album simplifieds and artists(use only when you have all 3 types of data)
  */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +19,7 @@ Class with keep tracks, albumSimplifieds and artists(use only when you have all 
 @Setter
 @EqualsAndHashCode
 public class SpotifyAllTypes {
+
     AlbumSimplified[] albumSimplifieds;
     Track[] tracks;
     Artist[]artists;
