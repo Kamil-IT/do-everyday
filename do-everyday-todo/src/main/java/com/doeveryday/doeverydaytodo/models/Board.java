@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Board extends BaseEntity{
     /**
      * If color will be not in hex schema, it will be set default to #282828
      */
+    @NotNull
     @Column(name = "color_hex")
     private String colorHex;
 

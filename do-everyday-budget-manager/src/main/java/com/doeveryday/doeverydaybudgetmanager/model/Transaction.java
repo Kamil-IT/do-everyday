@@ -3,6 +3,7 @@ package com.doeveryday.doeverydaybudgetmanager.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,11 +21,13 @@ public class Transaction extends BaseEntity{
     @NotNull
     Double value;
 
+    @Nullable
     String description;
 
     @Enumerated(EnumType.STRING)
     Currency currency;
 
+    @NotNull
     Date date;
 
     @JoinColumn(name = "budget_id")

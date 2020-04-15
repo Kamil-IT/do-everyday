@@ -3,6 +3,7 @@ package com.doeveryday.doeverydaybudgetmanager.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ public class Budget extends BaseEntity {
     @NotNull
     String name;
 
+    @Nullable
     String description;
 
     @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)

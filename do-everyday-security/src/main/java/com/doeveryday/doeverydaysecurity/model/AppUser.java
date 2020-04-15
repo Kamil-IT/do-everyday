@@ -4,13 +4,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -31,23 +29,30 @@ public class AppUser extends BaseEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "account_non_expired", nullable = false, columnDefinition = "bit default 1")
+    @NotNull
+    @Column(name = "account_non_expired", columnDefinition = "bit default 1")
     private boolean accountNonExpired;
 
-    @Column(name = "account_non_locked", nullable = false, columnDefinition = "bit default 1")
+    @NotNull
+    @Column(name = "account_non_locked", columnDefinition = "bit default 1")
     private boolean accountNonLocked;
 
-    @Column(name = "credentials_non_expired", nullable = false, columnDefinition = "bit default 1")
+    @NotNull
+    @Column(name = "credentials_non_expired", columnDefinition = "bit default 1")
     private boolean credentialsNonExpired;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "bit default true")
+    @NotNull
+    @Column(name = "enabled", columnDefinition = "bit default true")
     private boolean enabled;
 
+    @NotNull
     private AppUserRole role;
 
+    @Nullable
     @Lob
     private byte [] photo;
 
+    @Nullable
     @Email
     private String email;
 
@@ -113,5 +118,12 @@ public class AppUser extends BaseEntity implements UserDetails {
         accountNonLocked = true;
         credentialsNonExpired = true;
         enabled = true;
+    }
+
+    @PrePersist
+    public void setDefaultRoleToUser(){
+        if (role == null){
+            role = AppUserRole.USER;
+        }
     }
 }
