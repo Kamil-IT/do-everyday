@@ -29,7 +29,7 @@ public class Board extends BaseEntity{
      * If color will be not in hex schema, it will be set default to #282828
      */
     @NotNull
-    @Column(name = "color_hex")
+    @Column(name = "color_hex", nullable = false)
     private String colorHex;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)

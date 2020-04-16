@@ -22,30 +22,31 @@ import java.util.UUID;
 public class AppUser extends BaseEntity implements UserDetails {
 
     @NotNull
-    @Column(name = "username", unique = true)
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @NotNull
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @NotNull
-    @Column(name = "account_non_expired", columnDefinition = "bit default 1")
+    @Column(name = "account_non_expired", columnDefinition = "bit default 1", nullable = false)
     private boolean accountNonExpired;
 
     @NotNull
-    @Column(name = "account_non_locked", columnDefinition = "bit default 1")
+    @Column(name = "account_non_locked", columnDefinition = "bit default 1", nullable = false)
     private boolean accountNonLocked;
 
     @NotNull
-    @Column(name = "credentials_non_expired", columnDefinition = "bit default 1")
+    @Column(name = "credentials_non_expired", columnDefinition = "bit default 1", nullable = false)
     private boolean credentialsNonExpired;
 
     @NotNull
-    @Column(name = "enabled", columnDefinition = "bit default true")
+    @Column(name = "enabled", columnDefinition = "bit default true", nullable = false)
     private boolean enabled;
 
     @NotNull
+    @Column(nullable = false)
     private AppUserRole role;
 
     @Nullable

@@ -19,6 +19,7 @@ public class Transaction extends BaseEntity{
      * It can have value on minus
      */
     @NotNull
+    @Column(nullable = false)
     Double value;
 
     @Nullable
@@ -28,6 +29,7 @@ public class Transaction extends BaseEntity{
     Currency currency;
 
     @NotNull
+    @Column(nullable = false)
     Date date;
 
     @JoinColumn(name = "budget_id")
