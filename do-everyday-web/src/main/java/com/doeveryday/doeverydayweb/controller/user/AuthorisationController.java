@@ -17,6 +17,7 @@ public class AuthorisationController {
     public static final String LOGOUT_SUCCESSFUL_MESSAGE = "Logout successful";
     public static final String FAILED_LOG_IN_MESSAGE = "Incorrect password or username ";
     public static final String ACCOUNT_CREATED_MESSAGE = "Your account was created";
+    public static final String USERNAME_CHANGED = "After change username you have to login again";
 
     private final AppUserService appUserService;
 
@@ -28,6 +29,7 @@ public class AuthorisationController {
     public String getLoginPage(@PathParam("logout") boolean logout,
                                @PathParam("failedlogin") boolean failedlogin,
                                @PathParam("newuser") boolean newuser,
+                               @PathParam("changeusername") boolean changeusername,
                                Model model) {
         if (logout) {
             model.addAttribute("message", LOGOUT_SUCCESSFUL_MESSAGE);
@@ -35,6 +37,8 @@ public class AuthorisationController {
             model.addAttribute("message", FAILED_LOG_IN_MESSAGE);
         } else if (newuser){
             model.addAttribute("message", ACCOUNT_CREATED_MESSAGE);
+        } else if (changeusername){
+            model.addAttribute("message", USERNAME_CHANGED);
         }
         return "user/loginpage";
     }

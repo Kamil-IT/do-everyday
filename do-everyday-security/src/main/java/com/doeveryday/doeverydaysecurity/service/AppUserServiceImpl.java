@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
+    public static final String USERNAME_MUST_BE_UNIQUE_MESSAGE = "Username must be unique";
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -33,7 +34,7 @@ public class AppUserServiceImpl implements AppUserService {
             throw new NullPointerException("Username cannot be null");
         }
         if (appUserRepository.existsByUsername(user.getUsername())){
-            throw new IllegalArgumentException("Username must be unique");
+            throw new IllegalArgumentException(USERNAME_MUST_BE_UNIQUE_MESSAGE);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -100,5 +101,21 @@ public class AppUserServiceImpl implements AppUserService {
         }
 
         return new byte[0];
+    }
+
+    @Override
+    public boolean UsernameExist(String username) {
+        return appUserRepository.existsByUsername(username);
+    }
+
+    @Override
+    public AppUser updateUsername(UUID id, String newUsername) throws NotFoundException {
+        if (appUserRepository.existsByUsername(newUsername)){
+            throw new IllegalArgumentException(USERNAME_MUST_BE_UNIQUE_MESSAGE);
+        }
+        AppUser user = appUserRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Not found user with id: " + id));
+        user.setUsername(newUsername);
+        return appUserRepository.save(user);
     }
 }

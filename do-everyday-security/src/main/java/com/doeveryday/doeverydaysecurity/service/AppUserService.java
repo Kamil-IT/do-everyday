@@ -24,4 +24,8 @@ public interface AppUserService {
     AppUser findByUsername(String username) throws NotFoundException;
 
     byte [] addImage(UUID id, MultipartFile file) throws NotFoundException;
+
+    boolean UsernameExist(String username);
+
+    AppUser updateUsername(UUID id, String username) throws NotFoundException;
 }
