@@ -26,21 +26,21 @@ public class SpotifyAllTypes {
 
     public List<AlbumSimplified> getAlbumSimplifiedsList(){
         if (albumSimplifieds == null){
-            return new ArrayList<AlbumSimplified>();
+            return new ArrayList<>();
         }
         return new ArrayList<>(Arrays.asList(albumSimplifieds));
     }
 
     public List<Track> getTracksList(){
         if (tracks == null){
-            return new ArrayList<Track>();
+            return new ArrayList<>();
         }
         return new ArrayList<>(Arrays.asList(tracks));
     }
 
     public List<Artist> getArtistsList(){
         if (artists == null){
-            return new ArrayList<Artist>();
+            return new ArrayList<>();
         }
         return new ArrayList<>(Arrays.asList(artists));
     }
