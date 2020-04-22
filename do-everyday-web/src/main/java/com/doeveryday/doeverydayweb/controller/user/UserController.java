@@ -14,11 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.security.Principal;
 
 import static com.doeveryday.doeverydaysecurity.model.AppUserRole.USER;
@@ -80,6 +79,8 @@ public class UserController {
     @GetMapping("/details/image")
     public void renderImage(Principal principal, HttpServletResponse response) throws IOException, NotFoundException {
         AppUser user = appUserService.findByUsername(principal.getName());
+        response.setContentType("image/jpeg");
+        InputStream inputStream;
 
         if (user.getPhoto() != null) {
             byte[] byteArray = new byte[user.getPhoto().length];
@@ -89,10 +90,22 @@ public class UserController {
                 byteArray[i++] = wrappedByte; //auto unboxing
             }
 
-            response.setContentType("image/jpeg");
-            InputStream is = new ByteArrayInputStream(byteArray);
-            IOUtils.copy(is, response.getOutputStream());
+            inputStream = new ByteArrayInputStream(byteArray);
+
         }
+        else {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            ImageIO.write(
+                    ImageIO.read(
+                            new File("src/main/resources/static/resources/user/images/no_photo_user.png")),
+                    "jpg",
+                    output);
+            byte [] byteArray = output.toByteArray();
+
+            inputStream = new ByteArrayInputStream(byteArray);
+        }
+
+        IOUtils.copy(inputStream, response.getOutputStream());
     }
 
     @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
