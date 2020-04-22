@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydayweb.controller.todo;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
-import com.doeveryday.doeverydaytodo.exceptions.NullPointerException;
 import com.doeveryday.doeverydayweb.controller.ErrorPagesController;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +18,5 @@ public class TodoExceptionsHandlerController {
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFound(NotFoundException expectation){
         return errorPagesController.handleErrorNotFound(expectation);
-    }
-
-    @ExceptionHandler(NullPointerException.class)
-    public ModelAndView handleNullPointerExceptions(NullPointerException expectation){
-        return errorPagesController.handleErrorBadRequest(expectation);
     }
 }

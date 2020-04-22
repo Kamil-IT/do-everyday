@@ -1,6 +1,5 @@
 package com.doeveryday.doeverydayweather.urlcreator;
 
-import com.doeveryday.doeverydayweather.exceptions.NullPointerException;
 import tk.plogitech.darksky.forecast.APIKey;
 import tk.plogitech.darksky.forecast.GeoCoordinates;
 import tk.plogitech.darksky.forecast.Timeouts;

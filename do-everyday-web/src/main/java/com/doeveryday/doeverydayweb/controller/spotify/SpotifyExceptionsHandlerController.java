@@ -16,11 +16,6 @@ public class SpotifyExceptionsHandlerController {
 
     private ErrorPagesController errorPagesController;
 
-    @ExceptionHandler(NullPointerException.class)
-    public ModelAndView handleSpotifyNullPointerException(SpotifyApiException e){
-        return errorPagesController.handleErrorBadRequest(e);
-    }
-
     @ExceptionHandler(SpotifyApiException.class)
     public ModelAndView handleSpotifyApiException(SpotifyApiException e){
         return errorPagesController.handleErrorInternalServerError(e);
