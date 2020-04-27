@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<!--Message must be object of com/doeveryday/doeverydayweb/model/MessageToController.java -->
+<div th:fragment="message">
+    <div th:if="!(${message} == null)">
+        <div th:class="${message.getAlert().getMessage()}" role="alert">
+            <p class="text- text-center" th:text="${message.getMessage()}">
+                Some message goes here
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

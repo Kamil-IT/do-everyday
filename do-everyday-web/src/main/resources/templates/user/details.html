@@ -15,13 +15,8 @@
 <main role="main">
     <div class="jumbotron">
         <!--        Message-->
-        <div th:if="!(${message} == null)">
-            <div th:class="${message.getAlert().getMessage()}" role="alert">
-                <p class="text- text-center" th:text="${message.getMessage()}">
-                    Some message goes here
-                </p>
-            </div>
-        </div>
+        <div th:replace="fragments/messages :: message"></div>
+
         <!--            photo-->
         <dev style="text-align: center;">
             <dev th:if="${user.getPhoto() == null}">

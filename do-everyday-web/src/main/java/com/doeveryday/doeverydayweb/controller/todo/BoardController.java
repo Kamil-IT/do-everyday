@@ -2,6 +2,8 @@ package com.doeveryday.doeverydayweb.controller.todo;
 
 import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.service.BoardService;
+import com.doeveryday.doeverydayweb.model.BootstrapAlert;
+import com.doeveryday.doeverydayweb.model.MessageToController;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.security.Principal;
 
 /*
 Structure for object type = post
@@ -24,8 +28,14 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("todo/board")
-    public String showBoards(Model model){
+    public String showBoards(Model model, Principal principal){
         model.addAttribute("boards", boardService.getBoards());
+        if (principal == null){
+            model.addAttribute("message", MessageToController.builder()
+                    .message("If you log in  you will can menage you tasks and access to it")
+                    .alert(BootstrapAlert.WARRING)
+                    .build());
+        }
         return "todo/board/index";
     }
 
