@@ -12,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -58,7 +57,7 @@ public class AppUser extends BaseEntity implements UserDetails {
     private String email;
 
     @Builder
-    public AppUser(UUID id, String username, String password, boolean accountNonExpired, boolean accountNonLocked,
+    public AppUser(String id, String username, String password, boolean accountNonExpired, boolean accountNonLocked,
                    boolean credentialsNonExpired, boolean enabled, AppUserRole role, byte [] photo, String email) {
         super(id);
         this.username = username;

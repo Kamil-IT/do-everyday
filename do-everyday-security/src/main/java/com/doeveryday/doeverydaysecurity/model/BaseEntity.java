@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -30,5 +29,5 @@ public abstract class BaseEntity implements Serializable {
                     )
             }
     )
-    private UUID id;
+    private String id;
 }

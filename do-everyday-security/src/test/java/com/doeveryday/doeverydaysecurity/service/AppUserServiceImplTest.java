@@ -26,6 +26,7 @@ class AppUserServiceImplTest {
 
     public static final String PASSWORD = "password";
     public static final String NAME = "Name";
+    public static final String RANDOM_STRING = "Random string";
     @Mock
     AppUserRepository appUserRepository;
 
@@ -90,9 +91,9 @@ class AppUserServiceImplTest {
                 .username(NAME)
                 .password(PASSWORD).build();
 
-        when(appUserRepository.findById(any(UUID.class))).thenReturn(Optional.of(user));
+        when(appUserRepository.findById(any(String.class))).thenReturn(Optional.of(user));
 
-        assertEquals(user, appUserService.findById(UUID.randomUUID()));
+        assertEquals(user, appUserService.findById(RANDOM_STRING));
     }
 
     @Test
@@ -101,9 +102,9 @@ class AppUserServiceImplTest {
                 .username(NAME)
                 .password(PASSWORD).build();
 
-        when(appUserRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+        when(appUserRepository.findById(any(String.class))).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> appUserService.findById(UUID.randomUUID()));
+        assertThrows(NotFoundException.class, () -> appUserService.findById(RANDOM_STRING));
     }
 
     @Test
@@ -111,13 +112,13 @@ class AppUserServiceImplTest {
         AppUser user = AppUser.builder()
                 .username(NAME)
                 .password(PASSWORD).build();
-        UUID id = UUID.randomUUID();
+        String id = UUID.randomUUID().toString();
 
-        when(appUserRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(appUserRepository.existsById(any(String.class))).thenReturn(true);
 
         appUserService.deleteById(id);
 
-        verify(appUserRepository, times(1)).deleteById(any(UUID.class));
+        verify(appUserRepository, times(1)).deleteById(any(String.class));
     }
 
     @Test
@@ -125,16 +126,16 @@ class AppUserServiceImplTest {
         AppUser user = AppUser.builder()
                 .username(NAME)
                 .password(PASSWORD).build();
-        UUID id = UUID.randomUUID();
+        String id = UUID.randomUUID().toString();
 
-        when(appUserRepository.existsById(any(UUID.class))).thenReturn(false);
+        when(appUserRepository.existsById(any(String.class))).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> appUserService.deleteById(id));
     }
 
     @Test
     void updateUser() throws NotFoundException {
-        UUID id = UUID.randomUUID();
+        String id = UUID.randomUUID().toString();
         AppUser user = AppUser.builder()
                 .id(id)
                 .username(NAME)
@@ -153,18 +154,18 @@ class AppUserServiceImplTest {
     @Test
     void updateUser_NotFoundId() throws NotFoundException {
         AppUser user = AppUser.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.randomUUID().toString())
                 .username(NAME)
                 .password(PASSWORD).build();
 
-        when(appUserRepository.existsById(any(UUID.class))).thenReturn(false);
+        when(appUserRepository.existsById(any(String.class))).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> appUserService.updateUser(user));
     }
 
     @Test
     void existsById_Found() {
-        UUID id = UUID.randomUUID();
+        String id = UUID.randomUUID().toString();
 
         when(appUserRepository.existsById(id)).thenReturn(true);
 
@@ -174,7 +175,7 @@ class AppUserServiceImplTest {
 
     @Test
     void existsById_NotFound() {
-        UUID id = UUID.randomUUID();
+        String id = UUID.randomUUID().toString();
 
         when(appUserRepository.existsById(id)).thenReturn(false);
 
@@ -185,7 +186,7 @@ class AppUserServiceImplTest {
     @Test
     void findByUsername() throws NotFoundException {
         AppUser user = AppUser.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.randomUUID().toString())
                 .username(NAME)
                 .password(PASSWORD).build();
 
@@ -197,7 +198,7 @@ class AppUserServiceImplTest {
     @Test
     void findByUsername_NotFound() throws NotFoundException {
         AppUser user = AppUser.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.randomUUID().toString())
                 .username(NAME)
                 .password(PASSWORD).build();
 
@@ -208,8 +209,8 @@ class AppUserServiceImplTest {
 
     @Test
     void addImage_NotFoundUser() {
-        when(appUserRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+        when(appUserRepository.findById(any(String.class))).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> appUserService.addImage(UUID.randomUUID(), null));
+        assertThrows(NotFoundException.class, () -> appUserService.addImage(UUID.randomUUID().toString(), null));
     }
 }

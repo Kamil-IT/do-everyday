@@ -15,7 +15,7 @@ public class TodoExceptionsHandlerController {
 
     private final ErrorPagesController errorPagesController;
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler({NotFoundException.class, javassist.NotFoundException.class})
     public ModelAndView handleNotFound(NotFoundException expectation){
         return errorPagesController.handleErrorNotFound(expectation);
     }

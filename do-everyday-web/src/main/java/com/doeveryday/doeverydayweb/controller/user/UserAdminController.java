@@ -20,7 +20,7 @@ public class UserAdminController {
         this.appUserService = appUserService;
     }
 
-    @PreAuthorize("hasAnyAuthority('user:details:get')")
+    @PreAuthorize("hasAnyAuthority('read:admin::details')")
     @GetMapping("/details/{username}")
     public String getUserDetailsById(@PathVariable("username") String username, Model model) throws NotFoundException {
         model.addAttribute("user", appUserService.findByUsername(username));

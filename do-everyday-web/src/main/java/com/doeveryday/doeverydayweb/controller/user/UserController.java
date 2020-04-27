@@ -5,6 +5,7 @@ import com.doeveryday.doeverydaysecurity.service.AppUserService;
 import com.doeveryday.doeverydayweb.model.BootstrapAlert;
 import com.doeveryday.doeverydayweb.model.MessageToController;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,12 +23,12 @@ import java.security.Principal;
 
 import static com.doeveryday.doeverydaysecurity.model.AppUserRole.USER;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-    public static final String USER_DETAILS_GET_AND_GET_CREATOR = "'user:details:get', 'user:details:getcreator'";
+    public static final String USER_DETAILS_GET_AND_GET_CREATOR = "'read:admin::details', 'read::details'";
     public static final MessageToController SUCCESSFUL_UPDATE_MESSAGE = new MessageToController("Update was successful", BootstrapAlert.SUCCESS);
     private final AppUserService appUserService;
     private final PasswordEncoder passwordEncoder;
@@ -98,7 +99,7 @@ public class UserController {
             ImageIO.write(
                     ImageIO.read(
                             new File("src/main/resources/static/resources/user/images/no_photo_user.png")),
-                    "jpg",
+                    "png",
                     output);
             byte [] byteArray = output.toByteArray();
 
@@ -144,5 +145,10 @@ public class UserController {
         user.setEmail(email);
         appUserService.updateUser(user);
         return "redirect:/user/details?success=true";
+    }
+
+    @ExceptionHandler(IOException.class)
+    public void IOExceptionHandler(IOException e){
+        log.error(e.getMessage());
     }
 }

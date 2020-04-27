@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -47,12 +46,12 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser findById(UUID id) throws NotFoundException {
+    public AppUser findById(String id) throws NotFoundException {
         return appUserRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found user with id: " + id));
     }
 
     @Override
-    public void deleteById(UUID id) throws NotFoundException {
+    public void deleteById(String id) throws NotFoundException {
         if (!appUserRepository.existsById(id)){
             throw new NotFoundException("Not found user with id: " + id);
         }
@@ -69,7 +68,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public boolean existsById(UUID id) {
+    public boolean existsById(String id) {
         return appUserRepository.existsById(id);
     }
 
@@ -80,7 +79,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public byte[] addImage(UUID id, MultipartFile file) throws NotFoundException {
+    public byte[] addImage(String id, MultipartFile file) throws NotFoundException {
         AppUser user = appUserRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("Not found user with id: " + id));
 
@@ -109,7 +108,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser updateUsername(UUID id, String newUsername) throws NotFoundException {
+    public AppUser updateUsername(String id, String newUsername) throws NotFoundException {
         if (appUserRepository.existsByUsername(newUsername)){
             throw new IllegalArgumentException(USERNAME_MUST_BE_UNIQUE_MESSAGE);
         }
