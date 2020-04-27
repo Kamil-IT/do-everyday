@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydaytodo.models;
 
+import com.doeveryday.doeverydaysecurity.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,8 +23,9 @@ import java.util.List;
 @Table(name = "task_member")
 public class TaskMember extends BaseEntity{
 
-    private String name;
-    private String surname;
+    @OneToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUsers;
 
     @ManyToMany
     @JoinTable(name = "task_member_task_manager",

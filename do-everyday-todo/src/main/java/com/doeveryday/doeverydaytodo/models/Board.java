@@ -1,5 +1,6 @@
 package com.doeveryday.doeverydaytodo.models;
 
+import com.doeveryday.doeverydaysecurity.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +25,10 @@ import java.util.List;
 public class Board extends BaseEntity{
 
     private String name;
+
+    @OneToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUsers;
 
     /**
      * If color will be not in hex schema, it will be set default to #282828

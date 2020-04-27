@@ -1,8 +1,10 @@
 package com.doeveryday.doeverydaytodo.service;
 
+import com.doeveryday.doeverydaysecurity.repository.AppUserRepository;
 import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.repository.BoardRepository;
+import com.doeveryday.doeverydaytodo.repository.TaskMemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,12 +27,18 @@ class BoardServiceTest {
     @Mock
     BoardRepository boardRepository;
 
+    @Mock
+    TaskMemberRepository taskMemberRepository;
+
+    @Mock
+    AppUserRepository appUserRepository;
+
     BoardService boardService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        boardService = new BoardServiceImpl(boardRepository);
+        boardService = new BoardServiceImpl(boardRepository, taskMemberRepository, appUserRepository);
     }
 
     @Test

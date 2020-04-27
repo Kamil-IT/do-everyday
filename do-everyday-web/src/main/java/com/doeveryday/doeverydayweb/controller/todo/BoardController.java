@@ -1,9 +1,11 @@
 package com.doeveryday.doeverydayweb.controller.todo;
 
+import com.doeveryday.doeverydaysecurity.service.AppUserService;
 import com.doeveryday.doeverydaytodo.models.Board;
 import com.doeveryday.doeverydaytodo.service.BoardService;
 import com.doeveryday.doeverydayweb.model.BootstrapAlert;
 import com.doeveryday.doeverydayweb.model.MessageToController;
+import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,11 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 
-/*
-Structure for object type = post
-.../edit  - updating object
-.../delete - deleting object
-.../add - adding object
+/**
+ * Structure for method = post
+ * .../edit  - updating object
+ * .../delete - deleting object
+ * .../add - adding object
  */
 
 @Slf4j
@@ -26,22 +28,35 @@ Structure for object type = post
 @Controller
 public class BoardController {
     private final BoardService boardService;
+    private final AppUserService appUserService;
 
     @GetMapping("todo/board")
-    public String showBoards(Model model, Principal principal){
-        model.addAttribute("boards", boardService.getBoards());
+    public String showBoards(Model model, Principal principal) throws NotFoundException {
         if (principal == null){
+            model.addAttribute("boards", boardService.getBoards());
             model.addAttribute("message", MessageToController.builder()
                     .message("If you log in  you will can menage you tasks and access to it")
                     .alert(BootstrapAlert.WARRING)
                     .build());
         }
+        else {
+            model.addAttribute("boards", boardService.getBoards(appUserService.findByUsername(principal.getName()).getId()));
+        }
         return "todo/board/index";
     }
 
     @GetMapping("todo/board/archived")
-    public String showArchivedBoards(Model model){
-        model.addAttribute("boards", boardService.getBoards());
+    public String showArchivedBoards(Model model, Principal principal) throws NotFoundException {
+        if (principal == null){
+            model.addAttribute("boards", boardService.getBoards());
+            model.addAttribute("message", MessageToController.builder()
+                    .message("If you log in  you will can menage you tasks and access to it")
+                    .alert(BootstrapAlert.WARRING)
+                    .build());
+        }
+        else {
+            model.addAttribute("boards", boardService.getBoards(appUserService.findByUsername(principal.getName()).getId()));
+        }
         return "todo/board/archivedboard";
     }
 
@@ -60,11 +75,17 @@ public class BoardController {
     }
 
     @PostMapping("todo/board")
-    public String addOrUpdateBoard(Board board){
+    public String addOrUpdateBoard(Board board, Principal principal) throws NotFoundException {
         if (board.getId() != null){
             boardService.updateBoard(board);
         }
-        boardService.saveBord(board);
+        if (principal == null){
+            boardService.saveBord(board);
+        }
+        else {
+            boardService.saveBord(board, appUserService.findByUsername(principal.getName()).getId());
+        }
+
 
         return "redirect:/todo/board";
     }

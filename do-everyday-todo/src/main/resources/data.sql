@@ -16,4 +16,4 @@ INSERT INTO task_manager (priority, task_id, is_done) values (0, 4, FALSE);
 INSERT INTO task_manager (priority, task_id, is_done) values (1, 5, FALSE);
 INSERT INTO task_manager (priority, task_id, is_done) values (0, 6, FALSE);
 
-INSERT INTO task_member (name, surname) values ('Krzysztof', 'Kowalski');
+INSERT INTO task_member (app_user_id) values ('c0a8010d715f1f3881715f2f3f910000');
