@@ -18,14 +18,10 @@ public enum AppUserRole {
 //            Budget manager
             BUDGET_GET,
             BUDGET_WRITE,
-            BUDGET_UPDATE_CREATOR,
-            BUDGET_DELETE_CREATOR,
 
 //            User details
             USER_DETAILS_READ,
-            USER_ALL_DETAILS_UPDATE_CREATOR,
-            USER_DETAILS_WRITE,
-            USER_ALL_DETAILS_DELETE_CREATOR))),
+            USER_DETAILS_WRITE))),
     /**
      * Have authority to read, add and modify all stuff
      */
@@ -33,12 +29,10 @@ public enum AppUserRole {
 //            Budget manager
             BUDGET_ADMIN_READ,
             BUDGET_ADMIN_WRITE,
-            BUDGET_UPDATE,
 
 //            User details
             USER_DETAILS_ADMIN_GET,
-            USER_DETAILS_ADMIN_WRITE,
-            USER_ALL_DETAILS_UPDATE))),
+            USER_DETAILS_ADMIN_WRITE))),
     /**
      * Have authority to read, add, modify, and delete all stuff
      */
@@ -46,14 +40,10 @@ public enum AppUserRole {
 //            Budget manager
             BUDGET_ADMIN_READ,
             BUDGET_ADMIN_WRITE,
-            BUDGET_UPDATE,
-            BUDGET_DELETE,
 
 //            User details
             USER_DETAILS_ADMIN_GET,
-            USER_DETAILS_ADMIN_WRITE,
-            USER_ALL_DETAILS_UPDATE,
-            USER_ALL_DETAILS_DELETE)));
+            USER_DETAILS_ADMIN_WRITE)));
 
     private final Set<AppUserAuthorities> authorities;
 
