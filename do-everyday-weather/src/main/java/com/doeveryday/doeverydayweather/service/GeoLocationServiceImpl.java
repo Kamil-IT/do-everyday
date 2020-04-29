@@ -6,75 +6,60 @@ import com.byteowls.jopencage.model.JOpenCageResponse;
 import com.byteowls.jopencage.model.JOpenCageResult;
 import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 import com.doeveryday.doeverydayweather.exceptions.NotFoundException;
+import com.doeveryday.doeverydayweather.model.WeatherProperties;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import tk.plogitech.darksky.forecast.model.Latitude;
-import tk.plogitech.darksky.forecast.model.Longitude;
 
 import java.util.List;
+import java.util.Properties;
 
 @Slf4j
 @NoArgsConstructor
 @Service
 public class GeoLocationServiceImpl implements GeoLocationService {
 
-    private JOpenCageResponse jOpenCageResponse;
-    private String language = "en";
-    @Value("${default.geolocation.latitude}")
-    private Double latitude = 51.107883;
-    @Value("${default.geolocation.longitude}")
-    private Double longitude;
     @Value("${opencage.api.key}")
     private String API_KEY;
 
     @Override
-    public List<JOpenCageResult> getFullResponse() {
-        if (jOpenCageResponse == null){
-            getDataFromApi();
-        }
-        return jOpenCageResponse.getResults();
+    public List<JOpenCageResult> getFullResponse(WeatherProperties properties) {
+        return getDataFromApi(properties.getLongitude(), properties.getLatitude(), properties.getLanguage().name()).getResults();
     }
 
     @Override
-    public JOpenCageComponents getFirstResult() {
-        if (jOpenCageResponse == null){
-            getDataFromApi();
-        }
-        List<JOpenCageResult> results = jOpenCageResponse.getResults();
+    public JOpenCageComponents getFirstResult(WeatherProperties properties) {
+        JOpenCageResponse dataFromApi = getDataFromApi(properties.getLongitude(), properties.getLatitude(), properties.getLanguage().name());
+        List<JOpenCageResult> results = dataFromApi.getResults();
         if (results.isEmpty()) {
-            throw new NotFoundException("Not found location: " + jOpenCageResponse.getStatus());
+            throw new NotFoundException("Not found location: " + dataFromApi.getStatus());
         }
         return results.get(0).getComponents();
     }
 
     @Override
-    public void changeLanguage(String language) {
-        this.language = language;
-        getDataFromApi();
+    public List<JOpenCageResult> getFullResponse(Double longitude, Double latitude, String language) {
+        return getDataFromApi(longitude, latitude, language).getResults();
     }
 
     @Override
-    public void changeGeoLocation(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        getDataFromApi();
+    public JOpenCageComponents getFirstResult(Double longitude, Double latitude, String language) {
+        JOpenCageResponse dataFromApi = getDataFromApi(longitude, latitude, language);
+        List<JOpenCageResult> results = dataFromApi.getResults();
+        if (results.isEmpty()) {
+            throw new NotFoundException("Not found location: " + dataFromApi.getStatus());
+        }
+        return results.get(0).getComponents();
     }
 
-    private void getDataFromApi(){
-        Longitude longitude = new Longitude(this.longitude);
-        Latitude latitude = new Latitude(this.latitude);
-
-//        Setting default language
-        String language = this.language;
-
+    private JOpenCageResponse getDataFromApi(Double longitude, Double latitude, String language){
         JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(API_KEY);
 
-        JOpenCageReverseRequest request = new JOpenCageReverseRequest(latitude.value(), longitude.value());
+        JOpenCageReverseRequest request = new JOpenCageReverseRequest(latitude, longitude);
         request.setNoAnnotations(true);
         request.setLanguage(language);
 
-        this.jOpenCageResponse = jOpenCageGeocoder.reverse(request);
+        return jOpenCageGeocoder.reverse(request);
     }
 }
