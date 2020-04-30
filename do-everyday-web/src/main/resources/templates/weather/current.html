@@ -17,18 +17,18 @@
 
 <main role="main">
     <div class="jumbotron">
-        <a href="/weather/forecast">
             <!--        Message-->
             <div th:replace="fragments/messages :: message"></div>
 
             <div sec:authorize="isAuthenticated()">
                 <a href="/weather/editproperties">
-<!--                    <button type="submit" class="btn btn-secondary float-right" style="text-align: left">-->
-<!--                        Edit location-->
-<!--                    </button>-->
+                    <button type="submit" class="btn btn-secondary float-right" style="text-align: left">
+                        Edit location
+                    </button>
                 </a>
             </div>
 
+        <a href="/weather/forecast">
             <h1 style="text-align: center; color: #282828;  text-decoration-color: #282828;">Forecast</h1>
         </a>
         <div class="hero">

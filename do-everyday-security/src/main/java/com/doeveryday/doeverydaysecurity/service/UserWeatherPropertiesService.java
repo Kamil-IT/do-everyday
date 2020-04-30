@@ -19,4 +19,6 @@ public interface UserWeatherPropertiesService {
     UserWeatherProperties updateUserWeatherProperties(UserWeatherProperties userWeatherProperties);
 
     void removeUserWeatherPropertiesById(String Id);
+
+    boolean existByUsername(String username);
 }

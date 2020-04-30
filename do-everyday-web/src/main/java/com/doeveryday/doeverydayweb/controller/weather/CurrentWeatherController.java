@@ -23,7 +23,7 @@ public class CurrentWeatherController {
     private final UserWeatherPropertiesService userWeatherPropertiesService;
 
     @GetMapping(value = {"weather/current", "weather"})
-    public String getCurrentWeather(Model model, Principal principal) {
+    public String getCurrentWeather(Model model, Principal principal) throws NotFoundException {
         CurrentlyForecast currentWeather;
         if (principal == null){
              currentWeather = forecastService.getCurrentWeather(
@@ -33,11 +33,13 @@ public class CurrentWeatherController {
                      .message("If you log in you will can change location").build());
         }
         else {
-            try {
+            boolean userExist = userWeatherPropertiesService.existByUsername(principal.getName());
+            if (userExist){
                 currentWeather = forecastService.getCurrentWeather(
                         userWeatherPropertiesService
                                 .getWeatherPropertiesByUsername(principal.getName()));
-            } catch (NotFoundException e) {
+            }
+            else {
                 currentWeather = forecastService.getCurrentWeather(
                         ForecastService.DEFAULT_WEATHER_PROPERTIES_WROCLAW);
             }

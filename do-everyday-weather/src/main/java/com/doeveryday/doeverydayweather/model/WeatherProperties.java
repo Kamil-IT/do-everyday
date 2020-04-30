@@ -2,9 +2,9 @@ package com.doeveryday.doeverydayweather.model;
 
 import com.doeveryday.doeverydayweather.urlcreator.ForecastUrlBuild;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.MappedSuperclass;
 
@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class WeatherProperties {
 
     private Double longitude;

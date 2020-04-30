@@ -63,4 +63,9 @@ public class UserWeatherPropertiesServiceImpl implements UserWeatherPropertiesSe
         }
         userWeatherPropertiesRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existByUsername(String username) {
+        return userWeatherPropertiesRepository.findFirstByUser_Username(username).isPresent();
+    }
 }

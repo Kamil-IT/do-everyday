@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -15,8 +16,16 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Entity
 public class UserWeatherProperties extends WeatherProperties {
+
+//    @Builder()
+//    public UserWeatherProperties(Double longitude, Double latitude, ForecastUrlBuild.Language language, ForecastUrlBuild.Units units, String id, AppUser user) {
+//        super(longitude, latitude, language, units);
+//        this.id = id;
+//        this.user = user;
+//    }
 
     @Id
     @GeneratedValue(generator = "UUID")
