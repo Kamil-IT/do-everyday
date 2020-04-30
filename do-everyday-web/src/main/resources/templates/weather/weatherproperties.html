@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit weather properties</title>
+
+    <div th:replace="fragments/navbar :: navbar-css-js"></div>
+
+</head>
+<body>
+<!--navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!--end navbar-->
+
+<main role="main">
+    <div class="jumbotron">
+        <form th:object="${properties}" th:action="@{'weather/editproperties'}"
+              th:method="post">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input id="longitude" name="latitude" type="number" class="form-control" th:field="*{latitude}">
+            </div>
+            <div class="form-group">
+                <label for="latitude">latitude</label>
+                <input id="latitude" name="latitude" type="number" class="form-control" th:field="*{latitude}">
+            </div>
+            <select class="form-control" th:field="*{language}">
+                <option th:each="lang : ${T(com.doeveryday.doeverydayweather.urlcreator.ForecastUrlBuild.Language).values()}"
+                        th:value="${lang.name()}"
+                        th:text="${lang.name()}"
+                >val
+                </option>
+            </select>
+            <select class="form-control" th:field="*{units}">
+                <option th:each="unit : ${T(com.doeveryday.doeverydayweather.urlcreator.ForecastUrlBuild.Units).values()}"
+                        th:value="${unit.name()}"
+                        th:text="${unit.name()}"
+                >val
+                </option>
+            </select>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

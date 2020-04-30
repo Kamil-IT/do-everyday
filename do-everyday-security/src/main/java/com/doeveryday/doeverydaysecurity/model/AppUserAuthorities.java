@@ -13,6 +13,17 @@ public enum AppUserAuthorities {
     BUDGET_WRITE("write:admin::budget"),
 
     /**
+     * Weather properties
+     */
+//    Admin - access for all data
+    WEATHER_PROPERTIES_ADMIN_READ("read:admin::weatherproperties"),
+    WEATHER_PROPERTIES_ADMIN_WRITE("write:admin::weatherproperties"),
+
+//    User - access for data with user create
+    WEATHER_PROPERTIES_READ("read::weatherproperties"),
+    WEATHER_PROPERTIES_WRITE("write::weatherproperties"),
+
+    /**
      * Data about user
      */
 //    Admin - for all data

@@ -4,6 +4,8 @@ import com.doeveryday.doeverydaysecurity.service.UserWeatherPropertiesService;
 import com.doeveryday.doeverydayweather.model.CurrentlyForecast;
 import com.doeveryday.doeverydayweather.service.ForecastService;
 import com.doeveryday.doeverydayweather.service.GeoLocationService;
+import com.doeveryday.doeverydayweb.model.BootstrapAlert;
+import com.doeveryday.doeverydayweb.model.MessageToController;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,16 +23,24 @@ public class CurrentWeatherController {
     private final UserWeatherPropertiesService userWeatherPropertiesService;
 
     @GetMapping(value = {"weather/current", "weather"})
-    public String getCurrentWeather(Model model, Principal principal) throws NotFoundException {
+    public String getCurrentWeather(Model model, Principal principal) {
         CurrentlyForecast currentWeather;
         if (principal == null){
              currentWeather = forecastService.getCurrentWeather(
                     ForecastService.DEFAULT_WEATHER_PROPERTIES_WROCLAW);
+             model.addAttribute("message", MessageToController.builder()
+                     .alert(BootstrapAlert.WARRING)
+                     .message("If you log in you will can change location").build());
         }
         else {
-            currentWeather = forecastService.getCurrentWeather(
-                    userWeatherPropertiesService
-                            .getWeatherPropertiesByUsername(principal.getName()));
+            try {
+                currentWeather = forecastService.getCurrentWeather(
+                        userWeatherPropertiesService
+                                .getWeatherPropertiesByUsername(principal.getName()));
+            } catch (NotFoundException e) {
+                currentWeather = forecastService.getCurrentWeather(
+                        ForecastService.DEFAULT_WEATHER_PROPERTIES_WROCLAW);
+            }
         }
         model.addAttribute("current", currentWeather.getCurrently());
         model.addAttribute("location", currentWeather.getLocation());

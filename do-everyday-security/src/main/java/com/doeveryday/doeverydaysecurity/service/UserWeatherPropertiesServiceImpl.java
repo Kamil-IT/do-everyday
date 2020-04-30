@@ -38,6 +38,12 @@ public class UserWeatherPropertiesServiceImpl implements UserWeatherPropertiesSe
     }
 
     @Override
+    public UserWeatherProperties getUserWeatherPropertiesByUsername(String username) throws NotFoundException {
+        return userWeatherPropertiesRepository.findFirstByUser_Username(username).orElseThrow(() ->
+                new NotFoundException("Not found Weather properties with user username: " + username));
+    }
+
+    @Override
     public UserWeatherProperties addUserWeatherProperties(UserWeatherProperties userWeatherProperties) {
         return userWeatherPropertiesRepository.save(userWeatherProperties);
     }

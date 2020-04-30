@@ -21,7 +21,12 @@ public enum AppUserRole {
 
 //            User details
             USER_DETAILS_READ,
-            USER_DETAILS_WRITE))),
+            USER_DETAILS_WRITE,
+
+//            Weather properties
+            WEATHER_PROPERTIES_READ,
+            WEATHER_PROPERTIES_WRITE
+            ))),
     /**
      * Have authority to read, add and modify all stuff
      */
@@ -32,7 +37,11 @@ public enum AppUserRole {
 
 //            User details
             USER_DETAILS_ADMIN_GET,
-            USER_DETAILS_ADMIN_WRITE))),
+            USER_DETAILS_ADMIN_WRITE,
+
+//            Weather properties
+            WEATHER_PROPERTIES_ADMIN_READ,
+            WEATHER_PROPERTIES_ADMIN_WRITE))),
     /**
      * Have authority to read, add, modify, and delete all stuff
      */
@@ -43,7 +52,11 @@ public enum AppUserRole {
 
 //            User details
             USER_DETAILS_ADMIN_GET,
-            USER_DETAILS_ADMIN_WRITE)));
+            USER_DETAILS_ADMIN_WRITE,
+
+//            Weather properties
+            WEATHER_PROPERTIES_ADMIN_READ,
+            WEATHER_PROPERTIES_ADMIN_WRITE)));
 
     private final Set<AppUserAuthorities> authorities;
 

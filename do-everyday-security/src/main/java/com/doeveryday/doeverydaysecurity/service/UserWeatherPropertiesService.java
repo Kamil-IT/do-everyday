@@ -12,6 +12,8 @@ public interface UserWeatherPropertiesService {
 
     WeatherProperties getWeatherPropertiesByUsername(String username) throws NotFoundException;
 
+    UserWeatherProperties getUserWeatherPropertiesByUsername(String username) throws NotFoundException;
+
     UserWeatherProperties addUserWeatherProperties(UserWeatherProperties userWeatherProperties);
 
     UserWeatherProperties updateUserWeatherProperties(UserWeatherProperties userWeatherProperties);
