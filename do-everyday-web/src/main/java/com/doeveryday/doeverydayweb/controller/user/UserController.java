@@ -98,7 +98,7 @@ public class UserController {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             ImageIO.write(
                     ImageIO.read(
-                            new File("src/main/resources/static/resources/user/images/no_photo_user.png")),
+                            new File("do-everyday-web/src/main/resources/static/resources/user/images/no_photo_user.png")),
                     "png",
                     output);
             byte [] byteArray = new byte[output.toByteArray().length];
