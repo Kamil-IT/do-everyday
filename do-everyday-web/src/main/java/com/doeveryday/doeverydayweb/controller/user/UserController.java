@@ -101,7 +101,11 @@ public class UserController {
                             new File("src/main/resources/static/resources/user/images/no_photo_user.png")),
                     "png",
                     output);
-            byte [] byteArray = output.toByteArray();
+            byte [] byteArray = new byte[output.toByteArray().length];
+            int i = 0;
+            for (Byte wrappedByte: output.toByteArray()){
+                byteArray[i++] = wrappedByte; //auto unboxing
+            }
 
             inputStream = new ByteArrayInputStream(byteArray);
         }

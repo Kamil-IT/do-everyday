@@ -38,9 +38,16 @@ public class IndexController {
                     ForecastService.DEFAULT_WEATHER_PROPERTIES_WROCLAW);
         }
         else {
-            currentWeather = forecastService.getCurrentWeather(
-                    userWeatherPropertiesService
-                            .getWeatherPropertiesByUsername(principal.getName()));
+            if (userWeatherPropertiesService.existByUsername(principal.getName())){
+                currentWeather = forecastService.getCurrentWeather(
+                        userWeatherPropertiesService
+                                .getWeatherPropertiesByUsername(principal.getName()));
+            }
+            else {
+                currentWeather = forecastService.getCurrentWeather(
+                        ForecastService.DEFAULT_WEATHER_PROPERTIES_WROCLAW);
+            }
+
         }
 
         model.addAttribute("current", currentWeather.getCurrently());
