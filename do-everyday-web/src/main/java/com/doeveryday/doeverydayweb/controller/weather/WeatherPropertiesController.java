@@ -51,7 +51,6 @@ public class WeatherPropertiesController {
     public String initEditProperties(UserWeatherProperties userWeatherProperties, Principal principal) throws NotFoundException {
         userWeatherProperties.setUser(appUserService.findByUsername(principal.getName()));
         userWeatherPropertiesService.addUserWeatherProperties(userWeatherProperties);
-        log.error("Im inside");
         return "redirect:";
     }
 }
