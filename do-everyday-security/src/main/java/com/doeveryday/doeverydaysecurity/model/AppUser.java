@@ -46,6 +46,7 @@ public class AppUser extends BaseEntity implements UserDetails {
 
     @NotNull
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private AppUserRole role;
 
     @Nullable
