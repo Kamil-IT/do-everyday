@@ -26,6 +26,7 @@ public class TaskManager extends BaseEntity{
     @Column(name = "is_done")
     private boolean isDone = false;
 
+    @Enumerated(EnumType.STRING)
     private Priority priority;
 
     @ManyToMany(mappedBy = "taskManagers")
