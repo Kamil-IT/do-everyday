@@ -27,7 +27,7 @@ Open terminal in web module directory(`.../do-everyday/do-everyday-web`) and run
 
 ```mvnw spring-boot:run -Dspring-boot.run.profiles=default```
 
-### Use MySql database in memory
+### Use MySql database
 
 Scripts to configure MySQL(database and users) are in `.../do-everyday/do-everyday-web/src/main/scripts/*`. 
 Information about MySQL users are keeping in '`.../do-everyday/do-everyday-web/src/main/resources/application-mysql.yml`
