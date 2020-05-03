@@ -33,7 +33,8 @@ public class UserController {
     private final AppUserService appUserService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserController(@Qualifier("appUserServiceImpl") AppUserService appUserService, PasswordEncoder passwordEncoder) {
+    public UserController(@Qualifier("appUserServiceImpl") AppUserService appUserService,
+                          PasswordEncoder passwordEncoder) {
         this.appUserService = appUserService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -58,6 +59,7 @@ public class UserController {
         return "user/details";
     }
 
+    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @PostMapping({"", "/"})
     public String createNewUser(AppUser user) {
         user.setDefaultValueToWorkAccount();

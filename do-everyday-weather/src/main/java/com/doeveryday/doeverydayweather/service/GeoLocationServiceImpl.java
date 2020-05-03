@@ -77,7 +77,7 @@ public class GeoLocationServiceImpl implements GeoLocationService {
     @Setter
     @EqualsAndHashCode
     @AllArgsConstructor
-    class JOpenCageProperties{
+    static class JOpenCageProperties{
         private Double longitude;
         private Double latitude;
         private String language;
