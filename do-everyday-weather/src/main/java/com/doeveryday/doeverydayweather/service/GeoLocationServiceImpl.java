@@ -7,13 +7,14 @@ import com.byteowls.jopencage.model.JOpenCageResult;
 import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 import com.doeveryday.doeverydayweather.exceptions.NotFoundException;
 import com.doeveryday.doeverydayweather.model.WeatherProperties;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 
 @Slf4j
 @NoArgsConstructor
@@ -22,6 +23,8 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
     @Value("${opencage.api.key}")
     private String API_KEY;
+
+    private final Map<JOpenCageProperties, JOpenCageResponse> propertiesResponseMap = new HashMap<>();
 
     @Override
     public List<JOpenCageResult> getFullResponse(WeatherProperties properties) {
@@ -54,12 +57,29 @@ public class GeoLocationServiceImpl implements GeoLocationService {
     }
 
     private JOpenCageResponse getDataFromApi(Double longitude, Double latitude, String language){
+        JOpenCageProperties properties = new JOpenCageProperties(longitude, latitude, language);
+        if (propertiesResponseMap.containsKey(properties)){
+            return propertiesResponseMap.get(properties);
+        }
+
         JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(API_KEY);
 
         JOpenCageReverseRequest request = new JOpenCageReverseRequest(latitude, longitude);
         request.setNoAnnotations(true);
         request.setLanguage(language);
 
-        return jOpenCageGeocoder.reverse(request);
+        JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
+        propertiesResponseMap.put(properties, response);
+        return response;
+    }
+
+    @Getter
+    @Setter
+    @EqualsAndHashCode
+    @AllArgsConstructor
+    class JOpenCageProperties{
+        private Double longitude;
+        private Double latitude;
+        private String language;
     }
 }

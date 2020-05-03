@@ -12,10 +12,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tk.plogitech.darksky.forecast.APIKey;
 import tk.plogitech.darksky.forecast.GeoCoordinates;
-import tk.plogitech.darksky.forecast.model.*;
+import tk.plogitech.darksky.forecast.model.Forecast;
+import tk.plogitech.darksky.forecast.model.Latitude;
+import tk.plogitech.darksky.forecast.model.Longitude;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.fasterxml.jackson.databind.MapperFeature.AUTO_DETECT_GETTERS;
@@ -26,7 +31,9 @@ import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
 @Service
 public class ForecastServiceImpl implements ForecastService {
 
+    public static final long ONE_HOUR = 3600L;
     private final GeoLocationService geoLocationService;
+    private final Map<WeatherProperties, ForecastDate> propertiesForecastMap = new HashMap<>();
 
     @Value("${default.geolocation.longitude}")
     private Double longitude;
@@ -89,6 +96,13 @@ public class ForecastServiceImpl implements ForecastService {
     }
 
     private Forecast getForecast(WeatherProperties properties) {
+        if (propertiesForecastMap.containsKey(properties)){
+            Instant lastShotToApi = propertiesForecastMap.get(properties).getTimeGetThisWeather();
+            if (lastShotToApi.plusSeconds(ONE_HOUR).isAfter(Instant.now())){
+                return propertiesForecastMap.get(properties);
+            }
+        }
+
         GeoCoordinates geoCoordinates = new GeoCoordinates(
                 new Longitude(properties.getLongitude()),
                 new Latitude(properties.getLatitude()));
@@ -105,7 +119,15 @@ public class ForecastServiceImpl implements ForecastService {
 
 //        Mapping JSON to Forecast
         try {
-            return objectMapper.readValue(requestUrl, Forecast.class);
+            Forecast actualForecast = objectMapper.readValue(requestUrl, Forecast.class);
+
+            if (propertiesForecastMap.containsKey(properties)){
+                propertiesForecastMap.replace(properties, new ForecastDate(actualForecast));
+            }
+            else {
+                propertiesForecastMap.put(properties, new ForecastDate(actualForecast));
+            }
+            return actualForecast;
         } catch (IOException e) {
             e.printStackTrace();
             throw new ApiWeatherConnectionException("Error while getting forecast...");
