@@ -29,7 +29,10 @@ import static com.doeveryday.doeverydaysecurity.model.AppUserRole.USER;
 public class UserController {
 
     public static final String USER_DETAILS_GET_AND_GET_CREATOR = "'read:admin::details', 'read::details'";
-    public static final MessageToController SUCCESSFUL_UPDATE_MESSAGE = new MessageToController("Update was successful", BootstrapAlert.SUCCESS);
+    public static final MessageToController SUCCESSFUL_UPDATE_MESSAGE =
+            new MessageToController("Update was successful", BootstrapAlert.SUCCESS);
+    public static final String PATH_DEFAULT_USER_PHOTO =
+            "do-everyday-web/src/main/resources/static/resources/user/images/no_photo_user.png";
     private final AppUserService appUserService;
     private final PasswordEncoder passwordEncoder;
 
@@ -41,7 +44,9 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @GetMapping("/details")
-    public String getUserDetails(Principal principal, Model model, @PathParam("success") boolean success) throws NotFoundException {
+    public String getUserDetails(Principal principal,
+                                 Model model,
+                                 @PathParam("success") boolean success) throws NotFoundException {
         if (success) {
             model.addAttribute("message", SUCCESSFUL_UPDATE_MESSAGE);
         }
@@ -52,7 +57,9 @@ public class UserController {
 
     @ExceptionHandler({IllegalArgumentException.class})
     @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
-    public String getUserDetailsUpdateFailed(Principal principal, Model model, IllegalArgumentException e) throws NotFoundException {
+    public String getUserDetailsUpdateFailed(Principal principal,
+                                             Model model,
+                                             IllegalArgumentException e) throws NotFoundException {
         model.addAttribute("message", new MessageToController(e.getMessage(), BootstrapAlert.DANGER));
         model.addAttribute("user", appUserService.findByUsername(principal.getName()));
 
@@ -70,7 +77,8 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @PostMapping("/image")
-    public String addOrChangeImage(Principal principal, @RequestParam("imagefile") MultipartFile file) throws NotFoundException {
+    public String addOrChangeImage(Principal principal,
+                                   @RequestParam("imagefile") MultipartFile file) throws NotFoundException {
         if (file.isEmpty()) {
             return "redirect:/user/details";
         }
@@ -100,7 +108,7 @@ public class UserController {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             ImageIO.write(
                     ImageIO.read(
-                            new File("do-everyday-web/src/main/resources/static/resources/user/images/no_photo_user.png")),
+                            new File(PATH_DEFAULT_USER_PHOTO)),
                     "png",
                     output);
             byte [] byteArray = new byte[output.toByteArray().length];

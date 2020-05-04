@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface TaskManagerRepository extends CrudRepository<TaskManager, Long> {
 
     Optional<TaskManager> findByTask(Task task);
+
+    Optional<TaskManager> findFirstByTask_Id(Long task_id);
 }

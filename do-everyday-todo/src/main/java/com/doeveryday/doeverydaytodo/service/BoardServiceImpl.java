@@ -114,4 +114,11 @@ public class BoardServiceImpl implements BoardService {
 
         return boardRepository.save(board);
     }
+
+    @Override
+    public Board getBoardByIdAndUsername(Long id, String userUsername) throws javassist.NotFoundException {
+        return boardRepository.findFirstByIdAndAppUsers_Username(id, userUsername)
+                .orElseThrow(() ->
+                        new javassist.NotFoundException("Not found board with id: " + id + " and username: " + userUsername));
+    }
 }

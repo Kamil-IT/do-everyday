@@ -1,7 +1,6 @@
 package com.doeveryday.doeverydaytodo.service;
 
 import com.doeveryday.doeverydaytodo.exceptions.NotFoundException;
-import com.doeveryday.doeverydaytodo.models.Task;
 import com.doeveryday.doeverydaytodo.models.TaskManager;
 import com.doeveryday.doeverydaytodo.repository.TaskManagerRepository;
 import com.doeveryday.doeverydaytodo.repository.TaskRepository;
@@ -60,21 +59,14 @@ public class TaskManagerServiceImpl implements TaskManagerService{
             taskManagerRepository.save(taskManager);
         }
     }
-
-    @Override
-    public TaskManager findByTask(Task task) {
-        return taskManagerRepository.findByTask(task).orElseThrow(() ->
-                new NotFoundException("Not found task manager which have task with id: =" + task));
-    }
-
     /**
-     * @param id Task id, task which this id must have assigned task manager
+     * @param taskId Task id, task which this id must have assigned task manager
      * @return Task manager with have at least task with id which was uploads in param
      */
     @Override
-    public TaskManager findByTaskId(Long id) {
-        return taskManagerRepository.findByTask(
-                taskRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found task with id: =" + id))
-        ).orElseThrow(() -> new NotFoundException("Not found task manager which have task with id: =" + id));
+    public TaskManager findByTaskId(Long taskId) {
+        return taskManagerRepository.findFirstByTask_Id(taskId)
+                .orElseThrow(() ->
+                        new NotFoundException("Not found task manager which have task with id: =" + taskId));
     }
 }

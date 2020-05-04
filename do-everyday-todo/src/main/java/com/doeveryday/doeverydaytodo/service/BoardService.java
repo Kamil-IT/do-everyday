@@ -1,6 +1,7 @@
 package com.doeveryday.doeverydaytodo.service;
 
 import com.doeveryday.doeverydaytodo.models.Board;
+import javassist.NotFoundException;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface BoardService {
     List<Board> getBoards(String user_id);
 
     Board saveBord(Board board, String user_id);
+
+    Board getBoardByIdAndUsername(Long id, String userUsername) throws NotFoundException;
 }
