@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ErrorPagesController {
 
-    private void printStackError(Exception e){
-        if (e.getMessage() != null){
+    private void printStackError(Exception e) {
+        if (e.getMessage() != null) {
             log.error(e.getMessage());
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class ErrorPagesController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error404");
-        if (e != null){
+        if (e != null) {
             modelAndView.addObject("exception", e.getMessage());
         }
         modelAndView.addObject("httpstatus", "500 Internal Server Error");
@@ -57,7 +57,7 @@ public class ErrorPagesController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error404");
-        if (e != null){
+        if (e != null) {
             modelAndView.addObject("exception", e.getMessage());
         }
         modelAndView.addObject("httpstatus", "400 Bad Request");
@@ -74,10 +74,26 @@ public class ErrorPagesController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error404");
-        if (e != null){
+        if (e != null) {
             modelAndView.addObject("exception", e.getMessage());
         }
         modelAndView.addObject("httpstatus", "404 Not Found");
+        modelAndView.setStatus(HttpStatus.NOT_FOUND);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @RequestMapping("/error/forbidden")
+    public ModelAndView handleErrorForbidden() {
+        log.error("Access forbidden.");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("error404");
+
+        modelAndView.addObject("exception", "You don't have permission to access");
+
+        modelAndView.addObject("httpstatus", "403 Forbidden");
         modelAndView.setStatus(HttpStatus.NOT_FOUND);
 
         return modelAndView;
