@@ -46,7 +46,7 @@ public class AuthorisationController {
 
     @GetMapping("/recoverypassword")
     public ModelAndView recoveryPassword(){
-        return new ModelAndView();
+        throw new UnsupportedOperationException();
     }
 
 
