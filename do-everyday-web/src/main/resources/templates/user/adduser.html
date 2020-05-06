@@ -17,6 +17,8 @@
 
 <main role="main">
     <div class="jumbotron">
+        <!--        Message-->
+        <div th:replace="fragments/messages :: message"></div>
 
         <div class="container">
 
@@ -31,11 +33,6 @@
                                 <!--                        <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>-->
                             </p>
                             <hr>
-                            <div th:if="!(${message} == null)">
-                                <p class="text-danger text-center" th:text="${message}">
-                                    Some message goes here
-                                </p>
-                            </div>
 
                             <form class="form-signin" method="post" action="/user/">
                                 <div class="form-group">

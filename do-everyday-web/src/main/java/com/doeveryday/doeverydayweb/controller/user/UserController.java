@@ -33,6 +33,7 @@ public class UserController {
             new MessageToController("Update was successful", BootstrapAlert.SUCCESS);
     public static final String PATH_DEFAULT_USER_PHOTO =
             "do-everyday-web/src/main/resources/static/resources/user/images/no_photo_user.png";
+    public static final String BUSY_USERNAME_MESSAGE = "This username is already busy";
     private final AppUserService appUserService;
     private final PasswordEncoder passwordEncoder;
 
@@ -42,13 +43,42 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+//    Create user
+
+    @PostMapping({"", "/"})
+    public String createNewUser(AppUser user) {
+        String username = user.getUsername();
+        if (appUserService.UsernameExist(username)){
+            return "redirect:/signup?faildmessage=" + BUSY_USERNAME_MESSAGE;
+        }
+        else if(username.isBlank()){
+            return "redirect:/signup?faildmessage=" + "Username cannot be blanck";
+        }
+        else if(user.getPassword().isBlank()){
+            return "redirect:/signup?faildmessage=" + "Password cannot be blanck";
+        }
+        user.setDefaultValueToWorkAccount();
+        user.setRole(USER);
+        appUserService.saveUser(user);
+        return "redirect:/login";
+    }
+
+//    Getting or Update existing user
+
     @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
     @GetMapping("/details")
     public String getUserDetails(Principal principal,
                                  Model model,
-                                 @PathParam("success") boolean success) throws NotFoundException {
+                                 @PathParam("success") boolean success,
+                                 @PathParam("messagefailed") String messageFailed) throws NotFoundException {
         if (success) {
             model.addAttribute("message", SUCCESSFUL_UPDATE_MESSAGE);
+        }
+        else if (messageFailed != null){
+            model.addAttribute("message",
+                    MessageToController.builder()
+                            .message(messageFailed)
+                            .alert(BootstrapAlert.DANGER).build());
         }
         model.addAttribute("user", appUserService.findByUsername(principal.getName()));
 
@@ -64,15 +94,6 @@ public class UserController {
         model.addAttribute("user", appUserService.findByUsername(principal.getName()));
 
         return "user/details";
-    }
-
-    @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
-    @PostMapping({"", "/"})
-    public String createNewUser(AppUser user) {
-        user.setDefaultValueToWorkAccount();
-        user.setRole(USER);
-        appUserService.saveUser(user);
-        return "redirect:/login";
     }
 
     @PreAuthorize("hasAnyAuthority(" + USER_DETAILS_GET_AND_GET_CREATOR + ")")
@@ -127,7 +148,7 @@ public class UserController {
     @PostMapping("/username")
     public String updateUsername(String username, Principal principal) throws NotFoundException {
         if (appUserService.UsernameExist(username)) {
-            throw new IllegalArgumentException("This username is already busy");
+            throw new IllegalArgumentException(BUSY_USERNAME_MESSAGE);
         }
         AppUser user = appUserService.findByUsername(principal.getName());
 

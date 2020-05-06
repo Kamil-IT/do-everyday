@@ -1,7 +1,8 @@
 package com.doeveryday.doeverydayweb.controller.user;
 
-import com.doeveryday.doeverydaysecurity.model.AppUser;
 import com.doeveryday.doeverydaysecurity.service.AppUserService;
+import com.doeveryday.doeverydayweb.model.BootstrapAlert;
+import com.doeveryday.doeverydayweb.model.MessageToController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +51,12 @@ public class AuthorisationController {
 
 
     @GetMapping("/signup")
-    public String createNewAccount(AppUser user){
+    public String createNewAccount(@PathParam("faildmessage") String faildmessage, Model model){
+        if (faildmessage != null){
+            model.addAttribute("message", MessageToController.builder()
+                    .message(faildmessage)
+                    .alert(BootstrapAlert.DANGER).build());
+        }
         return "user/adduser";
     }
 
