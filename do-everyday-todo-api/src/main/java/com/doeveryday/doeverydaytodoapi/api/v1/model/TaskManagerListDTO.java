@@ -11,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskManagerListDTO {
 
-    List<TaskManagerDTO> taskManagers;
+    private List<TaskManagerDTO> taskManagers;
 }

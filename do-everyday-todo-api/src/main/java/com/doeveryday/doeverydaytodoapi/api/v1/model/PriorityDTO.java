@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class PriorityDTO {
 
     private String name;
+
     @JsonProperty("bootstrap_class")
     private String bootstrapClass;
 

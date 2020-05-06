@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,12 @@ import java.util.List;
 public class BoardDTO {
 
     private Long id;
+
+    @NotBlank
     private String name;
+
     @JsonProperty("color_hex")
     private String colorHex;
-    List<TaskDTO> tasks = new ArrayList<>();
+
+    private List<TaskDTO> tasks = new ArrayList<>();
 }

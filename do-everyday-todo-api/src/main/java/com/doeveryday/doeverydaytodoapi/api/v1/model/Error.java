@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Error {
 
-    int status;
-    String message;
+    private int status;
+    private String message;
 }
