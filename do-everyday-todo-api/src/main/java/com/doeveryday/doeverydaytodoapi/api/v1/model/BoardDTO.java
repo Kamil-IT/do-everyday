@@ -16,6 +16,8 @@ public class BoardDTO {
 
     private Long id;
 
+    private String appUserId;
+
     @NotBlank
     private String name;
 
